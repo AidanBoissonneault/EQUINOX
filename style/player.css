@@ -1,0 +1,86 @@
+/* MAIN PLAYER STUFF */
+
+.player-zone {
+    position: fixed;
+    width: 1100px;
+    height: 220px;
+    left: 50%;
+    bottom: 1%;
+    transform: translate(-50%, 0);
+
+    /*background-color: #CC2936; */
+    background-color: #362a2930;
+    border-radius: 12px;
+} 
+#player-info {
+    position: absolute;
+    top: 5px;
+    left:5px;
+    width: 200px;
+    height: 115px; 
+    border-radius: 12px;
+    z-index: 10;
+}
+.player-info {
+    background-color: rgb(25, 135, 168);
+}
+
+.player-info-text {
+    transform: translateY(-10px);
+}
+
+.player-cards-main {
+    position: absolute;
+    top: 5px;
+    left: 210px;
+    width: 805px; /* width is currently 885-padding*/
+    height: 115px;
+    padding-left: 40px;
+    padding-right: 40px;
+    
+    border-radius: 12px;
+
+    display: flex;
+    justify-content: space-evenly; /* Aidan this is horizontal */
+    align-items: flex-end;   /* and this is vertical */
+
+    flex-wrap: wrap;
+    align-content:end;
+}
+
+
+.player-cards-inactive {
+    position: absolute;
+    top: 125px;
+    left: 210px;
+    width: 885px;
+    height: 90px;
+    
+    border-radius: 12px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.player-cards-light {
+    background-color: #eeeeee80;
+}
+
+.player-cards-dark {
+    background-color: #11111180;
+}
+
+/* ----------------------- ANIMATIONS ------------------ */
+
+@keyframes player-zone-move-on-off-screen {
+    0%   { transform: translate(-50%, 0);    }
+    10%  { transform: translate(-50%, -8px); }
+    50%  { transform: translate(-50%, +300px); }
+    90%  { transform: translate(-50%, -8px); }
+    100% { transform: translate(-50%, 0); }
+}
+
+.animated-player-zone {
+    animation: player-zone-move-on-off-screen 0.8s ease-out;
+}

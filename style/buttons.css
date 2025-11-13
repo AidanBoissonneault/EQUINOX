@@ -1,0 +1,134 @@
+/* PLAYER BUTTONS */
+
+/*-------------------------------------- SORT BUTTON -----------------------------------*/
+
+.player-sort-buttons {
+    position: absolute;
+    top: 125px;
+    left: 5px;
+    width: 200px;
+    height: 90px;
+    background-color: #293436aa;
+    border-radius: 12px;
+}
+
+.player-sort-buttons-background {
+    position: absolute;
+    left: 5px;
+    bottom: 5px;
+    width: 190px;
+    height: 60px;
+    background-color: #2ba0b471;
+    border-radius: 12px;
+}
+
+.sort-button {
+    position: absolute;
+    top: 5px;
+    width: 90px;
+    height: 50px;
+    font-family: depixel;
+    border: solid black 2px;
+}
+
+.light-sort-button {
+    left: 5px;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    background-color: #dddddd;
+    color: #ab5236;
+
+    transition: background-color 0.15s ease;
+}
+.light-sort-button:hover {
+    background-color: #bbbbbb;
+    cursor: pointer;
+}
+
+.light-sort-button:active {
+    background-color: #aaaaaa;
+}
+
+.dark-sort-button {
+    right: 5px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    background-color: #444444;
+    color: #54adc9;
+
+    transition: background-color 0.15s ease;
+}
+.dark-sort-button:hover {
+    background-color: #404040;
+    cursor: pointer;
+}
+
+.dark-sort-button:active {
+    background-color: #333333;
+}
+
+
+/* ---------------------------- DRAW AND PLAY BUTTON ---------------------------------- */
+
+.player-button {
+    position: fixed;
+    height: 220px;
+    width: 200px;
+    bottom: 1%;
+    background-color: #362a2930;
+    border: none;
+    border-radius: 12px;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-family: depixel;
+    font-size: larger;
+    color: inherit;
+
+    transition: background-color 0.15s ease;
+}
+
+.player-button:hover {
+    background-color: #362a2980;
+    cursor: pointer;
+}
+
+.player-button:active {
+    background-color: #362a29a0;
+    transform: scale(0.98);
+}
+
+.draw-button {
+    right: calc(50% + 550px);
+}
+
+.play-button {
+    left: calc(50% + 550px);
+}
+
+/* ------------------------------- TITLE SCREEN ------------------------------------------*/
+
+.start-button {
+    width: 50vw;
+    height: 10vh;
+    border-radius: 12px;
+}
+
+
+/* -------------------------------- ANIMATIONS --------------------------------------------*/
+
+    @keyframes main-button-flash-red {
+        0%   { background-color: #362a29a0; }
+        10%  { background-color: #c56c6c;}
+        15%  { transform: rotate(-4deg);}
+        30%  { transform: rotate(4deg);}
+        45%  { transform: rotate(-3deg);}
+        50%  { background-color: #d68282; }
+        60%  { transform: rotate(3deg);}
+        75%  { transform: rotate(-2deg);}
+        100% { background-color: #362a2980; transform: rotate(0deg);} /* back to normal */
+    }
+
+    /* Flash class that triggers the animation */
+    .flash {
+        animation: main-button-flash-red 0.4s ease-in-out;
+    }

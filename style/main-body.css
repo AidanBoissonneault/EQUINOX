@@ -1,0 +1,164 @@
+@font-face {
+    font-family: 'depixel';
+    src: url('depixelbreit.woff2') format('truetype');
+}
+
+body {
+    /*background-color: #6ea061;*/
+    /*background: linear-gradient(-85deg, #dddddd 50%, #444444 50%); old background*/ 
+    image-rendering: pixelated;
+    text-align: center;
+    margin: auto;
+    font-family: depixel;
+}
+
+.screen {
+    display: none !important;
+    width: 100vw;
+    height: 100vh;
+}
+
+.active {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    background-color: azure;
+}
+
+.background-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.background-vinette {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('vinette_background.jpg');
+    opacity: 30%;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.background-color-display {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.current-play-background {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* ANIMATIONS AND TRANSTIONS */
+@keyframes background-white-transition {
+    0% { background-color: #333333ee; }
+    100% { background-color: #ddddddee; }
+}
+
+@keyframes background-black-transition {
+    0% { background-color: #ddddddee; }
+    100% { background-color: #333333ee; }
+}
+
+.background-white {
+    background-color: #ddddddee;
+    animation: background-white-transition 0.8s ease-in;
+}
+
+.background-black {
+    background-color: #333333ee;
+    animation: background-black-transition 0.8s ease-in;
+}
+
+@keyframes text-white-transition {
+    0% { color: #333333; }
+    100% { color: white; }
+}
+
+@keyframes text-black-transition {
+    0% { color: white; }
+    100% { color: #333333; }
+}
+
+.text-white {
+    color: white;
+    animation: text-white-transition 0.2s ease-in;
+}
+
+.text-black {
+    color: #333333;
+    animation: text-black-transition 0.2s ease-in;
+}
+
+@keyframes background-blue-transition {
+    0% {
+        background-color: #ff78782e;
+    }
+    100% {
+        background-color: #78d4ff2e;
+    }
+}
+
+@keyframes background-red-transition {
+    0% {
+        background-color: #78d4ff2e;
+    }
+    100% {
+        background-color: #ff78782e;
+    }
+}
+
+.background-blue {
+    background-color: #78d4ff2e;
+    animation: background-blue-transition 0.8s ease-in;
+}
+
+.background-red {
+    background-color: #ff78782e;
+    animation: background-red-transition 0.8s ease-in;
+}
+
+/* ----------------------- NO CLICK SCREEN ------------------------- */
+
+.no-click-screen {
+    position: fixed;
+    inset: 0;
+    height: 100vh;
+    width: 100vw;
+
+    background-color: #33333380;
+    font-size: 100px;
+    color: white;
+
+    cursor: not-allowed;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.click-screen {
+    position: fixed;
+    inset: 0;
+    height: 100vh;
+    width: 100vw;
+
+    display: none;
+}
+
+#no-click-container {
+    position: fixed;
+    inset: 0;
+    width: 1px;
+    height: 1px;
+}

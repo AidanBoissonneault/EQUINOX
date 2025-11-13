@@ -1,0 +1,80 @@
+/* OPPOSING PLAYER */
+
+.opposing-player-zone {
+    position: fixed;
+    width: 1100px;
+    height: 200px;
+    left: 50%;
+    top: 1%;
+    transform: translate(-50%, 0);
+
+    /*background-color: #CC2936; */
+    background-color: #362a2930;
+    border-radius: 12px;
+} 
+
+#opposing-player-info {
+    position: absolute;
+    top: 5px;
+    left:5px;
+    width: 200px;
+    height: 190px;
+    border-radius: 12px;
+}
+.opposing-player-info {
+    background-color: rgb(168, 25, 25);
+}
+
+.opposing-player-cards-light {
+    position: absolute;
+    top: 5px;
+    left: 210px;
+    width: 885px;
+    height: 95px;
+    background-color: #eeeeee80;
+    border-radius: 12px;
+
+    display: flex;
+    justify-content: center; /* horizontal */
+    align-items: center;     /* vertical */
+}
+
+.opposing-player-cards-dark {
+    position: absolute;
+    top: 105px;
+    left: 210px;
+    width: 885px;
+    height: 95px;
+    background-color: #11111180;
+    border-radius: 12px;
+
+    display: flex;
+    justify-content: center; /* horizontal */
+    align-items: center;     /* vertical */
+}
+
+.opposing-player-card {
+    transform: scale(1.91);
+    z-index: 9;
+
+    transition: transform 0.15 ease;
+}
+
+.opposing-player-card:hover {
+    transform: scale(2);
+    z-index: 10;
+}
+
+/* ----------------------- ANIMATIONS ------------------ */
+
+@keyframes opposing-player-zone-move-on-off-screen {
+    0%   { transform: translate(-50%, 0);    }
+    10%  { transform: translate(-50%, +8px); }
+    50%  { transform: translate(-50%, -300px); }
+    90%  { transform: translate(-50%, +8px); }
+    100% { transform: translate(-50%, 0); }
+}
+
+.animated-opposing-player-zone {
+    animation: opposing-player-zone-move-on-off-screen 0.8s ease-out;
+}
