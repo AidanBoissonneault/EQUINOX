@@ -280,7 +280,7 @@
     }
 
     //for multiplayer
-    if (isMultiplayer && myPlayerId === currentPlayer && !isSecondaryMultiplayer) {
+    if (isMultiplayer && !isSecondaryMultiplayer) {
         conn.send({type: 'selectCard', sentCard: index });
         console.log("selected card sent");
     }
@@ -299,7 +299,7 @@
         sortHandLogic(hand);
         displayHand(selectedHand, hand);
         //currentSelectedCards = [];
-        if (isMultiplayer && myPlayerId === currentPlayer && !isSecondaryMultiplayer) {
+        if (isMultiplayer && !isSecondaryMultiplayer) {
             conn.send({ type: 'sort', sHand: selectedHand, aH: hand});
         }
     }
@@ -308,7 +308,7 @@
 
     async function playButtonActivate(isSecondaryMultiplayer = false) {
 
-        if (isMultiplayer && myPlayerId === currentPlayer) {
+        if (isMultiplayer && !isSecondaryMultiplayer) {
             conn.send({ type: 'play' });
         }
 
@@ -590,7 +590,7 @@
 
     //what the pushed draw button actually goes to
     function drawButton(isSecondaryMultiplayer = false) {
-        if (isMultiplayer && myPlayerId === currentPlayer && !isSecondaryMultiplayer) {
+        if (isMultiplayer && !isSecondaryMultiplayer) {
             conn.send({ type: 'draw' });
         }
 
