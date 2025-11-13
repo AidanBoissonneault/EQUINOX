@@ -166,12 +166,12 @@
                     if (currentGameState[currentPlayer] == "standard") {
                         input += `
                             <div class="card playing-card ${hand[i].rank} ${hand[i].suit}" 
-                                id="card${i+100}" data-index="${i}" onclick="selectCard(this, false)">
+                                id="card${i+100}" data-index="${i}" onclick="selectCard(this.dataset.index, false)">
                             </div>`;
                     } else {
                         input += `
                             <div class="inverted-card playing-card ${hand[i].rank} ${hand[i].suit}" 
-                                id="card${i+100}" data-index="${i}" onclick="selectCard(this, false)">
+                                id="card${i+100}" data-index="${i}" onclick="selectCard(this.dataset.index, false)">
                             </div>`;
                     }
                 }
@@ -243,16 +243,8 @@
 
     let isFirst = true;
     let lastSelectedCard;
-    function selectCard(cardPass, isSecondaryMultiplayer) {
-        let index;
-        let cardElement;
-        if (myPlayerId === currentPlayer) {
-            cardElement = cardPass;
-            index = parseInt(cardElement.getAttribute("data-index"));
-        } else {
-            index = cardPass;
-            cardElement = document.querySelector(`[data-index='${index}']`);
-        }
+    function selectCard(index, isSecondaryMultiplayer = false) {
+    let cardElement = document.querySelector(`[data-index='${index}']`);
     const hand = currentGameState[currentPlayer] == "standard" ? playerStandardHand : playerInvertedHand;
     const cardObject = hand[index];
 
@@ -288,7 +280,7 @@
     }
 
     //for multiplayer
-    if (isMultiplayer && myPlayerId == currentPlayer) {
+    if (isMultiplayer && myPlayerId === currentPlayer && !isSecondaryMultiplayer) {
         conn.send({type: 'selectCard', sentCard: index });
         console.log("selected card sent");
     }
@@ -303,20 +295,20 @@
         });
     }
 
-    function sortHandButton(selectedHand, hand) {
+    function sortHandButton(selectedHand, hand, isSecondaryMultiplayer = false) {
         sortHandLogic(hand);
         displayHand(selectedHand, hand);
         //currentSelectedCards = [];
-        if (myPlayerId === currentPlayer) {
+        if (isMultiplayer && myPlayerId === currentPlayer && !isSecondaryMultiplayer) {
             conn.send({ type: 'sort', sHand: selectedHand, aH: hand});
         }
     }
 
     // -------------------------------- PLAY BUTTON -------------------------------------
 
-    async function playButtonActivate() {
+    async function playButtonActivate(isSecondaryMultiplayer = false) {
 
-        if (myPlayerId === currentPlayer) {
+        if (isMultiplayer && myPlayerId === currentPlayer) {
             conn.send({ type: 'play' });
         }
 
@@ -597,8 +589,8 @@
     }
 
     //what the pushed draw button actually goes to
-    function drawButton() {
-        if (myPlayerId === currentPlayer) {
+    function drawButton(isSecondaryMultiplayer = false) {
+        if (isMultiplayer && myPlayerId === currentPlayer && !isSecondaryMultiplayer) {
             conn.send({ type: 'draw' });
         }
 
@@ -770,9 +762,9 @@
         }
 
         //if youre in multiplayer and its not your turn, block out screen activity
-        if (myPlayerId === currentPlayer) {
+        if (isMultiplayer && myPlayerId === currentPlayer) {
             document.getElementById("no-click-container").innerHTML = "";
-        } else {
+        } else if (isMultiplayer) {
             document.getElementById("no-click-container").innerHTML = '<div class="no-click-screen">Opponents Turn</div>';
         }
     }
@@ -1035,11 +1027,11 @@ function setupConnection(connection, isIncoming){
         selectCard(data.sentCard, true);
     } else if (data.type === 'sort') {
         //conn.send({ type: 'sort', sHand: selectedHand, aH: hand});
-        sortHandButton(data.sHand, data.aH);
+        sortHandButton(data.sHand, data.aH, true);
     } else if (data.type === 'draw') {
-        drawButton();
+        drawButton(true);
     } else if (data.type === 'play') {
-        playButtonActivate();
+        playButtonActivate(true);
     } else if (data.type === 'start') {
         //conn.send({ type: 'start', standardDeck: sDeck, invertedDeck: iDeck, pSHand: playerStandardHand, pIHand: playerInvertedHand, oSHand: opponentStandardHand, oIHand: opponentInvertedHand, cSPcard: currentStPlayingCard, cIPcard: currentInPlayingCard});
 
