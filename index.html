@@ -94,6 +94,7 @@
     async function startGame() {
         document.getElementById("title-screen").className = "screen";
         document.getElementById("title-screen-container").className = "screen";
+        document.getElementById("multiplayer-screen").className = "screen";
         document.getElementById("main-game").className = "active";
 
         generateDeck(sDeck, "standard");
@@ -113,7 +114,11 @@
 
         if (isMultiplayer) {
             await delay(2000);
-            conn.send({ type: 'start', standardDeck: sDeck, invertedDeck: iDeck, pSHand: playerStandardHand, pIHand: playerInvertedHand, oSHand: opponentStandardHand, oIHand: opponentInvertedHand, cSPcard: currentStPlayingCard, cIPcard: currentInPlayingCard});
+            if (conn && conn.open) conn.send({ type: 'start', standardDeck: sDeck, invertedDeck: iDeck, pSHand: playerStandardHand, pIHand: playerInvertedHand, oSHand: opponentStandardHand, oIHand: opponentInvertedHand, cSPcard: currentStPlayingCard, cIPcard: currentInPlayingCard});
+            else {
+                alert("error sending data");
+                return;
+            }
         } 
     }
 
@@ -248,6 +253,17 @@
     const hand = currentGameState[currentPlayer] == "standard" ? playerStandardHand : playerInvertedHand;
     const cardObject = hand[index];
 
+    //for multiplayer
+    if (isMultiplayer && !isSecondaryMultiplayer) {
+        if (conn && conn.open) {
+        conn.send({type: 'selectCard', sentCard: index });
+        console.log("selected card sent");
+        } else {
+            alert("error sending data");
+            return;
+        }
+    }
+
     //fixes visuals
     cardElement.classList.toggle("playing-card-selected");
     cardElement.classList.toggle("playing-card");
@@ -278,12 +294,6 @@
         isFirst = true;
         document.querySelector(`[data-index='${hand.indexOf(lastSelectedCard)}']`).classList.remove("first-selected");
     }
-
-    //for multiplayer
-    if (isMultiplayer && !isSecondaryMultiplayer) {
-        conn.send({type: 'selectCard', sentCard: index });
-        console.log("selected card sent");
-    }
 }
 
     // -------------------------------- SORT BUTTONs ----------------------------------
@@ -300,7 +310,11 @@
         displayHand(selectedHand, hand);
         //currentSelectedCards = [];
         if (isMultiplayer && !isSecondaryMultiplayer) {
-            conn.send({ type: 'sort', sHand: selectedHand, aH: hand});
+            if (conn && conn.open) conn.send({ type: 'sort', pSHand: playerStandardHand, pIHand: playerInvertedHand});//conn.send({ type: 'sort', stHand: selectedHand, aH: hand});
+            else {
+                alert("error sending request");
+                return;
+            }
         }
     }
 
@@ -309,7 +323,11 @@
     async function playButtonActivate(isSecondaryMultiplayer = false) {
 
         if (isMultiplayer && !isSecondaryMultiplayer) {
-            conn.send({ type: 'play' });
+            if (conn && conn.open) conn.send({ type: 'play' });
+            else {
+                alert("error sending request");
+                return;
+            }
         }
 
         //TESTING VARIABLES:
@@ -591,7 +609,11 @@
     //what the pushed draw button actually goes to
     function drawButton(isSecondaryMultiplayer = false) {
         if (isMultiplayer && !isSecondaryMultiplayer) {
-            conn.send({ type: 'draw' });
+            if (conn && conn.open) conn.send({ type: 'draw' });
+            else {
+                alert("error sending message");
+                return;
+            }
         }
 
         if (currentGameState[currentPlayer] == "standard") {
@@ -678,6 +700,7 @@
 
     // ------------------------------- END TURN -------------------------------------------
 
+    var turnToggle = false;
     async function endTurn() {
 
         //physically flips decks
@@ -762,10 +785,12 @@
         }
 
         //if youre in multiplayer and its not your turn, block out screen activity
-        if (isMultiplayer && myPlayerId === currentPlayer) {
+        if (isMultiplayer && turnToggle) {
             document.getElementById("no-click-container").innerHTML = "";
+            turnToggle = false;
         } else if (isMultiplayer) {
             document.getElementById("no-click-container").innerHTML = '<div class="no-click-screen">Opponents Turn</div>';
+            turnToggle = true;
         }
     }
 
@@ -1026,8 +1051,17 @@ function setupConnection(connection, isIncoming){
     } else if (data.type === 'selectCard') {
         selectCard(data.sentCard, true);
     } else if (data.type === 'sort') {
-        //conn.send({ type: 'sort', sHand: selectedHand, aH: hand});
-        sortHandButton(data.sHand, data.aH, true);
+        //conn.send({ type: 'sort', stHand: selectedHand, aH: hand});
+        //sortHandButton(data.stHand, data.aH, true);
+        //conn.send({ type: 'sort', pSHand: playerStandardHand, pIHand: playerInvertedHand});
+        playerStandardHand = data.pSHand;
+        playerInvertedHand = data.pIHand;
+        displayHand('player-main', playerStandardHand);
+        displayHand('player-inactive', playerInvertedHand);
+
+        //sortHandLogic(data.aH);
+        //displayHand(data.sHand, data.aH);
+        //alert("success!");
     } else if (data.type === 'draw') {
         drawButton(true);
     } else if (data.type === 'play') {
@@ -1043,6 +1077,7 @@ function setupConnection(connection, isIncoming){
         opponentInvertedHand = data.oIHand;
         currentStPlayingCard = data.cSPcard;
         currentInPlayingCard = data.cIPcard;
+        turnToggle = true;
 
         document.getElementById("multiplayer-screen").className = "screen";
         document.getElementById("main-game").className = "active";
