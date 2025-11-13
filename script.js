@@ -88,6 +88,7 @@
         updateDrawPileHover();
 
         if (isMultiplayer) {
+            document.getElementById("no-click-container").innerHTML = '<div class="no-click-screen">Loading...</div>';
             await delay(2500);
             if (conn && conn.open) conn.send({ type: 'start', standardDeck: sDeck, invertedDeck: iDeck, pSHand: playerStandardHand, pIHand: playerInvertedHand, oSHand: opponentStandardHand, oIHand: opponentInvertedHand, cSPcard: currentStPlayingCard, cIPcard: currentInPlayingCard});
             else {
@@ -288,9 +289,9 @@
         displayHand(selectedHand, hand);
         //currentSelectedCards = [];
         if (isMultiplayer && !isSecondaryMultiplayer) {
-            if (conn && conn.open) {conn.send({ type: 'fixParity', standardDeck: sDeck, invertedDeck: iDeck, pSHand: playerStandardHand, pIHand: playerInvertedHand, 
+            if (conn && conn.open) {conn.send({ type: 'fixParity', standardDeck: sDeck, invertedDeck: iDeck, pSHand: playerStandardHand.map(c => `${c.rank}-${c.suit}`), pIHand: playerInvertedHand.map(c => `${c.rank}-${c.suit}`), 
                 oSHand: opponentStandardHand, oIHand: opponentInvertedHand, cSPcard: currentStPlayingCard, cIPcard: currentInPlayingCard, cP: currentPlayer, 
-                cGS: currentGameState, tT: turnToggle, cSC: currentSelectedCards}); 
+                cGS: currentGameState, tT: turnToggle, cSC: currentSelectedCards.map(c => `${c.rank}-${c.suit}`)}); 
                 conn.send({ type: 'sort', pSHand: playerStandardHand, pIHand: playerInvertedHand});//conn.send({ type: 'sort', stHand: selectedHand, aH: hand});
             } else {
                 alert("error sending request");
@@ -323,9 +324,9 @@
         console.log("Current inveerted pile: " + currentInPlayingCard.rank + " " + currentInPlayingCard.suit);
         console.log("Current player side: " + currentGameState[currentPlayer]);
         for (let i = 0; i < playerStandardHand.length; i++) 
-            console.log("Current player standard cards: " + playerStandardHand.length + " Actual cards: " + playerStandardHand[i].value + playerStandardHand[i].suit);
+            if (playerStandardHand[i].value !== undefined) console.log("Current player standard cards: " + playerStandardHand.length + " Actual cards: " + playerStandardHand[i].value + playerStandardHand[i].suit);
         for (let i = 0; i < playerInvertedHand.length; i++)
-            console.log("Current player inverted cards: " + playerInvertedHand.length + " Actual cards: " + playerInvertedHand[i].value + playerInvertedHand[i].suit); 
+            if (playerInvertedHand[i].value !== undefined) console.log("Current player inverted cards: " + playerInvertedHand.length + " Actual cards: " + playerInvertedHand[i].value + playerInvertedHand[i].suit); 
 
         //stores if the game should end turn after play is made
         let endPlayerTurnAfterPlay = true;
@@ -1012,16 +1013,15 @@ function setupConnection(connection, isIncoming){
   conn.on('open', ()=>{
     document.getElementById('connState').textContent = 'connected';
     // Role assignment:
-    // - If we accepted an incoming connection (isIncoming === true), we become X (host) and go first.
-    // - If we initiated the connection (isIncoming === false), we become O and go second.
+    // - If we accepted an incoming connection (isIncoming === true)
+    // - If we initiated the connection (isIncoming === false)
     if (isIncoming){
       myPlayerId = 0;
     } else {
       myPlayerId = 1;
     }
-    // Notify remote of our mark (so both sides know)
+    // Notify remote of our player number (so both sides know)
     conn.send({type:'role', playerId:myPlayerId});
-    //refreshUI();
   });
 
   conn.on('data', data=>{
@@ -1030,9 +1030,7 @@ function setupConnection(connection, isIncoming){
     if (data.type === 'role'){
       // remote told us their role; derive ours (sanity)
       const remotePlayerId = data.playerId;
-      // remoteMark 'X' => we should be 'O' and vice versa
       myPlayerId = (remotePlayerId===0) ? 1 : 0;
-      //refreshUI();
     } else if (data.type === 'selectCard') {
         selectCard(data.sentCard, true);
     } else if (data.type === 'sort') {
@@ -1079,6 +1077,9 @@ function setupConnection(connection, isIncoming){
 
         //forces screen to deny clicks
         document.getElementById("no-click-container").innerHTML = '<div class="no-click-screen">Opponents Turn</div>';
+
+        //ends the other players start loading screen
+        conn.send({ type: 'finish-load' });
     } else if (data.type === 'fixParity') {
         // conn.send({ type: 'fixParity', standardDeck: sDeck, invertedDeck: iDeck, pSHand: playerStandardHand, pIHand: playerInvertedHand, 
         // oSHand: opponentStandardHand, oIHand: opponentInvertedHand, cSPcard: currentStPlayingCard, cIPcard: currentInPlayingCard, cP: currentPlayer, 
@@ -1122,8 +1123,10 @@ function setupConnection(connection, isIncoming){
         displayHand('player-inactive', currentGameState[currentPlayer] === 0 ? playerInvertedHand : playerStandardHand);
         displayHand('opponent-dark', opponentInvertedHand); */
 
-    } else if (data.type === 'busy'){
+    } else if (data.type === 'busy') {
       alert('Remote is busy / not accepting connections');
+    } else if(data.type === 'finish-load') {
+        document.getElementById("no-click-container").innerHTML = "";
     }
   });
 
