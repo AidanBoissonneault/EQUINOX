@@ -20,13 +20,13 @@
     height: 115px; 
     border-radius: 12px;
     z-index: 10;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .player-info {
     background-color: rgb(25, 135, 168);
-}
-
-.player-info-text {
-    transform: translateY(-10px);
 }
 
 .player-cards-main {

@@ -20,6 +20,9 @@
     width: 200px;
     height: 190px;
     border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .opposing-player-info {
     background-color: rgb(168, 25, 25);
