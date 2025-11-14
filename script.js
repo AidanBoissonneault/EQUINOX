@@ -529,7 +529,7 @@
             document.getElementById("main-game").classList.add("screen");
             document.getElementById("win-screen").classList.remove("screen");
             document.getElementById("win-screen").classList.add("active");
-            document.getElementById("win-text").innerHTML = `${playerNames[winningPlayer]} WINS!`;
+            document.getElementById("win-text").innerHTML = `${playerNames[currentPlayer]} WINS!`;
             return;
         }
 
