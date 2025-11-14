@@ -88,7 +88,10 @@
         updateDrawPileHover();
 
         if (isMultiplayer) {
+            document.getElementById("dark-draw").innerHTML = '<div class="inverted-card clubs" id="filler"></div>';
+            document.getElementById("light-draw").innerHTML = '<div class="card clubs" id="filler"></div>';
             document.getElementById("no-click-container").innerHTML = '<div class="no-click-screen">Loading...</div>';
+            if (conn && conn.open) { conn.send({ type: 'send-name', pId: myId, fPlayer: true }); }
             await delay(2500);
             if (conn && conn.open) {
                 conn.send({ type: 'start', standardDeck: sDeck, invertedDeck: iDeck, pSHand: playerStandardHand, pIHand: playerInvertedHand, oSHand: opponentStandardHand, oIHand: opponentInvertedHand, cSPcard: currentStPlayingCard, cIPcard: currentInPlayingCard});
@@ -106,9 +109,6 @@
         isAgainstBot = true;
         playerNames[1] = "BOT";
         updateInfoCards();
-
-        document.getElementById("dark-draw").innerHTML = '<div class="inverted-card clubs" id="filler"></div>';
-        document.getElementById("light-draw").innerHTML = '<div class="card clubs" id="filler"></div>';
         startGame();
     }
 
@@ -130,6 +130,7 @@
             displayHand(display1, hand1);
             displayHand(display2, hand2);
             updateDrawPileHover();
+            updateInfoCards();
         }
 
         /*
@@ -528,7 +529,7 @@
             document.getElementById("main-game").classList.add("screen");
             document.getElementById("win-screen").classList.remove("screen");
             document.getElementById("win-screen").classList.add("active");
-            document.getElementById("win-text").innerHTML = "Player " + (currentPlayer+1) + " Wins!";
+            document.getElementById("win-text").innerHTML = `${playerNames[winningPlayer]} WINS!`;
             return;
         }
 
@@ -549,6 +550,32 @@
 
         //update player info cards
         updateInfoCards();
+    }
+
+    // --------------------------------------- GAME TIE WIN CONDITION -------------------------
+
+    function determineTieWinner() {
+        let winningPlayer = null;
+        let playerSum = playerStandardHand.length + playerInvertedHand.length;
+        let opposingSum = opponentStandardHand.length + opponentInvertedHand.length;
+        if (playerSum == opposingSum) {
+            winningPlayer = -1;
+        } else if (playerSum > opposingSum) {
+            winningPlayer = currentPlayer;
+        } else {
+            winningPlayer = currentPlayer === 0 ? 1 : 0;
+        }
+
+        console.log("\n\n\n\nPlayer" + (winningPlayer+1) + "WINS!");
+        document.getElementById("main-game").classList.remove("active");
+        document.getElementById("main-game").classList.add("screen");
+        document.getElementById("win-screen").classList.remove("screen");
+        document.getElementById("win-screen").classList.add("active");
+        if (winningPlayer === -1) {
+            document.getElementById("win-text").innerHTML = 'TIE GAME!';
+        } else {
+            document.getElementById("win-text").innerHTML = `${playerNames[winningPlayer]} WINS!`;
+        }
     }
 
     //checks if both cards are the same color when 2 cards suits are put in
@@ -801,7 +828,13 @@
         await delay (1000);
         if (isPlayableTurn().length === 0) {
             endPlayerTurnAfterPlay = false;
-            drawButton();
+            if (currentGameState[currentPlayer] === "standard" && sDeck.length !== 0 ||
+                currentGameState[currentPlayer] === "inverted" && iDeck.length !== 0    
+            ) {
+                drawButton();
+            } else {
+                determineTieWinner();
+            }
         }
     }
 
@@ -983,7 +1016,8 @@ function makeSimpleId() {
 
 function createButtonLogic() {
     if (peer) return;
-  peer = new Peer(makeSimpleId()); // default PeerServer (cloud) for signaling
+    if (myId === "") myId = makeSimpleId();
+  peer = new Peer(myId); // default PeerServer (cloud) for signaling
   peer.on('open', id=>{
     document.getElementById('myId').textContent = id;
     document.getElementById('connState').textContent = 'listening';
@@ -1002,8 +1036,8 @@ function createButtonLogic() {
   });
 }
 
-let myId = "";
-let remotePlayerId = "";
+let myId = ""; //stores player connection id
+let remoteId = ""; //stores opponent connection id
 function connectButtonLogic() {
     const remoteId = document.getElementById('remoteId').value.trim();
     if (myId === "") myId = makeSimpleId();
@@ -1026,21 +1060,13 @@ function setupConnection(connection, isIncoming){
     // Role assignment:
     // - If we accepted an incoming connection (isIncoming === true)
     // - If we initiated the connection (isIncoming === false)
-    if (isIncoming){
+    /*if (isIncoming){
       myPlayerId = 0;
     } else {
       myPlayerId = 1;
     }
-
-    if (myPlayerId === 0) {
-        // host
-        playerNames = [myId, conn.peer];
-    } else {
-        // guest
-        playerNames = [conn.peer, myId];
-        }
     // Notify remote of our player number (so both sides know)
-    conn.send({type:'role', playerId:myPlayerId});
+    conn.send({type:'role', playerId:myPlayerId}); */
   });
 
 conn.on('data', data=>{
@@ -1048,8 +1074,8 @@ conn.on('data', data=>{
     if (!data || !data.type) return;
     if (data.type === 'role'){
       // remote told us their role; derive ours (sanity)
-      remotePlayerId = data.playerId;
-      myPlayerId = remotePlayerId === 0 ? 1 : 0;
+      //remotePlayerId = data.playerId;
+      //myPlayerId = remotePlayerId === 0 ? 1 : 0;
     } else if (data.type === 'selectCard') {
         selectCard(data.sentCard, true);
     } else if (data.type === 'sort') {
@@ -1081,11 +1107,19 @@ conn.on('data', data=>{
         currentInPlayingCard = data.cIPcard;
         turnToggle = true;
 
+        //update to multiplayer card visuals
+        document.getElementById("dark-draw").innerHTML = '<div class="inverted-card clubs" id="filler"></div>';
+        document.getElementById("light-draw").innerHTML = '<div class="card clubs" id="filler"></div>';
+
+        //updates the opponents names
+        conn.send({ type: 'send-name', pId: myId, fPlayer: false });
+
         document.getElementById("multiplayer-screen").className = "screen";
         document.getElementById("main-game").className = "active";
 
         updateCenterPiles();
         updateDrawPileHover();
+        updateInfoCards();
 
         //dealHands(sDeck, playerStandardHand, opponentStandardHand, "player-main", "opponent-light");
         //dealHands(iDeck, playerInvertedHand, opponentInvertedHand, "player-inactive", "opponent-dark");
@@ -1147,6 +1181,17 @@ conn.on('data', data=>{
       alert('Remote is busy / not accepting connections');
     } else if(data.type === 'finish-load') {
         document.getElementById("no-click-container").innerHTML = "";
+    } else if(data.type === 'send-name') {
+        remoteId = data.pId;
+        conn.send({ type: 'updateOpposingNames', remotePlayerId: myId ,firstPlayer: data.fPlayer });
+    } else if(data.type === 'updateOpposingNames') {
+        remoteId = data.remotePlayerId;
+        if(data.firstPlayer) {
+            playerNames = [myId, remoteId];
+        } else {
+            playerNames = [remoteId, myId];
+        }
+        updateInfoCards();
     }
   });
 
