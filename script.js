@@ -90,8 +90,9 @@
         if (isMultiplayer) {
             document.getElementById("no-click-container").innerHTML = '<div class="no-click-screen">Loading...</div>';
             await delay(2500);
-            if (conn && conn.open) conn.send({ type: 'start', standardDeck: sDeck, invertedDeck: iDeck, pSHand: playerStandardHand, pIHand: playerInvertedHand, oSHand: opponentStandardHand, oIHand: opponentInvertedHand, cSPcard: currentStPlayingCard, cIPcard: currentInPlayingCard});
-            else {
+            if (conn && conn.open) {
+                conn.send({ type: 'start', standardDeck: sDeck, invertedDeck: iDeck, pSHand: playerStandardHand, pIHand: playerInvertedHand, oSHand: opponentStandardHand, oIHand: opponentInvertedHand, cSPcard: currentStPlayingCard, cIPcard: currentInPlayingCard});
+            } else {
                 alert("error sending data");
                 return;
             }
@@ -103,7 +104,8 @@
 
     function startBotGame() {
         isAgainstBot = true;
-        document.getElementById("opposing-player-name").innerHTML = "BOT";
+        playerNames[1] = "BOT";
+        updateInfoCards();
 
         document.getElementById("dark-draw").innerHTML = '<div class="inverted-card clubs" id="filler"></div>';
         document.getElementById("light-draw").innerHTML = '<div class="card clubs" id="filler"></div>';
@@ -544,6 +546,9 @@
             console.log("\nbot turn continues");
             botPlay();
         }
+
+        //update player info cards
+        updateInfoCards();
     }
 
     //checks if both cards are the same color when 2 cards suits are put in
@@ -659,9 +664,10 @@
         //fixes the current flashing card in edge cases
         setVisualSelectedCard("noCard");
 
-        //clear current selected card log
-        //currentSelectedCards = [];
+        //updates the player info cards
+        updateInfoCards();
 
+        //animation removal
         await delay(400);
         document.getElementById("player-zone-full").classList.toggle("animated-player-zone");
     }
@@ -754,8 +760,9 @@
 
         //update info card
         //if the player is fighting against a bot, use the name bot for opposing player, otherwise use player 2
-        document.getElementById("player-name").innerHTML = currentPlayer == 0 ? "Player 1" : isAgainstBot ? "Bot" : "Player 2";
-        document.getElementById("opposing-player-name").innerHTML = currentPlayer == 1 ? "Player 1" : isAgainstBot ? "Bot" : "Player 2";
+        //document.getElementById("player-name").innerHTML = currentPlayer == 0 ? "Player 1" : isAgainstBot ? "Bot" : "Player 2";
+        //document.getElementById("opposing-player-name").innerHTML = currentPlayer == 1 ? "Player 1" : isAgainstBot ? "Bot" : "Player 2";
+        updateInfoCards();
 
         //disable animation
         await delay(400);
@@ -775,7 +782,7 @@
 
             turnToggle = false;
         } else if (isMultiplayer) {
-            document.getElementById("no-click-container").innerHTML = '<div class="no-click-screen">Opponents Turn</div>';
+            document.getElementById("no-click-container").innerHTML = `<div class="no-click-screen">${playerNames[currentPlayer]}'s turn</div>`;
             turnToggle = true;
         }
     }
@@ -995,22 +1002,26 @@ function createButtonLogic() {
   });
 }
 
+let myId = "";
+let remotePlayerId = "";
 function connectButtonLogic() {
     const remoteId = document.getElementById('remoteId').value.trim();
-  if (!remoteId) return alert('Enter remote peer id');
-  if (!peer) {
-    peer = new Peer(makeSimpleId());
-    peer.on('open', id => document.getElementById('myId').textContent = id);
-    peer.on('error', e => console.error(e));
-  }
-  if (conn) conn.close();
-  const outgoing = peer.connect(remoteId, {reliable:true});
-  setupConnection(outgoing, false);
+    if (myId === "") myId = makeSimpleId();
+    //playerNames = [myId, remoteId];
+    if (!remoteId) return alert('Enter remote peer id');
+    if (!peer) {
+        peer = new Peer(myId);
+        peer.on('open', id => document.getElementById('myId').textContent = id);
+        peer.on('error', e => console.error(e));
+    }
+    if (conn) conn.close();
+    const outgoing = peer.connect(remoteId, {reliable:true});
+    setupConnection(outgoing, false);
 };
 
 function setupConnection(connection, isIncoming){
-  conn = connection;
-  conn.on('open', ()=>{
+    conn = connection;
+    conn.on('open', ()=>{
     document.getElementById('connState').textContent = 'connected';
     // Role assignment:
     // - If we accepted an incoming connection (isIncoming === true)
@@ -1020,17 +1031,25 @@ function setupConnection(connection, isIncoming){
     } else {
       myPlayerId = 1;
     }
+
+    if (myPlayerId === 0) {
+        // host
+        playerNames = [myId, conn.peer];
+    } else {
+        // guest
+        playerNames = [conn.peer, myId];
+        }
     // Notify remote of our player number (so both sides know)
     conn.send({type:'role', playerId:myPlayerId});
   });
 
-  conn.on('data', data=>{
+conn.on('data', data=>{
     // data protocol: {type:'move'|'role'|'end'|'busy', ...}
     if (!data || !data.type) return;
     if (data.type === 'role'){
       // remote told us their role; derive ours (sanity)
-      const remotePlayerId = data.playerId;
-      myPlayerId = (remotePlayerId===0) ? 1 : 0;
+      remotePlayerId = data.playerId;
+      myPlayerId = remotePlayerId === 0 ? 1 : 0;
     } else if (data.type === 'selectCard') {
         selectCard(data.sentCard, true);
     } else if (data.type === 'sort') {
@@ -1076,10 +1095,11 @@ function setupConnection(connection, isIncoming){
         displayHand('opponent-dark', opponentInvertedHand);
 
         //forces screen to deny clicks
-        document.getElementById("no-click-container").innerHTML = '<div class="no-click-screen">Opponents Turn</div>';
+        document.getElementById("no-click-container").innerHTML = `<div class="no-click-screen">${playerNames[0]}'s turn</div>`;
 
         //ends the other players start loading screen
         conn.send({ type: 'finish-load' });
+
     } else if (data.type === 'fixParity') {
         // conn.send({ type: 'fixParity', standardDeck: sDeck, invertedDeck: iDeck, pSHand: playerStandardHand, pIHand: playerInvertedHand, 
         // oSHand: opponentStandardHand, oIHand: opponentInvertedHand, cSPcard: currentStPlayingCard, cIPcard: currentInPlayingCard, cP: currentPlayer, 
@@ -1133,7 +1153,7 @@ function setupConnection(connection, isIncoming){
   conn.on('close', ()=>{
     conn = null;
     document.getElementById('connState').textContent = 'closed';
-    document.getElementById('status').textContent = 'Connection closed';
+    document.getElementById('status').textContnent = 'Connection closed';
   });
 
   conn.on('error', err=>{
@@ -1141,5 +1161,22 @@ function setupConnection(connection, isIncoming){
     alert('Connection error: ' + err);
   });
 }   
+
+
+// --------------------------- INFO CARD UPDATES -------------------------------------------
+var playerNames = ["Player 1",  "Player 2"];
+function updateInfoCards() {
+    //opposing player side
+    document.getElementById("opposing-player-name").innerHTML = playerNames[currentPlayer === 0 ? 1 : 0];
+    document.getElementById("opposing-player-side").innerHTML = currentGameState[currentPlayer === 0 ? 1 : 0].toUpperCase();
+    document.getElementById("opposing-player-light-card-quantity").innerHTML = opponentStandardHand.length;
+    document.getElementById("opposing-player-dark-card-quantity").innerHTML = opponentInvertedHand.length;
+
+    //regular player side
+    document.getElementById("player-name").innerHTML = playerNames[currentPlayer === 1 ? 1 : 0];
+    document.getElementById("player-side").innerHTML = currentGameState[currentPlayer === 1 ? 1 : 0].toUpperCase();
+    document.getElementById("player-light-card-quantity").innerHTML = playerStandardHand.length;
+    document.getElementById("player-dark-card-quantity").innerHTML = playerInvertedHand.length;
+}
 
     // -------------------- END OF SCRIPTS -------------------------------------------------
