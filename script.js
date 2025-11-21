@@ -68,12 +68,21 @@
         card2 = temp;
     }
 
+    //loads a screen
+    async function loadPageFragment(file) {
+        const html = await fetch(file).then(res => res.text());
+        document.getElementById(actualBody).innerHTML = html;
+    }
+
     //boots up at the start of game, shuffles decks, changes screens, etc
     async function startGame() {
+        /*
         document.getElementById("title-screen").className = "screen";
         document.getElementById("title-screen-container").className = "screen";
         document.getElementById("multiplayer-screen").className = "screen";
-        document.getElementById("main-game").className = "active";
+        document.getElementById("main-game").className = "active"; */
+        await loadPageFragment("mainGame.html");
+
 
         generateDeck(sDeck, "standard");
         generateDeck(iDeck, "inverted");
@@ -105,11 +114,11 @@
         autoEndTurn();
     }
 
-    function startBotGame() {
+    async function startBotGame() {
         isAgainstBot = true;
         playerNames[1] = "BOT";
+        await startGame();
         updateInfoCards();
-        startGame();
     }
 
     //----------------------------------- HANDS ----------------------------------
@@ -981,8 +990,9 @@
     // --------------------- MULTIPLAYER SCREEN -------------------------------------------
 
     function multiplayerScreen() {
-        document.getElementById("title-screen").className = "screen";
-        document.getElementById("multiplayer-screen").className = "active";
+        //document.getElementById("title-screen").className = "screen";
+        //document.getElementById("multiplayer-screen").className = "active";
+        loadPageFragment("multiplayerScreen.html");
 
         isMultiplayer = true;
     }
@@ -1057,39 +1067,18 @@ function setupConnection(connection, isIncoming){
     conn = connection;
     conn.on('open', ()=>{
     document.getElementById('connState').textContent = 'connected';
-    // Role assignment:
-    // - If we accepted an incoming connection (isIncoming === true)
-    // - If we initiated the connection (isIncoming === false)
-    /*if (isIncoming){
-      myPlayerId = 0;
-    } else {
-      myPlayerId = 1;
-    }
-    // Notify remote of our player number (so both sides know)
-    conn.send({type:'role', playerId:myPlayerId}); */
   });
 
 conn.on('data', data=>{
-    // data protocol: {type:'move'|'role'|'end'|'busy', ...}
     if (!data || !data.type) return;
     if (data.type === 'role'){
-      // remote told us their role; derive ours (sanity)
-      //remotePlayerId = data.playerId;
-      //myPlayerId = remotePlayerId === 0 ? 1 : 0;
     } else if (data.type === 'selectCard') {
         selectCard(data.sentCard, true);
     } else if (data.type === 'sort') {
-        //conn.send({ type: 'sort', stHand: selectedHand, aH: hand});
-        //sortHandButton(data.stHand, data.aH, true);
-        //conn.send({ type: 'sort', pSHand: playerStandardHand, pIHand: playerInvertedHand});
         playerStandardHand = data.pSHand;
         playerInvertedHand = data.pIHand;
         displayHand('player-main', currentGameState[currentPlayer] === "standard" ? playerStandardHand : playerInvertedHand);
         displayHand('player-inactive', currentGameState[currentPlayer] === "standard" ? playerInvertedHand : playerStandardHand);
-
-        //sortHandLogic(data.aH);
-        //displayHand(data.sHand, data.aH);
-        //alert("success!");
     } else if (data.type === 'draw') {
         drawButton(true);
     } else if (data.type === 'play') {
@@ -1114,8 +1103,9 @@ conn.on('data', data=>{
         //updates the opponents names
         conn.send({ type: 'send-name', pId: myId, fPlayer: false });
 
-        document.getElementById("multiplayer-screen").className = "screen";
-        document.getElementById("main-game").className = "active";
+        //document.getElementById("multiplayer-screen").className = "screen";
+        //document.getElementById("main-game").className = "active";
+        loadPageFragment("mainGame.html");
 
         updateCenterPiles();
         updateDrawPileHover();
@@ -1138,10 +1128,9 @@ conn.on('data', data=>{
         // conn.send({ type: 'fixParity', standardDeck: sDeck, invertedDeck: iDeck, pSHand: playerStandardHand, pIHand: playerInvertedHand, 
         // oSHand: opponentStandardHand, oIHand: opponentInvertedHand, cSPcard: currentStPlayingCard, cIPcard: currentInPlayingCard, cP: currentPlayer, 
         // cGS: currentGameState, tT: turnToggle, cSC: currentSelectedCards});
-        //  cSC: currentSelectedCards.map(c => `${c.rank}-${c.suit}`
+        // cSC: currentSelectedCards.map(c => `${c.rank}-${c.suit}`
         sDeck = data.standardDeck;
         iDeck = data.invertedDeck;
-        //currentSelectedCards = data.cSC;
         playerStandardHand = data.pSHand.map(id => {
             const [rank, suit] = id.split('-');
             return playerStandardHand.find(c => c.rank === rank && c.suit === suit);
@@ -1158,24 +1147,11 @@ conn.on('data', data=>{
             || playerInvertedHand.find(c => c.rank === rank && c.suit === suit);
         });
 
-        /*
-        if (currentGameState[data.cP] !== data.cGS[data.cP]) {
-            flipDecks();
-        } */
         currentStPlayingCard = data.cSPcard;
         currentInPlayingCard = data.cIPcard;
         currentPlayer = data.cP;
         currentGameState = data.cGS;
         turnToggle = data.tT ? false : true;
-
-        /*
-        updateCenterPiles();
-        updateDrawPileHover();
-
-        displayHand('player-main', currentGameState[currentPlayer] === 0 ? playerStandardHand : playerInvertedHand);
-        displayHand('opponent-light', opponentStandardHand);
-        displayHand('player-inactive', currentGameState[currentPlayer] === 0 ? playerInvertedHand : playerStandardHand);
-        displayHand('opponent-dark', opponentInvertedHand); */
 
     } else if (data.type === 'busy') {
       alert('Remote is busy / not accepting connections');

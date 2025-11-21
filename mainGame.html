@@ -1,0 +1,76 @@
+<!--MAIN GAME-->
+<div class="active text-black" id="main-game">
+
+    <!--BACKGROUND LAYER-->
+    <div class="background-container">
+        <div class="background-vinette"></div>
+        <div class="background-color-display background-white" id="background-color-display"></div>
+        <div class="current-play-background background-blue" id="current-play-background"></div>
+    </div>
+    <!--ENEMY HAND-->
+    <div class="opposing-player-zone" id="opposing-player-zone-full">
+        <div class="opposing-player-info" id="opposing-player-info">
+            <div class="container">
+                <div id="opposing-player-name" class="opposing-player-text" style="font-size: 30px;">Player 2</div>
+                <div id="opposing-player-card-info" class="opposing-player-text">
+                    <span id="opposing-player-light-card-quantity" class="opposing-player-text">7</span> | 
+                    <span id="opposing-player-dark-card-quantity" class="opposing-player-text">7</span>
+                </div>
+                <div id="opposing-player-side" class="opposing-player-text">Standard</div>
+            </div>
+        </div>
+
+        <div class="opposing-player-cards-light" id="opposing-player-cards-light"> 
+        </div>
+        <div class="opposing-player-cards-dark" id="opposing-player-cards-dark">
+        </div>
+    </div>
+
+    <!--DARK CARDS-->
+    <div class="card-pile dark-draw draw-pile" id="dark-draw">
+        <div class="inverted-card" id="filler"></div>
+    </div>
+    <div class="card-pile dark-discard" id="dark-discard">
+        <div class="inverted-card" id="filler"></div>
+    </div>
+    <!--LIGHT CARDS-->
+    <div class="card-pile light-center" id="light-discard">
+        <div class="card" id="filler"></div>
+    </div>
+    <div class="card-pile light-draw draw-pile" id="light-draw">
+        <div class="card" id="filler"></div>
+    </div>
+
+    <!--VISUAL CUE ON NEXT PLAYED CARD-->
+    <div class="visual-hint-card card-pile" id="visual-hint-card"></div>
+
+    <!--PLAAYER HAND-->
+    <div class="player-zone" id="player-zone-full">
+        <div class="player-info" id="player-info">
+            <div class="player-info-text">
+                <div id="player-name" class="player-text" style="font-size: 25px;">Player 1</div>
+                <div id="player-card-info" class="player-text">
+                    <span id="player-light-card-quantity" class="player-text">7</span> | 
+                    <span id="player-dark-card-quantity" class="player-text">7</span>
+                </div>
+                <div id="player-side" class="player-text">Standard</div>
+            </div>
+        </div>
+        <div class="player-sort-buttons" id="player-sort-buttons">
+            <span id="sort-text">Sort</span>
+            <form class="player-sort-buttons-background">
+                <input type="button" value="Standard" class="sort-button light-sort-button" id="light-sort-button" onclick="sortHandButton('player-main', playerStandardHand)">
+                <input type="button" value="Inverted" class="sort-button dark-sort-button" id="dark-sort-button" onclick="sortHandButton('player-inactive', playerInvertedHand)">
+            </form>
+        </div>
+        <div class="player-cards-main player-cards-light" id="player-cards-main"> </div>
+        <div class="player-cards-inactive player-cards-dark" id="player-cards-inactive"></div>
+    </div>
+    <form class="player-main-buttons">
+        <input type="button" value="Draw" class="player-button draw-button" id="player-draw-button" onclick="drawButton()">
+        <input type="button" value="Play" class="player-button play-button" id="player-play-button" onclick="playButtonActivate()">
+    </form>
+
+    <div id="no-click-container"></div>
+
+</div>

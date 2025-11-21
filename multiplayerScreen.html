@@ -1,0 +1,14 @@
+<div class="active" id="multiplayer-screen">
+    <div class="controls">
+        <button id="createBtn" onclick="createButtonLogic()">Create / Listen</button>
+        <div style="display:flex;flex-direction:column">
+            <div>Your ID: <code id="myId">—</code></div>
+            <div>Remote ID: <input id="remoteId" placeholder="paste peer id" /></div>
+        </div>
+        <div style="display:flex;flex-direction:column">
+            <button id="connectBtn" onclick="connectButtonLogic()">Connect</button>
+            <div style="font-size:12px;color:#444">Connection: <span id="connState">none</span></div>
+            <button id="startBtn" onclick="startGame()">Start Game as Player 1</button>
+        </div>
+    </div>
+</div>
