@@ -235,16 +235,34 @@
 
     //returns true if the player can play a valid hand, if not, returns false.
     function isPlayableTurn() {
-        if (currentGameState[currentPlayer] === "standard") {
+        if (currentGameState[currentPlayer] === State.STANDARD) {
             //standard deck
-
             for (let standardCard of playerStandardHand) {
+                /*
                 if (standardCard.value === currentStPlayingCard.value ||
                     standardCard.value === currentInPlayingCard.value ||
                     alternateSuits(currentStPlayingCard.suit).includes(standardCard.suit) ||
                     standardCard.suit === currentInPlayingCard.suit) {
                         console.log(`Playable card: ${standardCard.rank} ${standardCard.suit}`);
                         return [standardCard];
+                    } */
+                if (standardCard.value === currentStPlayingCard.value ||
+                    standardCard.value === currentInPlayingCard.value ||
+                    standardCard.suit === currentStPlayingCard.suit ||
+                    standardCard.suit === currentInPlayingCard.suit) {
+                        const outputHand = [standardCard];
+                        for (let standardCardEmbedded of playerStandardHand) {
+                            if (standardCard.value === standardCardEmbedded.value && 
+                                (() => {
+                                    for (let cards of outputHand) {
+                                        if (cards.suit === standardCardEmbedded.suit) return false;
+                                    }
+                                    return true;
+                                })()
+                            ) { outputHand.push(standardCardEmbedded); }
+                        }
+                        console.log(`Playable card: ${standardCard.rank} ${standardCard.suit}`);
+                        return outputHand;
                     }
             }
             console.log("unplayable hand, drawing card.");

@@ -63,7 +63,7 @@ async function playButtonActivate(isSecondaryMultiplayer = false) {
     //checks game state
     switch (currentGameState[currentPlayer]) {
         case "standard": 
-
+            /*
             //if more than 2 cards are selected, return to program, invalid play.
             if (currentSelectedCards.length > 2) {
                 buttonFlashRed("player-play-button");
@@ -93,32 +93,42 @@ async function playButtonActivate(isSecondaryMultiplayer = false) {
                 (currentSelectedCards.length > 1 &&
                 alternateSuits(currentStPlayingCard.suit).includes(currentSelectedCards[1].suit))
             
-                //alternate rules where the white side can also be played if all of the rules match black sides card
-                //issue forseen: too loose, can play almost all cards most of the time
-                /*
-                || currentSelectedCards[0].value == currentInPlayingCard.value ||
-                alternateSuits(currentInPlayingCard.suit).includes(currentSelectedCards[0].suit) ||
-                (currentSelectedCards.length > 1 &&
-                alternateSuits(currentInPlayingCard.suit).includes(currentSelectedCards[1].suit))
-                */
                 //alternate rules: allows play if suit or number perfectly matches other side.
                 || currentSelectedCards[0].value == currentInPlayingCard.value ||
                 currentInPlayingCard.suit == currentSelectedCards[0].suit ||
                 currentSelectedCards.length > 1 &&
                 currentInPlayingCard.suit == currentSelectedCards[1].suit
-            ) {} else { 
+            )*/
+
+            //new rule testing 
+            //one of the played cards must match the suit of either card in the discard piles, or the value of those cards.
+            //if 1 or more cards can be played, as long as they are the same value.
+            let playedValues = [];
+            let playedSuits = [];
+            for (let i = 0; i < currentSelectedCards.length; i++) {
+                playedValues.push(currentSelectedCards[i].value);
+                if (!playedSuits.includes(currentSelectedCards[i].suit)) {
+                    playedSuits.push(currentSelectedCards[i].suit);
+                }
+            }
+            playedValues.sort();
+            const suitMatches = playedSuits.includes(currentStPlayingCard.suit) || playedSuits.includes(currentInPlayingCard.suit);
+            const valueMatches = playedValues.includes(currentStPlayingCard.value) || playedValues.includes(currentInPlayingCard.value);
+            const allValuesSame = playedValues.length === 1 || playedValues.every(value => value === playedValues[0]);
+
+            if (suitMatches || (valueMatches || allValuesSame)) {} else {
                 buttonFlashRed("player-play-button");
-                console.log("failed matching color or value");
+                console.log("failed match requirements");
                 return;
             }
 
             //forces enemy to draw a card if certain conditions are hit
-            //condition 1: play 2 of the same card
-            //condition 2: play 1 of the same card on the center pile
-            if (currentSelectedCards.length == 2 ||
-                currentSelectedCards[0].value == currentStPlayingCard.value && validateLikeSuits(currentSelectedCards[0].suit, currentStPlayingCard.suit)
+            //single card played matches value and suit of a card played on the center piles
+            if (currentSelectedCards.length > 1 ||
+                currentSelectedCards[0].value == currentInPlayingCard.value && currentSelectedCards[0].suit == currentInPlayingCard.suit
             ) {
-                drawCard(sDeck, opponentStandardHand, "opponent-light");
+                for (const cards in currentSelectedCards)
+                    drawCard(sDeck, opponentStandardHand, "opponent-light");
             }
 
             //change center pile (will need to edit later to choose the lower value of the two)
