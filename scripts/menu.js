@@ -3,7 +3,7 @@
 function multiplayerScreen() {
     //document.getElementById("title-screen").className = "screen";
     //document.getElementById("multiplayer-screen").className = "active";
-    loadPageFragment("/html/multiplayerScreen.html");
+    loadPageFragment("multiplayerScreen.html");
 
     isMultiplayer = true;
 }

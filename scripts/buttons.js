@@ -245,7 +245,7 @@ async function playButtonActivate(isSecondaryMultiplayer = false) {
     // ------------- GAME WIN CONDITION ---------------------
     if (playerInvertedHand.length == 0 && playerStandardHand.length == 0) {
         console.log("\n\n\n\nPlayer" + (currentPlayer+1) + "WINS!");
-        await loadPageFragment("/html/winScreen.html");
+        await loadPageFragment("winScreen.html");
         document.getElementById("win-text").innerHTML = `${playerNames[currentPlayer]} WINS!`;
         return;
     }

@@ -23,7 +23,7 @@
 
     //boots up at the start of game, shuffles decks, changes screens, etc
     async function startGame() {
-        await loadPageFragment("/html/mainGame.html");
+        await loadPageFragment("mainGame.html");
 
         if (isMultiplayer) {
             document.getElementById("dark-draw").innerHTML = '<div class="inverted-card clubs" id="filler"></div>';

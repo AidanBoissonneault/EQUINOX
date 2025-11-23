@@ -152,7 +152,7 @@ function setupConnection(connection){
 async function startSecondaryGame(data) {
         //conn.send({ type: 'start', standardDeck: sDeck, invertedDeck: iDeck, pSHand: playerStandardHand, pIHand: playerInvertedHand, oSHand: opponentStandardHand, oIHand: opponentInvertedHand, cSPcard: currentStPlayingCard, cIPcard: currentInPlayingCard});
 
-    await loadPageFragment("/html/mainGame.html");
+    await loadPageFragment("mainGame.html");
 
     sDeck = data.standardDeck;
     iDeck = data.invertedDeck;
