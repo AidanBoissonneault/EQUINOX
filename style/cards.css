@@ -28,14 +28,14 @@
     .card {
         width: 35px;
         height: 47px;
-        background-image: url("8BitDeckAssets.png");
+        background-image: url("../assets/8BitDeckAssets.png");
         background-size: 534px 188px; /* spritesheet size */
         display: inline-block;
     }
     .inverted-card {
         width: 35px;
         height: 47px;
-        background-image: url("inverted-cards.png");
+        background-image: url("../assets/inverted-cards.png");
         background-size: 534px 188px; /* spritesheet size */
         display: inline-block;
     }
@@ -50,6 +50,12 @@
         transition: transform 0.15s ease, background-color 0.15s ease;
         transform-origin: center bottom;
         z-index: 9;
+
+        border: none;
+        border-radius: 1px;
+    }
+    .inverted-card.playing-card {
+        background-color: #222;
     }
 
     .playing-card:hover {
@@ -71,9 +77,11 @@
         margin-right: 15px;
         /*box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); */
         background-color: #ecc350ee;
+        border-radius: 1px;
         
         transition: transform 0.15s ease, background-color 0.15s ease;
         transform-origin: center bottom;
+        border: none;
     }
 
     .playing-card-selected.first-selected {

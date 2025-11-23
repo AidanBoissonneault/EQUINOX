@@ -1,7 +1,38 @@
-#title-screen {
-    font-size: 100px;
+.title-screen {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
+}
+
+.title {
+    font-size: 100px;
+    color: #000;
+    margin-bottom: 32px;
+}
+
+.title-screen-container {
+    background-color: #ffffff80;
+    border: #000 solid 1px;
+    border-radius: 12px;
+    padding: 32px;
+}
+
+.title-screen-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 25vw);
+    grid-template-rows: auto auto auto;
+    gap: 32px;
+}
+
+.big-card-background {
+    margin: 0;
+    background-image: url("../assets/red-card.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.blue.big-card-background {
+    background-image: url("../assets/blue-card.png");
 }

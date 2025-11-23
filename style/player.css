@@ -24,10 +24,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    pointer-events: none;
 }
 .player-info {
     background-color: rgb(25, 135, 168);
 }
+
+#sort-text { pointer-events: none; }
 
 .player-cards-main {
     position: absolute;

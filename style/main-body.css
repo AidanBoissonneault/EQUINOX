@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'depixel';
-    src: url('depixelbreit.woff2') format('truetype');
+    src: url('../assets/depixelbreit.woff2') format('truetype');
 }
 
 body {
@@ -37,7 +37,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('vinette_background.jpg');
+    background-image: url('../assets/vinette_background.jpg');
     opacity: 30%;
     background-size: cover;
     background-repeat: no-repeat;
