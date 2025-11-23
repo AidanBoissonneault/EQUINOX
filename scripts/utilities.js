@@ -3,9 +3,9 @@ function delay(ms) {
 }
 
 //loads a screen
-async function loadPageFragment(file, path = "/EQUINOX/html/") {
+async function loadPageFragment(file, path = "./html/") {
     const html = await fetch(path+file).then(res => res.text());
     document.getElementById("actual-body").innerHTML = html;
 }
 
-loadPageFragment("titleScreen.html");
+loadPageFragment("titleScreen.html", "./html/");
