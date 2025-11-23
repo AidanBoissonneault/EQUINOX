@@ -1,119 +1,128 @@
+:root {
+    --deckDisplay: url("../assets/deck.png");
+    --deckDisplayInverted: url("../assets/inverted-deck.png");
+}
+.high-contrast {
+    --deckDisplay: url("../assets/deck-hc.png");
+    --deckDisplayInverted: url("../assets/inverted-deck-hc.png");
+}
+
 /* PLAYER CARDS */
 
-    .player-card-inactive {
-        transform: scale(1.91);
-        z-index: 9;
+.player-card-inactive {
+    transform: scale(1.91);
+    z-index: 9;
 
-        transition: transform 0.15 ease;
-    }
+    transition: transform 0.15 ease;
+}
 
-    .player-card-inactive:hover {
-        transform: scale(2);
-        z-index: 10;
-    }
+.player-card-inactive:hover {
+    transform: scale(2);
+    z-index: 10;
+}
 
-    /* CARD STUFF */
+/* CARD STUFF */
 
-    .card-wrapper {
-        position: fixed;
-        width: 1000px;
-        translate: -50% -50%;
-        display: inline-block; /* keeps wrapper sized to cards */
-        padding: 10px;
-        background: #00000035;
-        border-radius: 12px;
+.card-wrapper {
+    position: fixed;
+    width: 1000px;
+    translate: -50% -50%;
+    display: inline-block; /* keeps wrapper sized to cards */
+    padding: 10px;
+    background: #00000035;
+    border-radius: 12px;
 
-        bottom: 50px;
-    }
-    .card {
-        width: 35px;
-        height: 47px;
-        background-image: url("../assets/8BitDeckAssets.png");
-        background-size: 534px 188px; /* spritesheet size */
-        display: inline-block;
-    }
-    .inverted-card {
-        width: 35px;
-        height: 47px;
-        background-image: url("../assets/inverted-cards.png");
-        background-size: 534px 188px; /* spritesheet size */
-        display: inline-block;
-    }
+    bottom: 50px;
+}
+.card {
+    width: 35px;
+    height: 47px;
+    background-image: var(--deckDisplay);
+    background-size: 534px 188px; /* spritesheet size */
+    display: inline-block;
+}
+.inverted-card {
+    width: 35px;
+    height: 47px;
+    background-image: var(--deckDisplayInverted);
+    background-size: 534px 188px; /* spritesheet size */
+    display: inline-block;
+}
 
-    .playing-card {
-        transform: scale(3.7);
-        /*translate: (-50% 0); */
-        margin-left: 15px;
-        margin-right: 15px;
+.playing-card {
+    transform: scale(3.7);
+    /*translate: (-50% 0); */
+    margin-left: 15px;
+    margin-right: 15px;
 
-        /* Animation setup */
-        transition: transform 0.15s ease, background-color 0.15s ease;
-        transform-origin: center bottom;
-        z-index: 9;
+    /* Animation setup */
+    transition: transform 0.15s ease, background-color 0.15s ease;
+    transform-origin: center bottom;
+    z-index: 9;
 
-        border: none;
-        border-radius: 1px;
-    }
-    .inverted-card.playing-card {
-        background-color: #222;
-    }
+    border: none;
+    border-radius: 1px;
+}
+.inverted-card.playing-card {
+    background-color: #222;
+}
 
-    .playing-card:hover {
-        transform: scale(3.9) translateY(-6px);
-        translate: (-50% -6px);
-        /*box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); */
-        background-color: #ecc350ee;
-        
-        cursor:pointer;
-    }
-    .inverted-card.playing-card:hover {
-        background-color: #133cafee;
-    }
+.playing-card:hover {
+    transform: scale(3.9) translateY(-6px);
+    translate: (-50% -6px);
+    /*box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); */
+    background-color: #ecc350ee;
+    
+    cursor:pointer;
+}
+.inverted-card.playing-card:hover {
+    background-color: #133cafee;
+}
 
-    .playing-card-selected {
-        transform: scale(3.9) translateY(-8px);
-        translate: (-50% -6px);
-        margin-left: 15px;
-        margin-right: 15px;
-        /*box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); */
-        background-color: #ecc350ee;
-        border-radius: 1px;
-        
-        transition: transform 0.15s ease, background-color 0.15s ease;
-        transform-origin: center bottom;
-        border: none;
-    }
+.playing-card-selected {
+    transform: scale(3.9) translateY(-8px);
+    translate: (-50% -6px);
+    margin-left: 15px;
+    margin-right: 15px;
+    /*box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); */
+    background-color: #ecc350ee;
+    border-radius: 1px;
+    
+    transition: transform 0.15s ease, background-color 0.15s ease;
+    transform-origin: center bottom;
+    border: none;
+}
 
-    .playing-card-selected.first-selected {
-        background-color: #50eccaee;
-    }
+.playing-card-selected.first-selected {
+    background-color: #50eccaee;
+}
 
-    .inverted-card.playing-card-selected {
-        background-color: #133cafee;
-    }
+.inverted-card.playing-card-selected {
+    background-color: #133cafee;
+}
 
-    .inverted-card.playing-card-selected.playing-card-selected.first-selected {
-        background-color: #AF1335ee;
-    }
+.inverted-card.playing-card-selected.playing-card-selected.first-selected {
+    background-color: #AF1335ee;
+}
 
-    /* card numbers */
-    .zero { background-position-x: 0; }
-    .two { background-position-x: -35px; }
-    .three { background-position-x: -70px; }
-    .four { background-position-x: -105px; }
-    .five { background-position-x: -140px; }
-    .six { background-position-x: -175px; }
-    .seven { background-position-x: -210px; }
-    .eight { background-position-x: -245px; }
-    .nine { background-position-x: -280px; }
-    .ten { background-position-x: -315px; }
-    .jack { background-position-x: -350px; }
-    .queen { background-position-x: -385px; }
-    .king { background-position-x: -420px; }
-    .ace { background-position-x: -455px; }
+/* card numbers */
+.zero { background-position-x: 0; }
+.two { background-position-x: -35px; }
+.three { background-position-x: -70px; }
+.four { background-position-x: -105px; }
+.five { background-position-x: -140px; }
+.six { background-position-x: -175px; }
+.seven { background-position-x: -210px; }
+.eight { background-position-x: -245px; }
+.nine { background-position-x: -280px; }
+.ten { background-position-x: -315px; }
+.jack { background-position-x: -350px; }
+.queen { background-position-x: -385px; }
+.king { background-position-x: -420px; }
+.ace { background-position-x: -455px; }
 
-    /* suits */
-    .hearts { background-position-y: 0; }
-    .clubs { background-position-y: -47px; }
-    .diamonds { background-position-y: -94px; }
-    .spades { background-position-y: -141px; }
+/* suits */
+.hearts { background-position-y: 0; }
+.clubs { background-position-y: -47px; }
+.diamonds { background-position-y: -94px; }
+.spades { background-position-y: -141px; }

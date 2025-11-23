@@ -3,9 +3,10 @@ function delay(ms) {
 }
 
 //loads a screen
-async function loadPageFragment(file, path = "./html/") {
-    const html = await fetch(path+file).then(res => res.text());
+async function loadPageFragment(file) {
+    const PATH = "./html/";
+    const html = await fetch(PATH+file).then(res => res.text());
     document.getElementById("actual-body").innerHTML = html;
 }
 
-loadPageFragment("titleScreen.html", "./html/");
+loadPageFragment("titleScreen.html");
