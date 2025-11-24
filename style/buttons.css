@@ -84,17 +84,20 @@
     font-size: larger;
     color: inherit;
 
-    transition: background-color 0.15s ease;
+    transition: background-color 0.15s ease, box-shadow 0.15 ease;
+    box-shadow: 4px 4px 3px #22222210, -1px -1px 3px #ffffff10;
 }
 
 .player-button:hover {
     background-color: #362a2980;
     cursor: pointer;
+    box-shadow: 4px 4px 3px #22222215, -1px -1px 3px #ffffff10;
 }
 
 .player-button:active {
     background-color: #362a29a0;
     transform: scale(0.98);
+    box-shadow: 3px 3px 3px #22222220, -1px -1px 3px #ffffff10;
 }
 
 .draw-button {
@@ -133,6 +136,19 @@
 .big-button {
     grid-column: span 2;
 }
+#instructions-button {
+    height: 50px;
+    width: 50px;
+    top: 5px;
+    right: 5px;
+    background-color: #ecc350ee;
+}
+#instructions-button:hover {
+    background-color: #d8b34b;
+}
+#instructions-button:active {
+    background-color: #c1a147;
+}
 
 
 /* -------------------------------- ANIMATIONS --------------------------------------------*/
@@ -152,4 +168,5 @@
     /* Flash class that triggers the animation */
     .flash {
         animation: main-button-flash-red 0.4s ease-in-out;
+        box-shadow: 6px 6px 5px #22222210, -1px -1px 3px #ffffff05;
     }

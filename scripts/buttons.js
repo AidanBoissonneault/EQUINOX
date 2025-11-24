@@ -62,7 +62,7 @@ async function playButtonActivate(isSecondaryMultiplayer = false) {
 
     //checks game state
     switch (currentGameState[currentPlayer]) {
-        case "standard": 
+        case State.STANDARD: 
             /*
             //if more than 2 cards are selected, return to program, invalid play.
             if (currentSelectedCards.length > 2) {
@@ -116,7 +116,7 @@ async function playButtonActivate(isSecondaryMultiplayer = false) {
             const valueMatches = playedValues.includes(currentStPlayingCard.value) || playedValues.includes(currentInPlayingCard.value);
             const allValuesSame = playedValues.length === 1 || playedValues.every(value => value === playedValues[0]);
 
-            if (suitMatches || (valueMatches || allValuesSame)) {} else {
+            if ((suitMatches || valueMatches) && allValuesSame) {} else {
                 buttonFlashRed("player-play-button");
                 console.log("failed match requirements");
                 return;
@@ -161,7 +161,7 @@ async function playButtonActivate(isSecondaryMultiplayer = false) {
                 }
             }
             break;
-        case "inverted":
+        case State.INVERTED:
             //get the sum of all selected cards
             //if 11-13 is a value, only add 1
             let sum = 0;
@@ -208,8 +208,11 @@ async function playButtonActivate(isSecondaryMultiplayer = false) {
 
             
             for (let i = 0; i < currentSelectedCards.length; i++) {
-                if (!validateLikeSuits(currentInPlayingCard.suit, currentSelectedCards[i].suit) &&
+                /*if (!validateLikeSuits(currentInPlayingCard.suit, currentSelectedCards[i].suit) &&
                     currentInPlayingCard.suit != currentSelectedCards[i].suit
+                ) { break; }*/
+                if (currentInPlayingCard.suit !== currentSelectedCards[i].suit &&
+                    currentStPlayingCard.suit !== currentSelectedCards[i].suit
                 ) { break; }
 
                 if (i == currentSelectedCards.length-1) {

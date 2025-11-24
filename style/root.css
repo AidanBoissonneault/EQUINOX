@@ -1,0 +1,7 @@
+:root {
+    --deckDisplay: url("../assets/deck.png");
+    --deckDisplayInverted: url("../assets/inverted-deck.png");
+
+    --backgroundBlue: #0693ff50;
+    --backgroundRed: #ff000050;
+}

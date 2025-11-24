@@ -59,10 +59,10 @@ function displayHand(selectedHand, hand) {
 
 function updateCenterPiles() {
     document.getElementById("dark-discard").innerHTML = `
-        <div class="inverted-card ${currentInPlayingCard.rank} ${currentInPlayingCard.suit}" 
+        <div class="inverted-card ${currentInPlayingCard.rank} ${currentInPlayingCard.suit} add-shadow" 
         id="inverted-pile"></div>`;
     document.getElementById("light-discard").innerHTML = `
-        <div class="card ${currentStPlayingCard.rank} ${currentStPlayingCard.suit}"
+        <div class="card ${currentStPlayingCard.rank} ${currentStPlayingCard.suit} add-shadow"
         id="standard-pile"></div>`;
 }
 

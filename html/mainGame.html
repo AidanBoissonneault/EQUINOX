@@ -3,9 +3,9 @@
 
     <!--BACKGROUND LAYER-->
     <div class="background-container">
+        <div class="current-play-background background-blue" id="current-play-background"></div>
         <div class="background-vinette"></div>
         <div class="background-color-display background-white" id="background-color-display"></div>
-        <div class="current-play-background background-blue" id="current-play-background"></div>
     </div>
     <!--ENEMY HAND-->
     <div class="opposing-player-zone" id="opposing-player-zone-full">
@@ -27,18 +27,18 @@
     </div>
 
     <!--DARK CARDS-->
-    <div class="card-pile dark-draw draw-pile" id="dark-draw">
-        <div class="inverted-card" id="filler"></div>
+    <div class="card-pile dark-draw" id="dark-draw">
+        <div class="inverted-card add-shadow draw-pile" id="filler"></div>
     </div>
     <div class="card-pile dark-discard" id="dark-discard">
-        <div class="inverted-card" id="filler"></div>
+        <div class="inverted-card add-shadow" id="filler"></div>
     </div>
     <!--LIGHT CARDS-->
     <div class="card-pile light-center" id="light-discard">
-        <div class="card" id="filler"></div>
+        <div class="card add-shadow" id="filler"></div>
     </div>
-    <div class="card-pile light-draw draw-pile" id="light-draw">
-        <div class="card" id="filler"></div>
+    <div class="card-pile light-draw" id="light-draw">
+        <div class="card draw-pile add-shadow" id="filler"></div>
     </div>
 
     <!--VISUAL CUE ON NEXT PLAYED CARD-->
@@ -72,5 +72,7 @@
     </form>
 
     <div id="no-click-container"></div>
+    <button class="player-button" id="instructions-button" onclick="instructions()">?</button>
+    
 
 </div>

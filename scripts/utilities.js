@@ -5,7 +5,9 @@ function delay(ms) {
 //loads a screen
 async function loadPageFragment(file) {
     const PATH = "./html/";
-    const html = await fetch(PATH+file).then(res => res.text());
+    const fileObject = await fetch(PATH+file);
+    //const html = await fetch(PATH+file).then(res => res.text());
+    const html = await fileObject.text();
     document.getElementById("actual-body").innerHTML = html;
 }
 

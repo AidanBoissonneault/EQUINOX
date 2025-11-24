@@ -4,25 +4,16 @@
 }
 
 body {
-    /*background-color: #6ea061;*/
-    /*background: linear-gradient(-85deg, #dddddd 50%, #444444 50%); old background*/ 
     image-rendering: pixelated;
     text-align: center;
     margin: auto;
     font-family: depixel;
 }
 
-.screen {
-    display: none !important;
-    width: 100vw;
-    height: 100vh;
-}
-
 .active {
     display: block;
     width: 100vw;
     height: 100vh;
-    background-color: azure;
 }
 
 .background-container {
@@ -37,8 +28,8 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
+    filter: opacity(0.1);
     background-image: url('../assets/vinette_background.jpg');
-    opacity: 30%;
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -102,29 +93,29 @@ body {
 
 @keyframes background-blue-transition {
     0% {
-        background-color: #ff78782e;
+        background-color: var(--backgroundRed);
     }
     100% {
-        background-color: #78d4ff2e;
+        background-color: var(--backgroundBlue);
     }
 }
 
 @keyframes background-red-transition {
     0% {
-        background-color: #78d4ff2e;
+        background-color: var(--backgroundBlue);
     }
     100% {
-        background-color: #ff78782e;
+        background-color: var(--backgroundRed);
     }
 }
 
 .background-blue {
-    background-color: #78d4ff2e;
+    background-color: var(--backgroundBlue);
     animation: background-blue-transition 0.8s ease-in;
 }
 
 .background-red {
-    background-color: #ff78782e;
+    background-color: var(--backgroundRed);
     animation: background-red-transition 0.8s ease-in;
 }
 

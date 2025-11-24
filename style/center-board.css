@@ -2,7 +2,10 @@
 .card-pile {
     position: fixed;
     transform: translate(-50%, -50%) scale(3);
+    transform-origin: center center;
     top: 50%;
+    padding: 0;
+
 
     transition: transform 0.15s ease;
     transform-origin: center;
@@ -10,8 +13,33 @@
 
 .card-pile:hover {
     transform: translate(-50%, -50%) scale(4.2);
+    transform-origin: center center;
 
     transition: transform 0.15s ease;
+}
+
+.add-shadow {
+    position: relative;
+}
+
+.add-shadow::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+
+    box-shadow: 3px 3px 1px #22222210, -0.5px -0.5px 1px #ffffff05;
+    transition: box-shadow 0.15s ease;
+}
+
+.add-shadow:hover::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    box-shadow: 4px 4px 1px #22222209, -0.5px -0.5px 1px #ffffff05;
 }
 
 .dark-draw {

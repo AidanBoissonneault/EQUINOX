@@ -11,6 +11,7 @@
     /*background-color: #CC2936; */
     background-color: #362a2930;
     border-radius: 12px;
+    box-shadow: 4px 4px 3px #22222210, -1px -1px 3px #ffffff10;
 } 
 #player-info {
     position: absolute;
