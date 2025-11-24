@@ -165,8 +165,8 @@ async function startSecondaryGame(data) {
     turnToggle = true;
 
     //update to multiplayer card visuals
-    document.getElementById("dark-draw").innerHTML = '<div class="inverted-card clubs" id="filler"></div>';
-    document.getElementById("light-draw").innerHTML = '<div class="card clubs" id="filler"></div>';
+    document.getElementById("dark-draw").innerHTML = '<div class="inverted-card clubs add-shadow" id="filler"></div>';
+    document.getElementById("light-draw").innerHTML = '<div class="card clubs add-shadow" id="filler"></div>';
 
     //updates the opponents names
     conn.send({ type: 'send-name', pId: myId, fPlayer: false });

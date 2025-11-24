@@ -1,0 +1,23 @@
+body {
+    background: linear-gradient(rgb(233, 255, 251), rgb(180, 164, 164));
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: 100% 100%;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    text-align: left;
+}
+
+.text-card {
+    vertical-align: middle;
+    z-index: 1;
+    transition: transform 0.15s ease;
+}
+
+.text-card:hover {
+    transform: scale(2);
+    z-index: 2;
+}

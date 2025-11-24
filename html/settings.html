@@ -1,5 +1,18 @@
 <div class = "active big-card-background title-screen" id="settings-screen">
     <div id="settings-container" class="title-screen-container">
-        
+        <h1>SETTINGS</h1>
+        <form>
+            <table id="settings-table">
+                <tr>
+                    <td><input type="checkbox" name="high-contrast-toggle" id="high-contrast-toggle" onclick="changeSetting(this)"></td>
+                    <td><label for="high-contrast-toggle">High Contrast</label></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" name="auto-draw" id="auto-draw" onclick="changeSetting(this)"></td>
+                    <td><label for="auto-draw">Auto Draw</label></td>
+                </tr>
+            </table>
+        </form>
+        <button id="back-button" onclick='exitSettings()'>Menu</button>
     </div>
 </div>

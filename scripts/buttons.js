@@ -63,42 +63,6 @@ async function playButtonActivate(isSecondaryMultiplayer = false) {
     //checks game state
     switch (currentGameState[currentPlayer]) {
         case State.STANDARD: 
-            /*
-            //if more than 2 cards are selected, return to program, invalid play.
-            if (currentSelectedCards.length > 2) {
-                buttonFlashRed("player-play-button");
-                console.log("failed, current selected cards is greater than 2");
-                return;
-            }
-
-            //if 2 cards are selected, check if both are the same value and color
-            //if they are, check if they are the same color, if not return to program.
-            if (currentSelectedCards.length != 1) {
-                if (currentSelectedCards[0].value != currentSelectedCards[1].value
-                || !validateLikeSuits(currentSelectedCards[0].suit, currentSelectedCards[1].suit)) {
-                    buttonFlashRed("player-play-button");
-                    console.log("failed, both cards do not match");
-                    return;
-                }
-            }
-
-            //continue as usual once 1 card is selected
-            //validate play
-            //additional set: checks if the player can play their current card based off of the
-            //inverted top card. if yes, no additional cards will be dealt to the enemy, but 
-            //play will be allowed.
-            if (
-                currentSelectedCards[0].value == currentStPlayingCard.value ||
-                alternateSuits(currentStPlayingCard.suit).includes(currentSelectedCards[0].suit) ||
-                (currentSelectedCards.length > 1 &&
-                alternateSuits(currentStPlayingCard.suit).includes(currentSelectedCards[1].suit))
-            
-                //alternate rules: allows play if suit or number perfectly matches other side.
-                || currentSelectedCards[0].value == currentInPlayingCard.value ||
-                currentInPlayingCard.suit == currentSelectedCards[0].suit ||
-                currentSelectedCards.length > 1 &&
-                currentInPlayingCard.suit == currentSelectedCards[1].suit
-            )*/
 
             //new rule testing 
             //one of the played cards must match the suit of either card in the discard piles, or the value of those cards.
@@ -311,14 +275,16 @@ function drawButton(isSecondaryMultiplayer = false) {
         }
     }
 
-    if (currentGameState[currentPlayer] == "standard") {
+    if (currentGameState[currentPlayer] == State.STANDARD) {
         drawCard(sDeck, playerStandardHand, "player-main");
     } else {
         drawCard(iDeck, playerInvertedHand, "player-main");
     }
-    if (currentGameState[currentPlayer] === "standard" && sDeck.length > 0 ||
-        currentGameState[currentPlayer] === "inverted" && iDeck.length > 0
+    if (currentGameState[currentPlayer] === State.STANDARD && sDeck.length > 0 ||
+        currentGameState[currentPlayer] === State.INVERTED && iDeck.length > 0
     ) {
         endTurn();
+    } else {
+        determineTieWinner();
     }
 }

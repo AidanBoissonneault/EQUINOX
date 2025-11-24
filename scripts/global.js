@@ -9,7 +9,7 @@
     var iDeck = []; //inverted deck
 
     //stores hand info
-    const HAND_SIZE = 7; //drawing hand size
+    const HAND_SIZE = 1; //drawing hand size
     const TOTAL_START_GAME_TIME = 1500;
     const DELAY_BETWEEN_DRAWN_CARDS = TOTAL_START_GAME_TIME / HAND_SIZE;
 
