@@ -96,10 +96,11 @@ async function playButtonActivate(isSecondaryMultiplayer = false) {
 
             //forces enemy to draw a card if certain conditions are hit
             //single card played matches value and suit of a card played on the center piles
+            /*
             if (isPerfectPlay) {
                 for (const cards in currentSelectedCards)
                     drawCard(sDeck, opponentStandardHand, "opponent-light");
-            }
+            } */ //moved to the animateSelectedCards for consistency
 
             //change center pile (will need to edit later to choose the lower value of the two)
             currentStPlayingCard = currentSelectedCards[0];
@@ -189,12 +190,12 @@ async function playButtonActivate(isSecondaryMultiplayer = false) {
             //condition: all cards played are the same color as the base card they are played on
             //opposing player picks up quantity equal to the amount of cards currently played
 
-            if (isPerfectPlay) {
+            /*if (isPerfectPlay) {
                 for (let i = 0; i < currentSelectedCards.length; i++) {
                     if (i != 0) await delay (DELAY_BETWEEN_DRAWN_CARDS);
                     drawCard(iDeck, opponentInvertedHand, "opponent-dark");
                 }
-            }
+            }*/ //moved to animateSelectedCards for simplicity
 
             //change center pile (will need to edit later to choose the lowest value)
             currentInPlayingCard = currentSelectedCards[0];
@@ -258,7 +259,7 @@ async function playButtonActivate(isSecondaryMultiplayer = false) {
 // ------------------------------- DRAW BUTTON ----------------------------------------
 
 //draws a card from deck to hand, displays hand afterwards
-function drawCard(deck, hand, selectedDeck) {
+function drawCard(deck, hand, cardLocation) {
     if (deck.length <= 0) {
         buttonFlashRed("player-draw-button");
         return;
@@ -270,8 +271,8 @@ function drawCard(deck, hand, selectedDeck) {
     //updates assorted visuals
     isFirst = true;
     //currentSelectedCards = [];
-    displayHand(selectedDeck, hand);
-    updateDrawPileHover();
+    displayHand(cardLocation, hand);
+    updateDrawPileHover(cardLocation);
 }
 
 //what the pushed draw button actually goes to

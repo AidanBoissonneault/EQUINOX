@@ -27,12 +27,12 @@
 
 .big-card-background {
     margin: 0;
-    background-image: url("../assets/red-card.png");
+    background-image: url("../assets/images/card/red-card.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 
 .blue.big-card-background {
-    background-image: url("../assets/blue-card.png");
+    background-image: url("../assets/images/card/blue-card.png");
 }

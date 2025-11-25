@@ -1,6 +1,6 @@
 .high-contrast {
-    --deckDisplay: url("../assets/deck-hc.png");
-    --deckDisplayInverted: url("../assets/inverted-deck-hc.png");
+    --deckDisplay: url("../assets/images/decks/deck-hc.png");
+    --deckDisplayInverted: url("../assets/images/decks/inverted-deck-hc.png");
 }
 
 /* PLAYER CARDS */

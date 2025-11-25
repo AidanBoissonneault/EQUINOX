@@ -22,11 +22,11 @@ function displayHand(selectedHand, hand) {
             if (!settings.optimizedMainHand) {
                 let cardsLeftInRow = hand.length-1;
                 for (let i = 0; i < hand.length; i++) {
-                    if(i % 12 === 0 && i !== 0) cardsLeftInRow -= 12;
+                    if(i % CARDS_PER_HAND_ROW === 0 && i !== 0) cardsLeftInRow -= CARDS_PER_HAND_ROW;
                     
-                    let cardsInRow = cardsLeftInRow > 12 ? 12 : cardsLeftInRow;
+                    let cardsInRow = cardsLeftInRow > CARDS_PER_HAND_ROW ? CARDS_PER_HAND_ROW : cardsLeftInRow;
                     let middleCard = (cardsInRow) / 2;
-                    let cardPosition = i % 12;
+                    let cardPosition = i % CARDS_PER_HAND_ROW;
 
                     let rotation = cardPosition - middleCard;
                     let offset = Math.abs(rotation)-2;
@@ -37,6 +37,7 @@ function displayHand(selectedHand, hand) {
                 } else {
                     for (let i = 0; i < hand.length; i++) {
                         document.getElementById(`card${i+100}`).style.setProperty("--rotateAmount", 0);
+                        document.getElementById(`card${i+100}`).style.setProperty("--offsetAmount", 0);
                     }
                 }
             break;
@@ -79,11 +80,11 @@ function displayHand(selectedHand, hand) {
 
 // ------------------------------- UPDATE CENTER PILES -----------------------------
 
-let previousPlayedLightCard = 0;
-let previousPlayedDarkCard = 0;
+let previousPlayedLightCard = new Card();
+let previousPlayedDarkCard = new Card();
 let cardIdIteratorLight = 0;
 let cardIdIteratorDark = DECK_SIZE;
-function updateCenterPiles(isPerfectPlay) {
+function updateCenterPiles(isPerfectPlay, firstTimeUsed = false) {
     if (settings.optimizedDiscardPile) {
         document.getElementById("dark-discard").innerHTML = `
         <div class="inverted-card ${currentInPlayingCard.rank} ${currentInPlayingCard.suit} add-shadow" 
@@ -104,13 +105,14 @@ function updateCenterPiles(isPerfectPlay) {
         const ROTATE_AXIS = 8;
         const REMOVE_BOXSHADOW_AFTER = 5;
         let rotateAmount = Math.random() * (ROTATE_AXIS*2) - ROTATE_AXIS; 
+        if (firstTimeUsed) rotateAmount = 0;
         document.getElementById(`card-${cardIdIterator}`).style.setProperty("--rotateAmount", rotateAmount);
         if (isPerfectPlay) document.getElementById(`card-${cardIdIterator}`).classList.add("perfect-play");
         if (![0, DECK_SIZE].includes(cardIdIterator)) document.getElementById(`card-${cardIdIterator-1}`).classList.add("grayed-card");
         if (cardIdIterator % DECK_SIZE - REMOVE_BOXSHADOW_AFTER >= 0) document.getElementById(`card-${cardIdIterator-REMOVE_BOXSHADOW_AFTER}`).classList.remove("add-shadow");
         cardIdIterator++;
     };
-    if (currentStPlayingCard !== previousPlayedLightCard) {
+    if (currentStPlayingCard.suit !== previousPlayedLightCard.suit || currentStPlayingCard.value !== previousPlayedLightCard.value) {
         var pileId = "light-discard";
         var cardType = "card";
         var replacementCard = { rank: currentStPlayingCard.rank, suit: currentStPlayingCard.suit };
@@ -130,17 +132,64 @@ function updateCenterPiles(isPerfectPlay) {
     }
 }
 
+// ------------------------------- GENERATE THE DRAW PILES -----------------------
+
+function generateDrawPiles() {
+    const DISTANCE_BETWEEN_DECK_CARDS = 0.1;
+    for (let i = 0; i < DECK_SIZE; i++) {
+    const addCardToPile = () => {
+        document.getElementById(idInDocument).insertAdjacentHTML(
+            "beforeend", `
+            <div class="${cardType} ${addShadow} draw-pile"
+            id="draw-${cardType}-${i}"></div>
+            `
+        )
+        document.getElementById(`draw-${cardType}-${i}`).style.setProperty("--offsetX", i * distanceBetweenCardsX);
+        document.getElementById(`draw-${cardType}-${i}`).style.setProperty("--offsetY", i * -DISTANCE_BETWEEN_DECK_CARDS);
+    }
+
+    let addShadow = "add-shadow";
+    if (i % 3 !== 0) addShadow = "";
+    let idInDocument = "dark-draw";
+    let cardType = "inverted-card";
+    let distanceBetweenCardsX = -1 * DISTANCE_BETWEEN_DECK_CARDS;
+    addCardToPile();
+    idInDocument = "light-draw";
+    cardType = "card";
+    distanceBetweenCardsX = 1 * DISTANCE_BETWEEN_DECK_CARDS;
+    addCardToPile();
+    }
+}
+
 // -------------------------------- UPDATE DRAW PILE DATA ------------------------
 
-function updateDrawPileHover() {
-    document.getElementById("dark-draw").style.setProperty('--afterText', `"${iDeck.length}/52"`);
-    document.getElementById("light-draw").style.setProperty('--afterText', `"${sDeck.length}/52"`);
+let currentInDeckSize = DECK_SIZE;
+let currentStDeckSize = DECK_SIZE;
+function updateDrawPileHover(target) {
+    document.getElementById("dark-draw").style.setProperty('--afterText', `"${iDeck.length}/${DECK_SIZE}"`);
+    document.getElementById("light-draw").style.setProperty('--afterText', `"${sDeck.length}/${DECK_SIZE}"`);
 
-    if (iDeck.length == 0) {
-        document.getElementById("dark-draw").innerHTML = "";
+    const removeCardFromDeck = () => {
+        if (target === "player-main") {
+            document.getElementById(`draw-${cardType}-${removedCard}`).classList.add("move-towards-player");
+        } else {
+            document.getElementById(`draw-${cardType}-${removedCard}`).classList.add("move-towards-opponent");
+        }
     }
-    if (sDeck.length == 0) {
-        document.getElementById("light-draw").innerHTML = "";
+
+    let cardType = "";
+    let removeedCard = 0;
+    while (currentInDeckSize >= iDeck.length) {
+        cardType = "inverted-card";
+        removedCard = currentInDeckSize-1;
+        currentInDeckSize--;
+        removeCardFromDeck();
+    }
+    while (currentStDeckSize >= sDeck.length) {
+        cardType = "card";
+        removedCard = currentStDeckSize-1;
+        currentStDeckSize--;
+        removeCardFromDeck();
     }
 }
 

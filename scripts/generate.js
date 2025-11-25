@@ -26,8 +26,6 @@
         await loadPageFragment("mainGame.html");
 
         if (isMultiplayer) {
-            document.getElementById("dark-draw").innerHTML = '<div class="inverted-card clubs add-shadow" id="filler"></div>';
-            document.getElementById("light-draw").innerHTML = '<div class="card clubs add-shadow" id="filler"></div>';
             document.getElementById("no-click-container").innerHTML = '<div class="no-click-screen">Loading...</div>';
 
             //re-enables auto end turn for speed 
@@ -38,12 +36,17 @@
         generateDeck(iDeck, "inverted");
         shuffleDeck(sDeck);
         shuffleDeck(iDeck);
+
+        //adds visuals (testing)
+        generateDrawPiles();
         
         await dealBothDecks();
 
         currentStPlayingCard = sDeck.pop();
         currentInPlayingCard = iDeck.pop();
-        updateCenterPiles();
+        const FLASH_YELLOW = true;
+        const FIRST_TIME_USED = true;
+        updateCenterPiles(FLASH_YELLOW, FIRST_TIME_USED);
         updateDrawPileHover();
 
         if (isMultiplayer) {

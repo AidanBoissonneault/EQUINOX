@@ -1,6 +1,7 @@
 /* CENTER BOARD STUFF */
 .card-pile {
     position: fixed;
+    display: relative;
     transform: translate(-50%, -50%) scale(3);
     transform-origin: center center;
     top: 50%;
@@ -11,6 +12,11 @@
 
     transition: transform 0.15s ease;
     transform-origin: center;
+}
+
+.draw-card-pile {
+    width: 35px;
+    height: 47px;
 }
 
 .add-shadow {
@@ -43,6 +49,8 @@
 
 .draw-pile {
     content: "";
+    position: absolute;
+    transform: translate(calc(var(--offsetX) * 1px), calc(var(--offsetY) * 1px));
 }
 
 .draw-pile:hover::after {
@@ -133,6 +141,18 @@
     animation: moving-pile-card 0.3s ease-out, perfect-play-made 1s linear;
 }
 
+.move-towards-player {
+    transform: translate(calc(var(--offsetX) * 1px), calc(var(--offsetY) * 1px + 1500%));
+
+    animation: move-towards-player-animation 0.8s ease-in;
+}
+
+.move-towards-opponent {
+    transform: translate(calc(var(--offsetX) * 1px), calc(var(--offsetY) * 1px - 1500%));
+
+    animation: move-towards-opponent-animation 0.8s ease-in;
+}
+
 /* -------------------------------- ANIMATIONS ---------------------------------- */
 
 @keyframes light-center-animation-start {
@@ -204,4 +224,12 @@
     35% { background-color: #ecc350; }
     70% { background-color: #ecc350; }
     100% { background-color: inherit; }
+}
+
+@keyframes move-towards-player-animation {
+    0% { transform: translate(calc(var(--offsetX) * 1px), calc(var(--offsetY) * 1px) + 1500%); }
+}
+
+@keyframes move-towards-opponent-animation {
+    0% { transform: translate(calc(var(--offsetX) * 1px), calc(var(--offsetY) * 1px) - 1500%); }
 }

@@ -112,8 +112,8 @@ function setupConnection(connection){
                 || playerInvertedHand.find(c => c.rank === rank && c.suit === suit);
             });
 
-            currentStPlayingCard = data.cSPcard;
-            currentInPlayingCard = data.cIPcard;
+            //currentStPlayingCard = data.cSPcard;
+            //currentInPlayingCard = data.cIPcard;
             currentPlayer = data.cP;
             currentGameState = data.cGS;
             turnToggle = data.tT ? false : true;
@@ -169,9 +169,8 @@ async function startSecondaryGame(data) {
     currentInPlayingCard = data.cIPcard;
     turnToggle = true;
 
-    //update to multiplayer card visuals
-    document.getElementById("dark-draw").innerHTML = '<div class="inverted-card clubs add-shadow" id="filler"></div>';
-    document.getElementById("light-draw").innerHTML = '<div class="card clubs add-shadow" id="filler"></div>';
+    //creates draw pile visual
+    generateDrawPiles();
 
     //updates the opponents names
     conn.send({ type: 'send-name', pId: myId, fPlayer: false });
@@ -181,7 +180,9 @@ async function startSecondaryGame(data) {
     
 
     updateCenterPiles();
-    updateDrawPileHover();
+    const FLASH_YELLOW = true;
+    const FIRST_TIME_USED = true;
+    updateCenterPiles(FLASH_YELLOW, FIRST_TIME_USED);
     updateInfoCards();
 
     //dealHands(sDeck, playerStandardHand, opponentStandardHand, "player-main", "opponent-light");

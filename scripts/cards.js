@@ -13,11 +13,14 @@ async function dealHands(deck, hand, display) {
 async function dealBothDecks() {
     for (let i = 0; i < HAND_SIZE; i++) {
         dealHands(sDeck, playerStandardHand, "player-main");
+        updateDrawPileHover("player-main");
         dealHands(sDeck, opponentStandardHand, "opponent-light");
+        updateDrawPileHover("opponent");
         dealHands(iDeck, playerInvertedHand, "player-inactive");
+        updateDrawPileHover("player-main");
         dealHands(iDeck, opponentInvertedHand, "opponent-dark");
+        updateDrawPileHover("opponent");
 
-        updateDrawPileHover();
         updateInfoCards();
 
         await delay(DELAY_BETWEEN_DRAWN_CARDS);
