@@ -13,6 +13,8 @@ const DELAY_PERFECT_PLAY_MULTIPLIER = 3.5;
 async function animateSelectedCards(isPerfectPlay) {
     const hand = currentGameState[currentPlayer] == State.STANDARD ? playerStandardHand : playerInvertedHand;
 
+    setVisualSelectedCard("noCard");
+
     for (let playedCard of currentSelectedCards) {
         const index = hand.indexOf(playedCard);
         console.log("index: " + index);

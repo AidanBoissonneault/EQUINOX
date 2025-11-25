@@ -9,7 +9,7 @@ function displayHand(selectedHand, hand) {
                 if (currentGameState[currentPlayer] == "standard") {
                     input += `
                         <button class="card playing-card ${hand[i].rank} ${hand[i].suit}" 
-                            id="card${i+100}" data-index="${i}" onclick="selectCard(this.dataset.index, FIRST_PLAYER_SENDING_INFO)" style = "z-index: ${i};">
+                            id="card${i+100}" data-index="${i}" onclick="selectCard(this.dataset.index, FIRST_PLAYER_SENDING_INFO)" style = "z-index: ${i+1};">
                         </button>`;
                 } else {
                     input += `
@@ -19,6 +19,26 @@ function displayHand(selectedHand, hand) {
                 }
             }
             document.getElementById("player-cards-main").innerHTML = input;
+            if (!settings.optimizedMainHand) {
+                let cardsLeftInRow = hand.length-1;
+                for (let i = 0; i < hand.length; i++) {
+                    if(i % 12 === 0 && i !== 0) cardsLeftInRow -= 12;
+                    
+                    let cardsInRow = cardsLeftInRow > 12 ? 12 : cardsLeftInRow;
+                    let middleCard = (cardsInRow) / 2;
+                    let cardPosition = i % 12;
+
+                    let rotation = cardPosition - middleCard;
+                    let offset = Math.abs(rotation)-2;
+                    const ROTATION_MULTIPLIER = 2;
+                    document.getElementById(`card${i+100}`).style.setProperty("--rotateAmount", rotation * ROTATION_MULTIPLIER);
+                    document.getElementById(`card${i+100}`).style.setProperty("--offsetAmount", offset);
+                }
+                } else {
+                    for (let i = 0; i < hand.length; i++) {
+                        document.getElementById(`card${i+100}`).style.setProperty("--rotateAmount", 0);
+                    }
+                }
             break;
         case "player-inactive":
             for (let i = 0; i < hand.length; i++) {

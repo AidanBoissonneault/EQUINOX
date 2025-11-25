@@ -166,7 +166,7 @@ async function determineTieWinner() {
     }
 
     console.log("\n\n\n\nPlayer" + (winningPlayer+1) + "WINS!");
-    await loadPageFragment("win-screen.html");
+    await loadPageFragment("winScreen.html");
     if (winningPlayer === NO_WINNER) {
         document.getElementById("win-text").innerHTML = 'TIE GAME!';
     } else {

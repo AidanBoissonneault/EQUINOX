@@ -14,6 +14,7 @@ const settings = {
     highContrast: true,
     autoDraw: true,
     optimizedDiscardPile: false,
+    optimizedMainHand: false,
     lastLoadedPage: ""
 };
 
@@ -24,6 +25,8 @@ async function settingsLoad(origin, documentId = "actual-body") {
 
     if (settings.highContrast === true) { document.getElementById("high-contrast-toggle").checked = true; }
     if (settings.autoDraw === true) { document.getElementById("auto-draw").checked = true; }
+    if (settings.optimizedDiscardPile === true) { document.getElementById("optimized-discard").checked = true; }
+    if (settings.optimizedMainHand === true) { document.getElementById("optimized-hand").checked = true; }
 }
 
 function changeSetting(settingsObject) {
@@ -32,6 +35,8 @@ function changeSetting(settingsObject) {
     switch(settingsObject.id) {
         case "high-contrast-toggle": settings.highContrast = OUTPUT_STATE; return;
         case "auto-draw": settings.autoDraw = OUTPUT_STATE; return;
+        case "optimized-discard": settings.optimizedDiscardPile = OUTPUT_STATE; return;
+        case "optimized-hand": settings.optimizedMainHand = OUTPUT_STATE; return;
     }
 }
 
