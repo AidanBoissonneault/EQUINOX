@@ -154,6 +154,11 @@ async function startSecondaryGame(data) {
 
     await loadPageFragment("mainGame.html");
 
+
+    //re-enables auto end turn for speed 
+    settings.autoDraw = true;
+    
+    
     sDeck = data.standardDeck;
     iDeck = data.invertedDeck;
     playerStandardHand = data.pSHand;

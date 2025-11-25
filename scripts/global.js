@@ -7,6 +7,7 @@
     //deck references
     var sDeck = []; //standard deck
     var iDeck = []; //inverted deck
+    const DECK_SIZE = 52;
 
     //stores hand info
     const HAND_SIZE = 7; //drawing hand size

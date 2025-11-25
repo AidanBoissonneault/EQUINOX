@@ -117,29 +117,28 @@ async function autoEndTurn() {
 function isPlayableTurn() {
     if (currentGameState[currentPlayer] === State.STANDARD) {
         //standard deck
-        for (let standardCard of playerStandardHand) {
-            if (standardCard.value === currentStPlayingCard.value ||
-                standardCard.value === currentInPlayingCard.value ||
-                standardCard.suit === currentStPlayingCard.suit ||
-                standardCard.suit === currentInPlayingCard.suit) {
-                    const outputHand = [standardCard];
-                    for (let standardCardEmbedded of playerStandardHand) {
-                        if (standardCard.value === standardCardEmbedded.value && 
-                            (() => {
-                                for (let cards of outputHand) {
-                                    if (cards.suit === standardCardEmbedded.suit) return false;
-                                }
-                                return true;
-                            })()
-                        ) { outputHand.push(standardCardEmbedded); }
-                    }
-                    console.log(`Playable card: ${standardCard.rank} ${standardCard.suit}`);
-                    return outputHand;
+        for (let i = 0; i < playerStandardHand.length; i++) {
+            if (playerStandardHand[i].value === currentStPlayingCard.value ||
+                playerStandardHand[i].value === currentInPlayingCard.value ||
+                playerStandardHand[i].suit === currentStPlayingCard.suit ||
+                playerStandardHand[i].suit === currentInPlayingCard.suit) {
+                const outputHand = [playerStandardHand[i]];
+                for (let j = 0; j < playerStandardHand.length; j++) {
+                    if (playerStandardHand[i].value === playerStandardHand[j].value && i !== j) { outputHand.push(playerStandardHand[j]); }
                 }
+                for (const card of outputHand) {
+                    console.log(`Playable card: ${card.rank} ${card.suit}`);
+                }
+                
+                return outputHand;
+            }
         }
+
+
         console.log("unplayable hand, drawing card.");
         return [];
     } else {
+        //inverted deck
         for (let invertedCard of playerInvertedHand) {
             let getPlay = checkInvertedCardPlayable([], invertedCard, false);
             if (getPlay.length > 0) {
@@ -167,15 +166,67 @@ async function determineTieWinner() {
     }
 
     console.log("\n\n\n\nPlayer" + (winningPlayer+1) + "WINS!");
-    /*
-    document.getElementById("main-game").classList.remove("active");
-    document.getElementById("main-game").classList.add("screen");
-    document.getElementById("win-screen").classList.remove("screen");
-    document.getElementById("win-screen").classList.add("active"); */
     await loadPageFragment("win-screen.html");
     if (winningPlayer === NO_WINNER) {
         document.getElementById("win-text").innerHTML = 'TIE GAME!';
     } else {
         document.getElementById("win-text").innerHTML = `${playerNames[winningPlayer]} WINS!`;
     }
+}
+
+// --------------------------- MAKES A VALID INVERTED PLAY ----------------------------
+
+//recursively checks if a card is lower than sum
+//keeps in mind face cards and ace values
+
+function checkInvertedCardPlayable(cardArr, invertedCard, hasFaceCard) {
+    //adds tested card into array
+    let theCardArr = [...cardArr, invertedCard];
+
+    //calculates sum
+    //if the face card
+    let tempSum = 0;
+    for (let theCard of theCardArr) {
+        if (theCard.value <= 10) {
+            tempSum += theCard.value;
+        } else {
+            tempSum += 1;
+            hasFaceCard = true;
+        }
+    }
+    console.log(`The sum: ${tempSum} Has face card: ${hasFaceCard}`);
+
+    //if the sum is greater than value, go down a layer
+    if (tempSum > currentInPlayingCard.value && tempSum > currentStPlayingCard.value) {
+        return [];
+    }
+
+    //if the sum is equal to either value 
+    if (tempSum === currentInPlayingCard.value ||
+        tempSum === currentStPlayingCard.value ||
+        currentInPlayingCard.value > 10 ||
+        currentStPlayingCard.value > 10 ||
+        currentInPlayingCard.value === 1 && tempSum === 11 ||
+        currentStPlayingCard.value === 1 && tempSum === 11 ||
+        tempSum < currentInPlayingCard.value && hasFaceCard ||
+        tempSum < currentStPlayingCard.value && hasFaceCard
+    ) {
+        for (let playedCards of theCardArr) {
+            console.log(`Playable Hand: ${playedCards.rank} ${playedCards.suit}`);
+        }
+        return theCardArr;
+    }
+
+    //if the card is not already in hand, try it again for another play
+    for (let i = 0; i < playerInvertedHand.length; i++) {
+        if (!theCardArr.includes(playerInvertedHand[i])) {
+            var getPlay = checkInvertedCardPlayable(theCardArr, playerInvertedHand[i], hasFaceCard);
+            if (getPlay.length > 0) {
+                return getPlay;
+            }
+        }
+    }
+
+    //no valid play found
+    return [];
 }

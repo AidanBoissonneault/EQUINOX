@@ -153,20 +153,20 @@
 
 /* -------------------------------- ANIMATIONS --------------------------------------------*/
 
-    @keyframes main-button-flash-red {
-        0%   { background-color: #362a29a0; }
-        10%  { background-color: #c56c6c;}
-        15%  { transform: rotate(-4deg);}
-        30%  { transform: rotate(4deg);}
-        45%  { transform: rotate(-3deg);}
-        50%  { background-color: #d68282; }
-        60%  { transform: rotate(3deg);}
-        75%  { transform: rotate(-2deg);}
-        100% { background-color: #362a2980; transform: rotate(0deg);} /* back to normal */
-    }
+@keyframes main-button-flash-red {
+    0%   { background-color: #362a29a0; }
+    10%  { background-color: #c56c6c;}
+    15%  { transform: rotate(-4deg);}
+    30%  { transform: rotate(4deg);}
+    45%  { transform: rotate(-3deg);}
+    50%  { background-color: #d68282; }
+    60%  { transform: rotate(3deg);}
+    75%  { transform: rotate(-2deg);}
+    100% { background-color: #362a2980; transform: rotate(0deg);} /* back to normal */
+}
 
-    /* Flash class that triggers the animation */
-    .flash {
-        animation: main-button-flash-red 0.4s ease-in-out;
-        box-shadow: 6px 6px 5px #22222210, -1px -1px 3px #ffffff05;
-    }
+/* Flash class that triggers the animation */
+.flash {
+    animation: main-button-flash-red 0.4s ease-in-out;
+    box-shadow: 6px 6px 5px #22222210, -1px -1px 3px #ffffff05;
+}

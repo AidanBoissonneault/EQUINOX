@@ -13,6 +13,7 @@ function multiplayerScreen() {
 const settings = {
     highContrast: true,
     autoDraw: true,
+    optimizedDiscardPile: false,
     lastLoadedPage: ""
 };
 

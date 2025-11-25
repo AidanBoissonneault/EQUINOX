@@ -86,6 +86,8 @@ async function playButtonActivate(isSecondaryMultiplayer = false) {
                 return;
             }
 
+            await animateSelectedCards();
+
             //forces enemy to draw a card if certain conditions are hit
             //single card played matches value and suit of a card played on the center piles
             if (currentSelectedCards.length > 1 ||
@@ -103,6 +105,7 @@ async function playButtonActivate(isSecondaryMultiplayer = false) {
             for (let i = 0; i < currentSelectedCards.length; i++) {
                 playerStandardHand.splice(playerStandardHand.indexOf(currentSelectedCards[i]), 1);
             }
+
             currentSelectedCards = [];
 
             //resets the display
@@ -114,7 +117,6 @@ async function playButtonActivate(isSecondaryMultiplayer = false) {
                     flipDecks();
                     setVisualSelectedCard("noCard");
                     isFirst = true;
-                    //currentSelectedCards = [];
                     console.log("FLIPPING DECKS!");
                     endPlayerTurnAfterPlay = false;
 
@@ -165,6 +167,8 @@ async function playButtonActivate(isSecondaryMultiplayer = false) {
                 console.log("Failed valid play check!");
                 return;
             }
+
+            await animateSelectedCards();
 
             //forces enemy to draw cards under certain conditions
             //condition: all cards played are the same color as the base card they are played on

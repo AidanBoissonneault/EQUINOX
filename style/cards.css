@@ -130,6 +130,20 @@
     background-color: #AF1335ee;
 }
 
+@keyframes move-card-under-screen {
+    0% { transform: scale(3.9) translateY(-8px);
+        translate: (-50% -6px); }
+    100% { transform: scale(3.9) translateY(100px);
+        translate: (-50% -6px); }
+}
+
+.move-under-screen {
+    transform: scale(3.9) translateY(100px);
+    translate: (-50% -6px);
+
+    animation: move-card-under-screen 0.5s ease-in;
+}
+
 /* card numbers */
 .zero { background-position-x: 0; }
 .two { background-position-x: -35px; }

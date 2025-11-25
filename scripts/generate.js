@@ -29,6 +29,9 @@
             document.getElementById("dark-draw").innerHTML = '<div class="inverted-card clubs add-shadow" id="filler"></div>';
             document.getElementById("light-draw").innerHTML = '<div class="card clubs add-shadow" id="filler"></div>';
             document.getElementById("no-click-container").innerHTML = '<div class="no-click-screen">Loading...</div>';
+
+            //re-enables auto end turn for speed 
+            settings.autoDraw = true;
         }
 
         generateDeck(sDeck, "standard");

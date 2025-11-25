@@ -1,3 +1,5 @@
+const CARDS_PER_HAND_ROW = 12; //determined already for us by the flexbox.
+
 function displayHand(selectedHand, hand) {
 
     let input = "";
@@ -57,13 +59,54 @@ function displayHand(selectedHand, hand) {
 
 // ------------------------------- UPDATE CENTER PILES -----------------------------
 
+let previousPlayedLightCard = 0;
+let previousPlayedDarkCard = 0;
+let cardIdIteratorLight = 0;
+let cardIdIteratorDark = DECK_SIZE;
 function updateCenterPiles() {
-    document.getElementById("dark-discard").innerHTML = `
+    if (settings.optimizedDiscardPile) {
+        document.getElementById("dark-discard").innerHTML = `
         <div class="inverted-card ${currentInPlayingCard.rank} ${currentInPlayingCard.suit} add-shadow" 
         id="inverted-pile"></div>`;
-    document.getElementById("light-discard").innerHTML = `
+        document.getElementById("light-discard").innerHTML = `
         <div class="card ${currentStPlayingCard.rank} ${currentStPlayingCard.suit} add-shadow"
         id="standard-pile"></div>`;
+        return;
+    }
+
+    const reanimateCards = () => {
+        document.getElementById(pileId).insertAdjacentHTML(
+            "beforeend", `
+            <div class="${cardType} ${replacementCard.rank} ${replacementCard.suit} add-shadow moving-card"
+            id="card-${cardIdIterator}"></div>
+            `
+        );
+        const ROTATE_AXIS = 8;
+        const REMOVE_BOXSHADOW_AFTER = 5;
+        let rotateAmount = Math.random() * (ROTATE_AXIS*2) - ROTATE_AXIS; 
+        document.getElementById(`card-${cardIdIterator}`).style.setProperty("--rotateAmount", rotateAmount);
+        if (![0, DECK_SIZE].includes(cardIdIterator)) document.getElementById(`card-${cardIdIterator-1}`).classList.add("grayed-card");
+        if (cardIdIterator % DECK_SIZE - REMOVE_BOXSHADOW_AFTER >= 0) document.getElementById(`card-${cardIdIterator-REMOVE_BOXSHADOW_AFTER}`).classList.remove("add-shadow");
+        cardIdIterator++;
+    };
+    if (currentStPlayingCard !== previousPlayedLightCard) {
+        var pileId = "light-discard";
+        var cardType = "card";
+        var replacementCard = { rank: currentStPlayingCard.rank, suit: currentStPlayingCard.suit };
+        var cardIdIterator = cardIdIteratorLight;
+        reanimateCards();
+        cardIdIteratorLight = cardIdIterator;
+        previousPlayedLightCard = currentStPlayingCard;
+    }
+    if (currentInPlayingCard !== previousPlayedDarkCard) {
+        var pileId = "dark-discard";
+        var cardType = "inverted-card";
+        var replacementCard = { rank: currentInPlayingCard.rank, suit: currentInPlayingCard.suit };
+        var cardIdIterator = cardIdIteratorDark;
+        reanimateCards();
+        cardIdIteratorDark = cardIdIterator;
+        previousPlayedDarkCard = currentInPlayingCard;
+    }
 }
 
 // -------------------------------- UPDATE DRAW PILE DATA ------------------------
