@@ -114,9 +114,15 @@
 }
 
 .grayed-card {
-    filter: grayscale(100%) brightness(0.85);
+    filter: brightness(0.85);
 
-    animation: moving-pile-card-under-gray 0.5s ease-out;
+    animation: moving-pile-card-under-gray 5s ease-out;
+}
+
+.perfect-play {
+    background-color: inherit;
+
+    animation: moving-pile-card 0.3s ease-out, perfect-play-made 1s linear;
 }
 
 /* -------------------------------- ANIMATIONS ---------------------------------- */
@@ -179,7 +185,15 @@
 }
 
 @keyframes moving-pile-card-under-gray {
-    0% { filter: grayscale(0%) brightness(1) }
-    80% { filter: grayscale(0%) brightness(1) }
-    100% { filter: grayscale(50%) brightness(0.8) }
+    0% { filter: brightness(1) }
+    80% { filter: brightness(1) }
+    100% { filter: brightness(0.8) }
+}
+
+@keyframes perfect-play-made {
+    0% { background-color: inherit; }
+    30% { background-color: inherit; }
+    35% { background-color: #ecc350; }
+    70% { background-color: #ecc350; }
+    100% { background-color: inherit; }
 }

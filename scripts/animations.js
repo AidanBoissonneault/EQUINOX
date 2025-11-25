@@ -9,7 +9,8 @@ async function buttonFlashRed(buttonId) {
 // Played cards moving
 
 const DELAY_BETWEEN_CARDS_MOVING = 125;
-async function animateSelectedCards() {
+const DELAY_PERFECT_PLAY_MULTIPLIER = 3.5;
+async function animateSelectedCards(isPerfectPlay) {
     const hand = currentGameState[currentPlayer] == State.STANDARD ? playerStandardHand : playerInvertedHand;
 
     for (let playedCard of currentSelectedCards) {
@@ -32,8 +33,8 @@ async function animateSelectedCards() {
         } else {
             currentInPlayingCard = currentSelectedCards[i];
         }
-        updateCenterPiles();
-        await delay(DELAY_BETWEEN_CARDS_MOVING);
+        updateCenterPiles(isPerfectPlay);
+        await delay(isPerfectPlay ? DELAY_BETWEEN_CARDS_MOVING * DELAY_PERFECT_PLAY_MULTIPLIER : DELAY_BETWEEN_CARDS_MOVING);
     }
 }
 

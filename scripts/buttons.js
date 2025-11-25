@@ -86,13 +86,17 @@ async function playButtonActivate(isSecondaryMultiplayer = false) {
                 return;
             }
 
-            await animateSelectedCards();
+            //determines if a perfect play was made
+            var isPerfectPlay = false;
+            if (currentSelectedCards.length > 1 ||
+                currentSelectedCards[0].value == currentInPlayingCard.value && currentSelectedCards[0].suit == currentInPlayingCard.suit
+            ) { isPerfectPlay = true; }
+
+            await animateSelectedCards(isPerfectPlay);
 
             //forces enemy to draw a card if certain conditions are hit
             //single card played matches value and suit of a card played on the center piles
-            if (currentSelectedCards.length > 1 ||
-                currentSelectedCards[0].value == currentInPlayingCard.value && currentSelectedCards[0].suit == currentInPlayingCard.suit
-            ) {
+            if (isPerfectPlay) {
                 for (const cards in currentSelectedCards)
                     drawCard(sDeck, opponentStandardHand, "opponent-light");
             }
@@ -167,27 +171,28 @@ async function playButtonActivate(isSecondaryMultiplayer = false) {
                 console.log("Failed valid play check!");
                 return;
             }
-
-            await animateSelectedCards();
-
-            //forces enemy to draw cards under certain conditions
-            //condition: all cards played are the same color as the base card they are played on
-            //opposing player picks up quantity equal to the amount of cards currently played
-
-            
+            //checks for a perfect play
+            var isPerfectPlay = false;
             for (let i = 0; i < currentSelectedCards.length; i++) {
-                /*if (!validateLikeSuits(currentInPlayingCard.suit, currentSelectedCards[i].suit) &&
-                    currentInPlayingCard.suit != currentSelectedCards[i].suit
-                ) { break; }*/
                 if (currentInPlayingCard.suit !== currentSelectedCards[i].suit &&
                     currentStPlayingCard.suit !== currentSelectedCards[i].suit
                 ) { break; }
 
                 if (i == currentSelectedCards.length-1) {
-                    for (let j = 0; j < currentSelectedCards.length; j++) {
-                        if (j != 0) await delay (DELAY_BETWEEN_DRAWN_CARDS);
-                        drawCard(iDeck, opponentInvertedHand, "opponent-dark");
-                    }
+                    isPerfectPlay = true;
+                }
+            }
+
+            await animateSelectedCards(isPerfectPlay);
+
+            //forces enemy to draw cards under certain conditions
+            //condition: all cards played are the same color as the base card they are played on
+            //opposing player picks up quantity equal to the amount of cards currently played
+
+            if (isPerfectPlay) {
+                for (let i = 0; i < currentSelectedCards.length; i++) {
+                    if (i != 0) await delay (DELAY_BETWEEN_DRAWN_CARDS);
+                    drawCard(iDeck, opponentInvertedHand, "opponent-dark");
                 }
             }
 

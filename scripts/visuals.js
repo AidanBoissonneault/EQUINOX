@@ -63,7 +63,7 @@ let previousPlayedLightCard = 0;
 let previousPlayedDarkCard = 0;
 let cardIdIteratorLight = 0;
 let cardIdIteratorDark = DECK_SIZE;
-function updateCenterPiles() {
+function updateCenterPiles(isPerfectPlay) {
     if (settings.optimizedDiscardPile) {
         document.getElementById("dark-discard").innerHTML = `
         <div class="inverted-card ${currentInPlayingCard.rank} ${currentInPlayingCard.suit} add-shadow" 
@@ -85,6 +85,7 @@ function updateCenterPiles() {
         const REMOVE_BOXSHADOW_AFTER = 5;
         let rotateAmount = Math.random() * (ROTATE_AXIS*2) - ROTATE_AXIS; 
         document.getElementById(`card-${cardIdIterator}`).style.setProperty("--rotateAmount", rotateAmount);
+        if (isPerfectPlay) document.getElementById(`card-${cardIdIterator}`).classList.add("perfect-play");
         if (![0, DECK_SIZE].includes(cardIdIterator)) document.getElementById(`card-${cardIdIterator-1}`).classList.add("grayed-card");
         if (cardIdIterator % DECK_SIZE - REMOVE_BOXSHADOW_AFTER >= 0) document.getElementById(`card-${cardIdIterator-REMOVE_BOXSHADOW_AFTER}`).classList.remove("add-shadow");
         cardIdIterator++;
