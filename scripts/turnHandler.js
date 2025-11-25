@@ -14,9 +14,13 @@ async function endTurn() {
     //toggles the current player variable
     currentPlayer = currentPlayer == State.FIRST_PLAYER ? State.SECOND_PLAYER : State.FIRST_PLAYER;
 
-    //animate info boxs
+    //animate info boxes
     document.getElementById("player-zone-full").classList.toggle("animated-player-zone");
     document.getElementById("opposing-player-zone-full").classList.toggle("animated-opposing-player-zone");
+
+    if (isAgainstBot && currentPlayer === State.SECOND_PLAYER || isMultiplayer && !turnToggle) {
+        document.getElementById("no-click-container").innerHTML = `<div class="no-click-screen">${playerNames[currentPlayer]}'s Turn</div>`;
+    }
 
     //flips the current background colors of the card areas if required
     if (currentGameState[State.FIRST_PLAYER] != currentGameState[State.SECOND_PLAYER]) {
@@ -82,7 +86,7 @@ async function endTurn() {
     }
 
     //if youre in multiplayer and its not your turn, block out screen activity
-    if (isMultiplayer && turnToggle) {
+    if (isMultiplayer && turnToggle || isAgainstBot && currentPlayer === State.FIRST_PLAYER) {
         document.getElementById("no-click-container").innerHTML = "";
 
         turnToggle = false;
@@ -90,6 +94,8 @@ async function endTurn() {
         document.getElementById("no-click-container").innerHTML = `<div class="no-click-screen">${playerNames[currentPlayer]}'s turn</div>`;
         turnToggle = true;
     }
+
+    currentSelectedCards = [];
 }
 
     // ---------------------------- AUTO END TURN ------------------------------------------

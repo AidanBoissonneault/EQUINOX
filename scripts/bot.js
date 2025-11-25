@@ -2,9 +2,10 @@
 // ---------------------------- BOT PLAY -----------------------------------------------
 
 async function botPlay() {
+    if (currentPlayer == State.FIRST_PLAYER) return;
 
     //<div class="no-click-screen clickable" id="no-click"></div>
-    document.getElementById("no-click-container").innerHTML = `<div class="no-click-screen">${playerNames[currentPlayer]}'s Turn</div>`;
+    //document.getElementById("no-click-container").innerHTML = `<div class="no-click-screen">${playerNames[currentPlayer]}'s Turn</div>`;
     currentSelectedCards = [];
 
     //gets the hand and sorts it 
@@ -33,5 +34,4 @@ async function botPlay() {
     }
 
     playButtonActivate();
-    document.getElementById("no-click-container").innerHTML = "";
 }
