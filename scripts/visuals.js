@@ -102,6 +102,8 @@ function updateCenterPiles(isPerfectPlay, firstTimeUsed = false) {
             id="card-${cardIdIterator}"></div>
             `
         );
+
+        //generates how much the card rotates
         const ROTATE_AXIS = 8;
         const REMOVE_BOXSHADOW_AFTER = 5;
         let rotateAmount = Math.random() * (ROTATE_AXIS*2) - ROTATE_AXIS; 

@@ -62,6 +62,9 @@ async function connectButtonLogic() {
     if (!peer) {
         try {
             peer = await createNewPeer(myId);
+            document.getElementById('myId').value = myId;
+            document.getElementById('myId').disabled = true;
+            document.getElementById('create-button').disabled = true;
         } catch (theError) {
             console.error(theError);
         }
