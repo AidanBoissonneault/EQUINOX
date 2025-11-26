@@ -1,12 +1,30 @@
 <div class="active big-card-background title-screen" id="multiplayer-screen">
     <div class="title-screen-container">
-        <div class="controls">
-            <button id="createBtn" onclick="createButtonLogic()">Create / Listen</button>
-            <div>Your ID: <code id="myId">—</code></div>
-            <div>Remote ID: <input id="remoteId" placeholder="paste peer id" /></div>>
-            <button id="connectBtn" onclick="connectButtonLogic()">Connect</button>
-            <div style="font-size:12px;color:#444">Connection: <span id="connection-status">none</span></div>
-            <button id="startBtn" onclick="startGame()">Start Game as Player 1</button>
+        <h1>ONLINE MULTIPLAYER</h1>
+        <p>Auto draw is automatically enabled online.</p>
+        <div class="controls control-container">
+            <div class="control-inner-container">
+                <div>
+                    <span>My ID:</span>
+                    <form>
+                        <input type="text" name="myIdInput" id="myId" class="multiplayer-text-field" placeholder="YOUR NAME / LOBBY">
+                    </form>
+                    <button id="create-button" onclick="createButtonLogic()" class="multiplayer-button disableable-button">CREATE LOBBY</button>
+                </div>
+            </div>
+            <div class="control-inner-container">
+                <div>
+                    <span>Remote ID:</span>
+                     <form>
+                        <input type="text" class="multiplayer-text-field" placeholder="PEER ID" id="remoteId">
+                     </form>
+                </div>
+                <button id="connect-button" onclick="connectButtonLogic()" class="multiplayer-button">CONNECT</button>
+            </div>
         </div>
+        <div class="connection-text">Connection: <span id="connection-status">none</span></div>
+        <button id="start-button" class="start-button modified-start-button disableable-button" onclick="startGame()">START GAME</button>
+        <button class="back-button" value="BACK TO MENU" onclick="exitSettings()">BACK TO MENU</button>
+        
     </div>
 </div>

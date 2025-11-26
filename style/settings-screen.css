@@ -2,7 +2,7 @@
     text-align: left;
 }
 
-#back-button {
+.back-button {
     width: 100%;
     height: 30px;
     border-radius: 12px;

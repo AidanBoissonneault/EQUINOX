@@ -16,10 +16,13 @@ function makeSimpleId() {
 
 function createButtonLogic() {
     if (peer) return;
+    myId = document.getElementById('myId').value;
     if (myId === "") myId = makeSimpleId();
   peer = new Peer(myId); // default PeerServer (cloud) for signaling
   peer.on('open', id=>{
-    document.getElementById('myId').textContent = id;
+    document.getElementById('myId').value = id;
+    document.getElementById('myId').disabled = true;
+    document.getElementById('create-button').disabled = true;
     document.getElementById('connection-status').textContent = 'listening';
   });
   peer.on('connection', incoming=>{
@@ -72,6 +75,8 @@ function setupConnection(connection){
     conn = connection;
     conn.on('open', ()=>{
         document.getElementById('connection-status').textContent = 'connected';
+        document.getElementById('start-button').disabled = false;
+        document.getElementById("start-button").innerHTML = "START GAME";
     });
 
     conn.on('data', data=>{
@@ -94,6 +99,7 @@ function setupConnection(connection){
             // oSHand: opponentStandardHand, oIHand: opponentInvertedHand, cSPcard: currentStPlayingCard, cIPcard: currentInPlayingCard, cP: currentPlayer, 
             // cGS: currentGameState, tT: turnToggle, cSC: currentSelectedCards});
             // cSC: currentSelectedCards.map(c => `${c.rank}-${c.suit}`
+
             sDeck = data.standardDeck;
             iDeck = data.invertedDeck;
             playerStandardHand = data.pSHand.map(id => {

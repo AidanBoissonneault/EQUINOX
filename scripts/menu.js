@@ -1,9 +1,12 @@
 // --------------------- MULTIPLAYER SCREEN -------------------------------------------
 
-function multiplayerScreen() {
+async function multiplayerScreen() {
     //document.getElementById("title-screen").className = "screen";
     //document.getElementById("multiplayer-screen").className = "active";
-    loadPageFragment("multiplayerScreen.html");
+    settings.lastLoadedPage = "titleScreen.html";
+    await loadPageFragment("multiplayerScreen.html");
+    document.getElementById("start-button").disabled = true;
+    document.getElementById("start-button").innerHTML = "awaiting connection...";
 
     isMultiplayer = true;
 }

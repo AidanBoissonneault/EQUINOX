@@ -7,7 +7,7 @@ body {
     image-rendering: pixelated;
     text-align: center;
     margin: auto;
-    font-family: depixel;
+    font-family: depixel; 
 }
 
 .active {
