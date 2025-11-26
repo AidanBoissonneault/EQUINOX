@@ -32,6 +32,8 @@
             settings.autoDraw = true;
         }
 
+        sDeck = [];
+        iDeck = [];
         generateDeck(sDeck, "standard");
         generateDeck(iDeck, "inverted");
         shuffleDeck(sDeck);
@@ -50,6 +52,7 @@
         updateDrawPileHover();
 
         if (isMultiplayer) {
+            turnToggle = false;
             if (conn && conn.open) { conn.send({ type: 'send-name', pId: myId, fPlayer: RETURNED_PLAYER_CALL }); }
             if (conn && conn.open) {
                 conn.send({ type: 'start', standardDeck: sDeck, invertedDeck: iDeck, 
@@ -63,6 +66,7 @@
 
         //auto ends turn if needed 
         autoEndTurn();
+        timeBetweenDrawPressed();
     }
 
     async function startBotGame() {

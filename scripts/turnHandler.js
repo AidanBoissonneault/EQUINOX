@@ -91,7 +91,7 @@ async function endTurn() {
 
         turnToggle = false;
     } else if (isMultiplayer) {
-        document.getElementById("no-click-container").innerHTML = `<div class="no-click-screen">${playerNames[currentPlayer]}'s turn</div>`;
+        document.getElementById("no-click-container").innerHTML = `<div class="no-click-screen">${playerNames[currentPlayer]}'s Turn</div>`;
         turnToggle = true;
     }
 
@@ -103,7 +103,7 @@ async function endTurn() {
 async function autoEndTurn() {
     await delay (1000);
     if (isPlayableTurn().length === 0) {
-        endPlayerTurnAfterPlay = false;
+        //endPlayerTurnAfterPlay = false;
 
         if (!settings.autoDraw && (!isAgainstBot || isAgainstBot && currentPlayer === State.FIRST_PLAYER)) return;
 

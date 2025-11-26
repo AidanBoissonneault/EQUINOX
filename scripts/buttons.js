@@ -275,21 +275,8 @@ function drawCard(deck, hand, cardLocation) {
     updateDrawPileHover(cardLocation);
 }
 
-const DRAW_BUTTON_TIMEOUT = 1000;
-let drawButtonTimer = 0;
-async function timeBetweenDrawPressed() {
-    while (drawButtonTimer < DRAW_BUTTON_TIMEOUT) {
-        drawButtonTimer++;
-        await delay(1);
-    }
-    drawButtonTimer = 0;
-    return;
-}
-
 //what the pushed draw button actually goes to
 function drawButton(isSecondaryMultiplayer = false) {
-    if (drawButtonTimer > 0) return;
-    timeBetweenDrawPressed();
 
     if (isMultiplayer && !isSecondaryMultiplayer) {
         if (conn && conn.open) conn.send({ type: 'draw' });

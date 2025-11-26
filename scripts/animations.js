@@ -18,12 +18,14 @@ async function animateSelectedCards(isPerfectPlay) {
     for (let playedCard of currentSelectedCards) {
         const index = hand.indexOf(playedCard);
         console.log("index: " + index);
-        const cardHTML = document.querySelector(`[data-index='${index}']`);
+        if (index !== -1) {
+            const cardHTML = document.querySelector(`[data-index='${index}']`);
 
-        //fixes visuals
-        cardHTML.classList.remove("playing-card-selected");
-        cardHTML.classList.add("playing-card");
-        cardHTML.classList.add("move-under-screen");
+            //fixes visuals
+            cardHTML.classList.remove("playing-card-selected");
+            cardHTML.classList.add("playing-card");
+            cardHTML.classList.add("move-under-screen");
+        }
         await delay(DELAY_BETWEEN_CARDS_MOVING);
     }
 

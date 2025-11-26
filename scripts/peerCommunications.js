@@ -112,11 +112,21 @@ function setupConnection(connection){
                 || playerInvertedHand.find(c => c.rank === rank && c.suit === suit);
             });
 
-            //currentStPlayingCard = data.cSPcard;
-            //currentInPlayingCard = data.cIPcard;
+            currentStPlayingCard = data.cSPcard;
+            currentInPlayingCard = data.cIPcard;
             currentPlayer = data.cP;
             currentGameState = data.cGS;
             turnToggle = data.tT ? false : true;
+
+            if (currentGameState[currentPlayer] === State.STANDARD) {
+                displayHand('player-main', playerStandardHand);
+                displayHand('player-inactive', playerInvertedHand);
+            } else {
+                displayHand('player-main', playerInvertedHand);
+                displayHand('player-inactive', playerStandardHand);
+            }
+                displayHand('player-inactive', playerInvertedHand);
+                displayHand('opponent-dark', opponentInvertedHand);
 
         } else if (data.type === 'busy') {
         alert('Remote is busy / not accepting connections');
@@ -169,6 +179,14 @@ async function startSecondaryGame(data) {
     currentInPlayingCard = data.cIPcard;
     turnToggle = true;
 
+    //logic for when games replay
+    cardIdIteratorLight = 0;
+    cardIdIteratorDark = DECK_SIZE;
+
+    //add the flip fix aidan
+    currentGameState[State.FIRST_PLAYER] = State.STANDARD;
+    currentGameState[State.SECOND_PLAYER] = State.STANDARD;
+
     //creates draw pile visual
     generateDrawPiles();
 
@@ -179,11 +197,11 @@ async function startSecondaryGame(data) {
     //document.getElementById("main-game").className = "active";
     
 
-    updateCenterPiles();
     const FLASH_YELLOW = true;
     const FIRST_TIME_USED = true;
     updateCenterPiles(FLASH_YELLOW, FIRST_TIME_USED);
     updateInfoCards();
+    fixSortButtonLogic();
 
     //dealHands(sDeck, playerStandardHand, opponentStandardHand, "player-main", "opponent-light");
     //dealHands(iDeck, playerInvertedHand, opponentInvertedHand, "player-inactive", "opponent-dark");

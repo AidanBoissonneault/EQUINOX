@@ -97,4 +97,32 @@ function fixSortButtonLogic() {
     }
 }
 
+
+// ---------------------------------- REPLAY BUTTON ---------------------------------------------
+
+
+const BACK_TO_MENU = true;
+async function replayGame(backToMenu = false) {
+    currentPlayer = State.FIRST_PLAYER;
+    currentInPlayingCard = 0;
+    currentStPlayingCard = 0;
+    currentSelectedCards = [];
+    playerStandardHand = [];
+    opponentStandardHand = [];
+    playerInvertedHand = [];
+    opponentInvertedHand = [];
+
+    cardIdIteratorLight = 0;
+    cardIdIteratorDark = DECK_SIZE;
+
+    currentGameState[State.FIRST_PLAYER] = State.STANDARD;
+    currentGameState[State.SECOND_PLAYER] = State.STANDARD;
+
+    await startGame();
+    fixSortButtonLogic();
+
+    if (backToMenu) {
+        await loadPageFragment("titleScreen.html");
+    }
+}
   
