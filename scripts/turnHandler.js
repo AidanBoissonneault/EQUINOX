@@ -21,6 +21,7 @@ async function endTurn() {
     if (isAgainstBot && currentPlayer === State.SECOND_PLAYER || isMultiplayer && !turnToggle) {
         document.getElementById("no-click-container").innerHTML = `<div class="no-click-screen">${playerNames[currentPlayer]}'s Turn</div>`;
     }
+    document.getElementById("player-cards-main").style.setProperty("--playableCardText", "");
 
     //flips the current background colors of the card areas if required
     if (currentGameState[State.FIRST_PLAYER] != currentGameState[State.SECOND_PLAYER]) {
@@ -101,6 +102,12 @@ async function endTurn() {
     // ---------------------------- AUTO END TURN ------------------------------------------
 
 async function autoEndTurn() {
+    if (isPlayableTurn().length === 0) {
+        document.getElementById("player-cards-main").style.setProperty("--playableCardText", '"NO PLAYABLE CARDS"');
+    } else {
+        document.getElementById("player-cards-main").style.setProperty("--playableCardText", "");
+    }
+
     await delay (1000);
     if (isPlayableTurn().length === 0) {
         //endPlayerTurnAfterPlay = false;

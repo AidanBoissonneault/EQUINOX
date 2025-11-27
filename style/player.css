@@ -53,6 +53,20 @@
     align-content:end;
 }
 
+#player-cards-main::after {
+    position: absolute;
+    color: red;
+    content: var(--playableCardText);
+    z-index: 99999;
+    top: -20px;
+    background-color: #22222240;
+    padding-left: 200px;
+    padding-right: 200px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    border-radius: 12px;
+}
+
 
 .player-cards-inactive {
     position: absolute;

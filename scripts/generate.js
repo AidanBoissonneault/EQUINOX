@@ -66,7 +66,6 @@
 
         //auto ends turn if needed 
         autoEndTurn();
-        timeBetweenDrawPressed();
     }
 
     async function startBotGame() {

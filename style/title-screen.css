@@ -36,3 +36,16 @@
 .blue.big-card-background {
     background-image: url("../assets/images/card/blue-card.png");
 }
+
+.title-card {
+    transform-origin: center center;
+    transform: scale(3);
+    margin: 50px;
+    vertical-align: middle;
+
+    transition: transform 0.15s ease;
+}
+
+.title-card:hover {
+    transform: scale(3.3);
+}

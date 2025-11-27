@@ -109,9 +109,20 @@ function updateCenterPiles(isPerfectPlay, firstTimeUsed = false) {
         let rotateAmount = Math.random() * (ROTATE_AXIS*2) - ROTATE_AXIS; 
         if (firstTimeUsed) rotateAmount = 0;
         document.getElementById(`card-${cardIdIterator}`).style.setProperty("--rotateAmount", rotateAmount);
-        if (isPerfectPlay) document.getElementById(`card-${cardIdIterator}`).classList.add("perfect-play");
-        if (![0, DECK_SIZE].includes(cardIdIterator)) document.getElementById(`card-${cardIdIterator-1}`).classList.add("grayed-card");
-        if (cardIdIterator % DECK_SIZE - REMOVE_BOXSHADOW_AFTER >= 0) document.getElementById(`card-${cardIdIterator-REMOVE_BOXSHADOW_AFTER}`).classList.remove("add-shadow");
+        if (isPerfectPlay) {
+            document.getElementById(`card-${cardIdIterator}`).classList.add("perfect-play");
+            if (!firstTimeUsed) {
+                audioPerfectPlay.pause();
+                audioPerfectPlay.currentTime = 0;
+                audioPerfectPlay.play();
+            }
+        } else {
+            //play relevant audio
+        }
+        if (![0, DECK_SIZE].includes(cardIdIterator)) 
+            document.getElementById(`card-${cardIdIterator-1}`).classList.add("grayed-card");
+        if (cardIdIterator % DECK_SIZE - REMOVE_BOXSHADOW_AFTER >= 0) 
+            document.getElementById(`card-${cardIdIterator-REMOVE_BOXSHADOW_AFTER}`).classList.remove("add-shadow");
         cardIdIterator++;
     };
     if (currentStPlayingCard.suit !== previousPlayedLightCard.suit || currentStPlayingCard.value !== previousPlayedLightCard.value) {
@@ -177,6 +188,10 @@ function updateDrawPileHover(target) {
         } else {
             document.getElementById(`draw-${cardType}-${removedCard}`).classList.add("move-towards-opponent");
         }
+        
+        audioDrawCard.pause();
+        audioDrawCard.currentTime = 0;
+        audioDrawCard.play();
     }
 
     let cardType = "";

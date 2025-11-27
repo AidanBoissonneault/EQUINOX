@@ -25,6 +25,10 @@ async function animateSelectedCards(isPerfectPlay) {
             cardHTML.classList.remove("playing-card-selected");
             cardHTML.classList.add("playing-card");
             cardHTML.classList.add("move-under-screen");
+
+            audioPlayCard.pause();
+            audioPlayCard.currentTime = 0;
+            audioPlayCard.play();
         }
         await delay(DELAY_BETWEEN_CARDS_MOVING);
     }
