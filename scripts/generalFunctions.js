@@ -28,6 +28,7 @@ function alternateSuits(suit) {
 
     // --------------------------------- FLIP SIDES ---------------------------------------
 
+let isFlippingDecks = false;
 async function flipDecks() {
     //checks if the current deck it is flipping to is empty
     //if it is empty, do not flip.
@@ -38,6 +39,8 @@ async function flipDecks() {
 
     //delay for animation, adds animation
     document.getElementById("player-zone-full").classList.toggle("animated-player-zone");
+    isFlippingDecks = true;
+
     await delay(400);
 
     //change current gamestate for the player
@@ -52,19 +55,33 @@ async function flipDecks() {
     }
 
     //change backgrounds
-    document.getElementById("player-cards-main").classList.toggle("plyayer-cards-light");
-    document.getElementById("player-cards-main").classList.toggle("player-cards-dark");
-    document.getElementById("player-cards-inactive").classList.toggle("player-cards-light");
-    document.getElementById("player-cards-inactive").classList.toggle("player-cards-dark");
-    document.getElementById("background-color-display").classList.toggle("background-white");
-    document.getElementById("background-color-display").classList.toggle("background-black");
-    document.getElementById("light-discard").classList.toggle("light-discard");
-    document.getElementById("light-discard").classList.toggle("light-center");
-    document.getElementById("dark-discard").classList.toggle("dark-discard");
-    document.getElementById("dark-discard").classList.toggle("dark-center");
-    document.getElementById("main-game").classList.remove("text-white", "text-black");
-    document.getElementById("main-game").classList.add(currentGameState[currentPlayer] == "standard" ? "text-black" : "text-white");
 
+
+    const isStandard = currentGameState[currentPlayer] === "standard";
+
+    const playerCardMain = document.getElementById("player-cards-main");
+    playerCardMain.classList.remove("player-cards-light", "player-cards-dark");
+    playerCardMain.classList.add(isStandard ? "player-cards-light" : "player-cards-dark");
+
+    const playerCardInverted = document.getElementById("player-cards-inactive");
+    playerCardInverted.classList.remove("player-cards-light", "player-cards-dark");
+    playerCardInverted.classList.add(!isStandard ? "player-cards-light" : "player-cards-dark");
+
+    const background = document.getElementById("background-color-display");
+    background.classList.remove("background-white", "background-black");
+    background.classList.add(isStandard ? "background-white" : "background-black");
+
+    const lightDiscard = document.getElementById("light-discard");
+    lightDiscard.classList.remove("light-discard", "light-center");
+    lightDiscard.classList.add(!isStandard ? "light-discard" : "light-center");
+
+    const darkDiscard = document.getElementById("dark-discard");
+    darkDiscard.classList.remove("dark-discard", "dark-center");
+    darkDiscard.classList.add(isStandard ? "dark-discard" : "dark-center");
+
+    const mainGame = document.getElementById("main-game");
+    mainGame.classList.remove("text-white", "text-black");
+    mainGame.classList.add(isStandard ? "text-black" : "text-white");
 
     //fixes sort button logic
     fixSortButtonLogic();
@@ -78,6 +95,7 @@ async function flipDecks() {
     //animation removal
     await delay(400);
     document.getElementById("player-zone-full").classList.toggle("animated-player-zone");
+    isFlippingDecks = false;
 }
 
 //fixes sort button logic when flips are made

@@ -10,7 +10,7 @@
     display: relative;
 
 
-    transition: transform 0.15s ease;
+    transition: transform calc(var(--gameSpeed) * 0.15s) ease;
     transform-origin: center;
 }
 
@@ -31,7 +31,7 @@
     pointer-events: none;
 
     box-shadow: 3px 3px 1px #22222210, -0.5px -0.5px 1px #ffffff05;
-    transition: box-shadow 0.15s ease;
+    transition: box-shadow calc(var(--gameSpeed) * 0.15s) ease;
 }
 
 .add-shadow:hover::before {
@@ -70,12 +70,12 @@
 
 .dark-discard {
     left: 30%;
-    animation: dark-center-animation-end 0.5s ease;
+    animation: dark-center-animation-end calc(var(--gameSpeed) * 0.5s) ease;
 }
 
 .light-discard {
     left: 70%;
-    animation: light-center-animation-end 0.5s ease;
+    animation: light-center-animation-end calc(var(--gameSpeed) * 0.5s) ease;
 }
 
 .light-draw {
@@ -85,14 +85,14 @@
 .light-center {
     left: 50%;
     transform: translate(-50%, -50%) scale(4);
-    animation: light-center-animation-start 0.5s ease;
+    animation: light-center-animation-start calc(var(--gameSpeed) * 0.5s) ease;
     transform-origin: center;
 }
 
 .dark-center {
     left: 50%;
     transform: translate(-50%, -50%) scale(4);
-    animation: dark-center-animation-start 0.5s ease;
+    animation: dark-center-animation-start calc(var(--gameSpeed) * 0.5s) ease;
     transform-origin: center;
 }
 
@@ -112,22 +112,22 @@
     transform-origin: center center;
     z-index: 10000;
 
-    transition: transform 0.15s ease;
+    transition: transform calc(var(--gameSpeed) * 0.15s) ease;
 
-    animation: moving-pile-card 0.5s ease-out;
+    animation: moving-pile-card calc(var(--gameSpeed) * 0.5s) ease-out;
 }
 
 .moving-card:hover {
     transform: translate(-50%, -50%) scale(1.3);
     transform-origin: center center;
 
-    transition: transform 0.15s ease;
+    transition: transform calc(var(--gameSpeed) * 0.15s) ease;
 }
 
 .grayed-card {
     filter: brightness(0.85);
 
-    animation: moving-pile-card-under-gray 5s ease-out;
+    animation: moving-pile-card-under-gray calc(var(--gameSpeed) * 5s) ease-out;
 }
 
 .grayed-card:hover {
@@ -138,19 +138,19 @@
 .perfect-play {
     background-color: inherit;
 
-    animation: moving-pile-card 0.3s ease-out, perfect-play-made 1s linear;
+    animation: moving-pile-card calc(var(--gameSpeed) * 0.3s) ease-out, perfect-play-made calc(var(--gameSpeed) * 1s) linear;
 }
 
 .move-towards-player {
     transform: translate(calc(var(--offsetX) * 1px), calc(var(--offsetY) * 1px + 1500%));
 
-    animation: move-towards-player-animation 0.8s ease-in;
+    animation: move-towards-player-animation calc(var(--gameSpeed) * 0.8s) ease-in;
 }
 
 .move-towards-opponent {
     transform: translate(calc(var(--offsetX) * 1px), calc(var(--offsetY) * 1px - 1500%));
 
-    animation: move-towards-opponent-animation 0.8s ease-in;
+    animation: move-towards-opponent-animation calc(var(--gameSpeed) * 0.8s) ease-in;
 }
 
 /* -------------------------------- ANIMATIONS ---------------------------------- */

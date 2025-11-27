@@ -13,12 +13,15 @@ async function multiplayerScreen() {
 
 // ------------------ SETTINGS SCREEN -------------------------------------------------
 
+//stored settings for the entire game
 const settings = {
     highContrast: true,
     autoDraw: true,
     optimizedDiscardPile: false,
     optimizedMainHand: false,
-    lastLoadedPage: ""
+    lastLoadedPage: "",
+    volume: 0.5,
+    gameSpeed: 1
 };
 
 async function settingsLoad(origin, documentId = "actual-body") {
@@ -30,6 +33,7 @@ async function settingsLoad(origin, documentId = "actual-body") {
     if (settings.autoDraw === true) { document.getElementById("auto-draw").checked = true; }
     if (settings.optimizedDiscardPile === true) { document.getElementById("optimized-discard").checked = true; }
     if (settings.optimizedMainHand === true) { document.getElementById("optimized-hand").checked = true; }
+    document.getElementById("game-speed-text").innerHTML = settings.gameSpeed;
 }
 
 function changeSetting(settingsObject) {
@@ -43,10 +47,24 @@ function changeSetting(settingsObject) {
     }
 }
 
-function exitSettings() {
-    loadPageFragment(settings.lastLoadedPage);
+const GAME_SPEEDS = [ 0.5, 1, 2, 4 ];
+const DOWN_IN_SPEED = -1;
+const UP_IN_SPEED = 1;
+function changeGameSpeed(direction) {
+    const currentIndex = GAME_SPEEDS.findIndex(goal => goal === settings.gameSpeed);
+    const nextIndex = (currentIndex + direction + GAME_SPEEDS.length) % GAME_SPEEDS.length;
+
+    settings.gameSpeed = GAME_SPEEDS[nextIndex];
+    document.documentElement.style.setProperty('"--gameSpeed"', settings.gameSpeed);
+
+    document.getElementById("game-speed-text").innerHTML = settings.gameSpeed;
+}
+
+async function exitSettings() {
+    await loadPageFragment(settings.lastLoadedPage);
 
     document.getElementById("actual-body").className = settings.highContrast === true ? "high-contrast" : "";
+    isMultiplayer = false; //stored in here because function is reused in multiplayer screen.
 }
 
 // ----------------------- INSTRUCTIONS SCREENS ---------------------------------------

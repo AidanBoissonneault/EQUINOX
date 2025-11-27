@@ -38,7 +38,7 @@
     background-color: #dddddd;
     color: #ab5236;
 
-    transition: background-color 0.15s ease;
+    transition: background-color calc(var(--gameSpeed) * 0.15s) ease;
 }
 .light-sort-button:hover {
     background-color: #bbbbbb;
@@ -56,7 +56,7 @@
     background-color: #444444;
     color: #54adc9;
 
-    transition: background-color 0.15s ease;
+    transition: background-color calc(var(--gameSpeed) * 0.15s) ease;
 }
 .dark-sort-button:hover {
     background-color: #404040;
@@ -84,7 +84,7 @@
     font-size: larger;
     color: inherit;
 
-    transition: background-color 0.15s ease, box-shadow 0.15 ease;
+    transition: background-color calc(var(--gameSpeed) * 0.15s) ease, box-shadow calc(var(--gameSpeed) * 0.15s) ease;
     box-shadow: 4px 4px 3px #22222210, -1px -1px 3px #ffffff10;
 }
 

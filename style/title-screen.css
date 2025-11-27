@@ -43,7 +43,7 @@
     margin: 50px;
     vertical-align: middle;
 
-    transition: transform 0.15s ease;
+    transition: transform calc(var(--gameSpeed) * 0.15s) ease;
 }
 
 .title-card:hover {

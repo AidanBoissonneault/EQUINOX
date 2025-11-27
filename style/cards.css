@@ -9,7 +9,7 @@
     transform: scale(1.91);
     z-index: 9;
 
-    transition: transform 0.15 ease;
+    transition: transform calc(var(--gameSpeed) * 0.15s) ease;
 }
 
 .player-card-inactive:hover {
@@ -56,7 +56,7 @@
     margin-right: 15px;
 
     /* Animation setup */
-    transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+    transition: transform calc(var(--gameSpeed) * 0.15s) ease, background-color calc(var(--gameSpeed) * 0.15s) ease, box-shadow calc(var(--gameSpeed) * 0.15s) ease;
     transform-origin: center bottom;
     z-index: 9;
 
@@ -143,7 +143,7 @@
     transform: scale(3.9) translateY(100px);
     translate: (-50% -6px);
 
-    animation: move-card-under-screen 0.5s ease-in;
+    animation: move-card-under-screen calc(var(--gameSpeed) * 0.5s) ease-in;
 }
 
 /* card numbers */

@@ -241,3 +241,13 @@ function updateInfoCards() {
     document.getElementById("player-light-card-quantity").innerHTML = playerStandardHand.length;
     document.getElementById("player-dark-card-quantity").innerHTML = playerInvertedHand.length;
 }
+
+// -------------------------------- ANIMATE NO PLAYABLE TURN ------------------------------
+
+function  visualNoPlayableTurn() {
+    if (isPlayableTurn().length === 0) {
+        document.getElementById("player-cards-main").style.setProperty("--playableCardText", '"NO PLAYABLE CARDS"');
+    } else {
+        document.getElementById("player-cards-main").style.setProperty("--playableCardText", "");
+    }
+}

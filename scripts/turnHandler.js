@@ -102,13 +102,10 @@ async function endTurn() {
     // ---------------------------- AUTO END TURN ------------------------------------------
 
 async function autoEndTurn() {
-    if (isPlayableTurn().length === 0) {
-        document.getElementById("player-cards-main").style.setProperty("--playableCardText", '"NO PLAYABLE CARDS"');
-    } else {
-        document.getElementById("player-cards-main").style.setProperty("--playableCardText", "");
-    }
+    if (!isFlippingDecks) visualNoPlayableTurn();
 
     await delay (1000);
+    visualNoPlayableTurn();
     if (isPlayableTurn().length === 0) {
         //endPlayerTurnAfterPlay = false;
 

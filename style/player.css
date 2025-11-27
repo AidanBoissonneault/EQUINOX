@@ -65,6 +65,8 @@
     padding-top: 50px;
     padding-bottom: 50px;
     border-radius: 12px;
+
+    animation: main-button-flash-red calc(var(--gameSpeed) * 0.5s) ease;
 }
 
 
@@ -101,5 +103,5 @@
 }
 
 .animated-player-zone {
-    animation: player-zone-move-on-off-screen 0.8s ease-out;
+    animation: player-zone-move-on-off-screen calc(var(--gameSpeed) * 0.8s) ease-out;
 }

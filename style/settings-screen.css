@@ -9,3 +9,25 @@
     font-size: 12px;
     font-family: depixel;
 }
+
+#game-speed-modifier {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#game-speed-container {
+    padding: 12px;
+    vertical-align: center;
+}
+
+.game-speed-button {
+    font-weight: bolder;
+    font-size: 20px;
+    font-family: depixel;
+    border-radius: 50%;
+    background-color: #eeeeee;
+    border: black solid 1px;
+    width: 60px;
+    height: 60px;
+}

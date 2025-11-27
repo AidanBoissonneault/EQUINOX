@@ -63,7 +63,7 @@
     transform: scale(1.91);
     z-index: 9;
 
-    transition: transform 0.15 ease;
+    transition: transform calc(var(--gameSpeed) * 0.15s) ease;
 }
 
 .opposing-player-card:hover {
@@ -82,5 +82,5 @@
 }
 
 .animated-opposing-player-zone {
-    animation: opposing-player-zone-move-on-off-screen 0.8s ease-out;
+    animation: opposing-player-zone-move-on-off-screen calc(var(--gameSpeed) * 0.8s) ease-out;
 }

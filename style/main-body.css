@@ -63,12 +63,12 @@ body {
 
 .background-white {
     background-color: #ddddddee;
-    animation: background-white-transition 0.8s ease-in;
+    animation: background-white-transition calc(var(--gameSpeed) * 0.8s) ease-in;
 }
 
 .background-black {
     background-color: #333333ee;
-    animation: background-black-transition 0.8s ease-in;
+    animation: background-black-transition calc(var(--gameSpeed) * 0.8s) ease-in;
 }
 
 @keyframes text-white-transition {
@@ -83,12 +83,12 @@ body {
 
 .text-white {
     color: white;
-    animation: text-white-transition 0.2s ease-in;
+    animation: text-white-transition calc(var(--gameSpeed) * 0.2s) ease-in;
 }
 
 .text-black {
     color: #333333;
-    animation: text-black-transition 0.2s ease-in;
+    animation: text-black-transition calc(var(--gameSpeed) * 0.2s) ease-in;
 }
 
 @keyframes background-blue-transition {
@@ -111,12 +111,12 @@ body {
 
 .background-blue {
     background-color: var(--backgroundBlue);
-    animation: background-blue-transition 0.8s ease-in;
+    animation: background-blue-transition calc(var(--gameSpeed) * 0.8s) ease-in;
 }
 
 .background-red {
     background-color: var(--backgroundRed);
-    animation: background-red-transition 0.8s ease-in;
+    animation: background-red-transition calc(var(--gameSpeed) * 0.8s) ease-in;
 }
 
 /* ----------------------- NO CLICK SCREEN ------------------------- */

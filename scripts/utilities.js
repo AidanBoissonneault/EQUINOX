@@ -1,5 +1,5 @@
 function delay(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise(resolve => setTimeout(resolve, ms / settings.gameSpeed));
 }
 
 //loads a screen
@@ -10,4 +10,6 @@ async function loadPageFragment(file, documentId = "actual-body") {
     const html = await fileObject.text();
     document.getElementById(documentId).innerHTML = html;
 }
+
+
 loadPageFragment("titleScreen.html");
