@@ -117,8 +117,10 @@ function updateCenterPiles(isPerfectPlay, firstTimeUsed = false) {
         } else {
             playSound(audioStandardPlay);
         }
+        //if the card is not the first played, make the card under it gray out.
         if (![0, DECK_SIZE].includes(cardIdIterator)) 
             document.getElementById(`card-${cardIdIterator-1}`).classList.add("grayed-card");
+        
         if (cardIdIterator % DECK_SIZE - REMOVE_BOXSHADOW_AFTER >= 0) 
             document.getElementById(`card-${cardIdIterator-REMOVE_BOXSHADOW_AFTER}`).classList.remove("add-shadow");
         cardIdIterator++;

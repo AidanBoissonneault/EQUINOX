@@ -15,10 +15,12 @@ async function loadPageFragment(file, documentId = "actual-body") {
 
     const cardTransition = document.getElementById("card-transition");
 
-    cardTransition.classList.remove("active", "exit", "reset");
-    await new Promise(requestAnimationFrame);
-    cardTransition.classList.add("active");
-    await delay(300, NO_GAME_SPEED_MODIFER);
+    if (!settings.noTransitionScreen) {
+        cardTransition.classList.remove("active", "exit", "reset");
+        await new Promise(requestAnimationFrame);
+        cardTransition.classList.add("active");
+        await delay(300, NO_GAME_SPEED_MODIFER);
+    }
 
     const PATH = "./html/";
     const fileObject = await fetch(PATH+file);
@@ -26,14 +28,16 @@ async function loadPageFragment(file, documentId = "actual-body") {
     document.getElementById(documentId).innerHTML = html;
     if (file === "multiplayerScreen.html") { document.getElementById("start-button").disabled = true; }
 
-    //slide card transtion
-    cardTransition.classList.add("exit");
-    cardTransition.classList.remove("active");
+    if (!settings.noTransitionScreen) {
+        //slide card transtion
+        cardTransition.classList.add("exit");
+        cardTransition.classList.remove("active");
 
-    await delay(300, NO_GAME_SPEED_MODIFER);
-    // Make the card invisible and reset
-    cardTransition.classList.remove("exit");
-    cardTransition.classList.add("reset");
+        await delay(300, NO_GAME_SPEED_MODIFER);
+        // Make the card invisible and reset
+        cardTransition.classList.remove("exit");
+        cardTransition.classList.add("reset");
+    }
 }
 
 

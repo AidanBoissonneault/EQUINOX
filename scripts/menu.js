@@ -19,6 +19,7 @@ const settings = {
     autoDraw: true,
     optimizedDiscardPile: false,
     optimizedMainHand: false,
+    noTransitionScreen: false,
     lastLoadedPage: "",
     volume: 0.5,
     gameSpeed: 1
@@ -33,6 +34,7 @@ async function settingsLoad(origin, documentId = "actual-body") {
     if (settings.autoDraw === true) { document.getElementById("auto-draw").checked = true; }
     if (settings.optimizedDiscardPile === true) { document.getElementById("optimized-discard").checked = true; }
     if (settings.optimizedMainHand === true) { document.getElementById("optimized-hand").checked = true; }
+    if (settings.noTransitionScreen === true) { document.getElementById("no-transition-screen").checked = true; }
     document.getElementById("game-speed-text").innerHTML = settings.gameSpeed;
 }
 
@@ -44,6 +46,7 @@ function changeSetting(settingsObject) {
         case "auto-draw": settings.autoDraw = OUTPUT_STATE; return;
         case "optimized-discard": settings.optimizedDiscardPile = OUTPUT_STATE; return;
         case "optimized-hand": settings.optimizedMainHand = OUTPUT_STATE; return;
+        case "no-transition-screen": settings.noTransitionScreen = OUTPUT_STATE; return;
     }
 }
 
