@@ -41,12 +41,17 @@ async function flipDecks() {
     document.getElementById("player-zone-full").classList.toggle("animated-player-zone");
     isFlippingDecks = true;
 
+    if (currentGameState[currentPlayer] !== "standard") {
+        playSound(audioTransitionDtL);
+    } else {
+        playSound(audioTransitionLtD);
+    }
     await delay(400);
 
     //change current gamestate for the player
     currentGameState[currentPlayer] = currentGameState[currentPlayer] == "standard" ? "inverted" : "standard";
     //reload hands
-    if (currentGameState[currentPlayer] != "standard") {
+    if (currentGameState[currentPlayer] !== "standard") {
         displayHand("player-inactive", playerStandardHand);
         displayHand("player-main", playerInvertedHand);
     } else {
@@ -144,4 +149,3 @@ async function replayGame(backToMenu = false) {
         startGame();
     }
 }
-  

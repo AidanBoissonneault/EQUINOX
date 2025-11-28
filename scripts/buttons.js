@@ -10,6 +10,8 @@ function sortHandLogic(hand) {
 function sortHandButton(selectedHand, hand, isSecondaryMultiplayer = false) {
     sortHandLogic(hand);
     displayHand(selectedHand, hand);
+    playSound(audioClickButton);
+
     //currentSelectedCards = [];
     if (isMultiplayer && !isSecondaryMultiplayer) {
         if (conn && conn.open) {conn.send({ type: 'fixParity', standardDeck: sDeck, invertedDeck: iDeck, pSHand: playerStandardHand.map(c => `${c.rank}-${c.suit}`), pIHand: playerInvertedHand.map(c => `${c.rank}-${c.suit}`), 
@@ -26,6 +28,7 @@ function sortHandButton(selectedHand, hand, isSecondaryMultiplayer = false) {
 // -------------------------------- PLAY BUTTON -------------------------------------
 
 async function playButtonActivate(isSecondaryMultiplayer = false) {
+    playSound(audioClickButton);
 
     if (isMultiplayer && !isSecondaryMultiplayer) {
         if (conn && conn.open) {
@@ -55,6 +58,7 @@ async function playButtonActivate(isSecondaryMultiplayer = false) {
     let endPlayerTurnAfterPlay = true;
     //if 0 cards are selected, return
     if (currentSelectedCards.length == 0) {
+        playSound(audioFailButton);
         buttonFlashRed("player-play-button");
         console.log("failed, current selected cards is none.");
         return;
@@ -81,6 +85,7 @@ async function playButtonActivate(isSecondaryMultiplayer = false) {
             const allValuesSame = playedValues.length === 1 || playedValues.every(value => value === playedValues[0]);
 
             if ((suitMatches || valueMatches) && allValuesSame) {} else {
+                playSound(audioFailButton);
                 buttonFlashRed("player-play-button");
                 console.log("failed match requirements");
                 return;
@@ -168,6 +173,7 @@ async function playButtonActivate(isSecondaryMultiplayer = false) {
                 currentStPlayingCard.value == 1 && sum > 1 && sum <= 11 && hasFaceCard
             ) 
             {} else {
+                playSound(audioFailButton);
                 buttonFlashRed("player-play-button");
                 console.log("Failed valid play check!");
                 return;
@@ -260,7 +266,9 @@ async function playButtonActivate(isSecondaryMultiplayer = false) {
 
 //draws a card from deck to hand, displays hand afterwards
 function drawCard(deck, hand, cardLocation) {
+
     if (deck.length <= 0) {
+        playSound(audioFailButton);
         buttonFlashRed("player-draw-button");
         return;
     };
@@ -277,6 +285,8 @@ function drawCard(deck, hand, cardLocation) {
 
 //what the pushed draw button actually goes to
 function drawButton(isSecondaryMultiplayer = false) {
+
+    playSound(audioClickButton);
 
     if (isMultiplayer && !isSecondaryMultiplayer) {
         if (conn && conn.open) conn.send({ type: 'draw' });

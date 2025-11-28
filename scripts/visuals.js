@@ -112,12 +112,10 @@ function updateCenterPiles(isPerfectPlay, firstTimeUsed = false) {
         if (isPerfectPlay) {
             document.getElementById(`card-${cardIdIterator}`).classList.add("perfect-play");
             if (!firstTimeUsed) {
-                audioPerfectPlay.pause();
-                audioPerfectPlay.currentTime = 0;
-                audioPerfectPlay.play();
+                playSound(audioPerfectPlay);
             }
         } else {
-            //play relevant audio
+            playSound(audioStandardPlay);
         }
         if (![0, DECK_SIZE].includes(cardIdIterator)) 
             document.getElementById(`card-${cardIdIterator-1}`).classList.add("grayed-card");

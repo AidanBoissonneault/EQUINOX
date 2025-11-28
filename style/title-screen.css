@@ -11,6 +11,12 @@
     margin-bottom: 32px;
 }
 
+.title-box {
+    display: flex;
+    vertical-align: center;
+    justify-content: space-between;
+}
+
 .title-screen-container {
     background-color: #ffffff80;
     border: #000 solid 1px;
@@ -48,4 +54,34 @@
 
 .title-card:hover {
     transform: scale(3.3);
+}
+
+.card-transition {
+    position: fixed;
+    top: 0;
+    left: -120%;
+    width: 120%; 
+    height: 100%;
+    z-index: 99999;
+
+    background-image: url("../assets/images/card/black-card.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 0 0 50px #00000080;
+    border-radius: 12px;
+    transition: left 0.3s linear;
+}
+
+.card-transition.active {
+    left: 0;
+}
+
+.card-transition.exit {
+    left: 120%;
+}
+
+.card-transition.reset {
+    display:none;
+    left: -120%;
 }
