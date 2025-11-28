@@ -42,6 +42,8 @@
         //adds visuals (testing)
         generateDrawPiles();
         
+        fixSortButtonLogic();
+        
         await dealBothDecks();
 
         currentStPlayingCard = sDeck.pop();

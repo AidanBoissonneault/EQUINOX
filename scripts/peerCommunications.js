@@ -80,6 +80,9 @@ function setupConnection(connection){
         document.getElementById('connection-status').textContent = 'connected';
         document.getElementById('start-button').disabled = false;
         document.getElementById("start-button").innerHTML = "START GAME";
+        document.getElementById('multiplayer-back-button').disabled = true;
+        document.getElementById('connect-button').disabled = true;
+        document.getElementById('remoteId').disabled = true;
     });
 
     conn.on('data', data=>{

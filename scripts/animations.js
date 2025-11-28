@@ -30,10 +30,10 @@ async function animateSelectedCards(isPerfectPlay) {
             audioPlayCard.currentTime = 0;
             audioPlayCard.play();
         }
-        await delay(DELAY_BETWEEN_CARDS_MOVING);
+        await delay(DELAY_BETWEEN_CARDS_MOVING / settings.gameSpeed);
     }
 
-    await delay(DELAY_BETWEEN_CARDS_MOVING*2);
+    await delay(DELAY_BETWEEN_CARDS_MOVING*2 / settings.gameSpeed);
 
     for (let i = currentSelectedCards.length-1; i >= 0; i--) {
         if (currentGameState[currentPlayer] === State.STANDARD) {

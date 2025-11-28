@@ -47,7 +47,7 @@ function changeSetting(settingsObject) {
     }
 }
 
-const GAME_SPEEDS = [ 0.5, 1, 2, 4 ];
+const GAME_SPEEDS = [ 0.5, 1, 2, 4, 8, 16, 32, 1000 ];
 const DOWN_IN_SPEED = -1;
 const UP_IN_SPEED = 1;
 function changeGameSpeed(direction) {
@@ -64,7 +64,10 @@ async function exitSettings() {
     await loadPageFragment(settings.lastLoadedPage);
 
     document.getElementById("actual-body").className = settings.highContrast === true ? "high-contrast" : "";
-    isMultiplayer = false; //stored in here because function is reused in multiplayer screen.
+    if (conn == undefined)  {
+        isMultiplayer = false; //stored in here because function is reused in multiplayer screen. this will need limitations for if a game is currently connected.
+        console.log("multiplayer disabled");
+    }
 }
 
 // ----------------------- INSTRUCTIONS SCREENS ---------------------------------------

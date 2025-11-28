@@ -136,11 +136,12 @@ async function replayGame(backToMenu = false) {
     currentGameState[State.FIRST_PLAYER] = State.STANDARD;
     currentGameState[State.SECOND_PLAYER] = State.STANDARD;
 
-    await startGame();
-    fixSortButtonLogic();
-
     if (backToMenu) {
         await loadPageFragment("titleScreen.html");
+        conn = undefined;
+        isMultiplayer = false;
+    } else {
+        startGame();
     }
 }
   
