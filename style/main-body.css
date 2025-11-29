@@ -8,26 +8,24 @@ body {
     text-align: center;
     margin: auto;
     font-family: depixel; 
-}
 
-.active {
-    display: block;
-    width: 100vw;
-    height: 100vh;
+    overflow: hidden;
 }
 
 .background-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    width: 120%;
+    height: 120%;
+    left: -10%;
+    top: -10%;
 }
 
 .background-vinette {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: -10%;
+    left: -10%;
+    width: 120%;
+    height: 120%;
     filter: opacity(0.1);
     background-image: url('../assets/images/background/vinette_background.jpg');
     background-size: cover;
@@ -36,17 +34,17 @@ body {
 
 .background-color-display {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: -10%;
+    left: -10%;
+    width: 120%;
+    height: 120%;
 }
 
 .current-play-background {
     position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
+    inset: -10%;
+    width: 120%;
+    height: 120%;
     pointer-events: none;
 }
 

@@ -20,7 +20,7 @@
 /* CARD STUFF */
 
 .card-wrapper {
-    position: fixed;
+    position: absolute;
     width: 1000px;
     translate: -50% -50%;
     display: inline-block; /* keeps wrapper sized to cards */

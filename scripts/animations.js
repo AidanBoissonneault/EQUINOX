@@ -6,10 +6,73 @@ async function buttonFlashRed(buttonId) {
     document.getElementById(buttonId).classList.remove("flash");
 }
 
+let isScreenShakeRunning = false;
+let shakeIntensity = 0;
+const SHAKE_INTENSITY_MULTIPLIER = 30;
+const SHAKE_DURATION_DEFAULT = 200;
+
+async function animateScreenShake() {
+    //adds screenshake
+    shakeIntensity += SHAKE_INTENSITY_MULTIPLIER;
+    animateScreenShakeZoom();
+
+    if (!isScreenShakeRunning) {
+        isScreenShakeRunning = true;
+        const bodyHTML = document.getElementById("actual-body");
+
+        bodyHTML.style.setProperty("--intensity", shakeIntensity);
+        bodyHTML.style.setProperty("--duration", SHAKE_DURATION_DEFAULT);
+
+        bodyHTML.classList.add("screen-shake");
+
+        await delay(SHAKE_DURATION_DEFAULT);
+
+        bodyHTML.classList.remove("screen-shake");
+        shakeIntensity = 0;
+        isScreenShakeRunning = false;
+    }
+}
+
+let isScreenShakeZoomRunning = false; //if a zoom-out is actively happening
+let zoomAmount = 1; //starting amount, modifies
+const ZOOM_MAX = 1.1; //max zoom in amount
+const ZOOM_MIN = 1;
+const ZOOM_TIME = 150; //max time in ms from ZOOM_MAX to 1
+
+const ZOOM_ROTATE_AXIS = 0.5; //max different in degrees
+async function animateScreenShakeZoom() {
+    const bodyHTML = document.getElementById("actual-body");
+
+    zoomAmount = ZOOM_MAX;
+    const ZOOM_INCREMENT = ZOOM_MAX / (ZOOM_TIME / settings.gameSpeed);
+
+    let rotateAmount = Math.random() * (ZOOM_ROTATE_AXIS * 2) - ZOOM_ROTATE_AXIS; 
+    const ROTATE_INCREMENT = (0 - rotateAmount) / (ZOOM_TIME / settings.gameSpeed);
+
+    if (!isScreenShakeZoomRunning) {
+        isScreenShakeZoomRunning = true;
+
+        while (zoomAmount > ZOOM_MIN) {
+            bodyHTML.style.setProperty("--zoom", zoomAmount);
+            zoomAmount -= ZOOM_INCREMENT;
+
+            bodyHTML.style.setProperty("--rotate", rotateAmount);
+            rotateAmount -= ROTATE_INCREMENT;
+            await delay(1);
+        }
+
+        //reset in case of float point math being non-precise.
+        bodyHTML.style.setProperty("--zoom", 1);
+        bodyHTML.style.setProperty("--rotate", 0);
+        isScreenShakeZoomRunning = false;
+    }
+}
+
+
 // Played cards moving
 
 const DELAY_BETWEEN_CARDS_MOVING = 125;
-const DELAY_PERFECT_PLAY_MULTIPLIER = 3.5;
+const DELAY_PERFECT_PLAY_MULTIPLIER = 2;
 async function animateSelectedCards(isPerfectPlay) {
     const hand = currentGameState[currentPlayer] == State.STANDARD ? playerStandardHand : playerInvertedHand;
 

@@ -40,5 +40,4 @@ async function loadPageFragment(file, documentId = "actual-body") {
     }
 }
 
-
 loadPageFragment("titleScreen.html");

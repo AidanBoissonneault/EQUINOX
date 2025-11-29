@@ -71,7 +71,7 @@
 /* ---------------------------- DRAW AND PLAY BUTTON ---------------------------------- */
 
 .player-button {
-    position: fixed;
+    position: absolute;
     height: 220px;
     width: 200px;
     bottom: 1%;

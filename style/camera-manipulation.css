@@ -1,0 +1,26 @@
+
+
+#actual-body {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+
+    top: 0;
+    left: 0;
+    transform: scale(var(--zoom)) rotate(calc(var(--rotate) * 1deg)); /* used for screen-shake zoom in*/
+    transition: transform 0.15s ease;
+}
+
+.screen-shake {
+    animation: screen-shake-animation calc((var(--duration) * 0.0001s) * var(--gameSpeed)) ease-out;
+}
+
+@keyframes screen-shake-animation {
+    0% { left: 0; transform: scale(1); }
+    10% { left: calc(var(--intensity) * -1px); }
+    20% { left: calc(var(--intensity) * 1px); }
+    40% { left: calc(var(--intensity) * -1px); }
+    60% { left: calc(var(--intensity) * 1px); }
+    80% { left: calc(var(--intensity) * -1px); }
+    100% { left: 0; transform: scale(1); }
+}

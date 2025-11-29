@@ -1,6 +1,6 @@
 /* CENTER BOARD STUFF */
 .card-pile {
-    position: fixed;
+    position: absolute;
     display: relative;
     transform: translate(-50%, -50%) scale(3);
     transform-origin: center center;
@@ -17,6 +17,7 @@
 .draw-card-pile {
     width: 35px;
     height: 47px;
+    contain: layout;
 }
 
 .add-shadow {

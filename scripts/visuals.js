@@ -84,6 +84,7 @@ let previousPlayedLightCard = new Card();
 let previousPlayedDarkCard = new Card();
 let cardIdIteratorLight = 0;
 let cardIdIteratorDark = DECK_SIZE;
+
 function updateCenterPiles(isPerfectPlay, firstTimeUsed = false) {
     if (settings.optimizedDiscardPile) {
         document.getElementById("dark-discard").innerHTML = `
@@ -113,6 +114,9 @@ function updateCenterPiles(isPerfectPlay, firstTimeUsed = false) {
             document.getElementById(`card-${cardIdIterator}`).classList.add("perfect-play");
             if (!firstTimeUsed) {
                 playSound(audioPerfectPlay);
+
+                //adds screen shake
+                animateScreenShake();
             }
         } else {
             playSound(audioStandardPlay);
