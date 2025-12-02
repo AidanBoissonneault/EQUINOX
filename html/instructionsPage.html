@@ -9,114 +9,116 @@
 
     <link rel="stylesheet" href="../style/cards.css">
     <link rel="stylesheet" href="../style/main-body.css">
-    <link rel="stylesheet" href="../style/instructions.css">
     <link rel="stylesheet" href="../style/center-board.css">
+    <link rel="stylesheet" href="../style/instructions.css">
 </head>
 <body class="high-contrast">
-    <h1>EQUINOX</h1>
-    <p>
-        Equinox is a 2 player card game where players alternate between a light and dark deck
-        with shared discard piles. The first player to empty their hand wins.
-    </p>
-    <h2>COMPONENTS:</h2>
-    <p>
-        Light Deck (52 cards) <br>
-        Dark Deck (52 cards) <br>
-        Light discard pile <br>
-        Dark discard pile <br>
-        Light player hands (7 cards each) <br>
-        Dark player hands (7 cards each)
-    </p>
-    <h2>SETUP:</h2>
-    <p>
-        Both players draw 7 light cards and 7 dark cards. <br>
-        Both players start on the light side. <br>
-        Draw one card from each deck for each discard pile
-    </p>
-    <h2>HOW TO PLAY:</h2>
-    <h3>TURN STRUCTURE:</h3>
-    <p>
-        Play cards on your current side. <br>
-        If one of your played cards is an <br>
-        Ace or Face card 
-        <span class="card ace hearts text-card add-shadow"></span> <span class="card jack clubs text-card add-shadow"></span>
-        <span class="card queen diamonds text-card add-shadow"></span> <span class="card king spades text-card add-shadow"></span> <br>
-        your turn continues, and you flip your hands to begin playing on the opposite deck. (light -> dark, dark -> light) <br>
-        Your opponent does not flip decks with you. <br>
-        Once your turn is over, their turn begins.
-    </p>
-    <h3>LIGHT DECK RULES:</h3>
-    <p>
-        On the light deck, you must match the suit or value of either deck. <br>
-        Example discard piles: <br>
-        <span class="inverted-card seven spades text-card add-shadow"></span> <span class="card five clubs text-card add-shadow"></span> <br>
-        Playable cards: <br>
-        <span class="card seven hearts text-card add-shadow"></span> <span class="card six spades text-card add-shadow"></span>
-        <span class="card queen clubs text-card add-shadow"></span>
-    </p>
-    <h4>SPECIAL PLAYS:</h4>
-    <p>
-        IF your hand matches either of these conditions: <br>
-        The played card is identical to the dark discard pile's top card <br>
-        Example: <br>
-        <span class="inverted-card seven spades text-card add-shadow"></span> <span class="card five clubs text-card add-shadow"></span> <br>
-        Played hand: <br>
-        <span class="card seven spades text-card add-shadow"></span> <br>
-        OR your hand contains multiple cards all with the same value, with one of which having a playable condition <br>
-        Example: <br>
-        <span class="inverted-card seven spades text-card add-shadow"></span> <span class="card five clubs text-card add-shadow"></span> <br>
-        Played hand: <br>
-        <span class="card ten clubs text-card add-shadow"></span> <span class="card ten hearts text-card add-shadow"></span>
-        <span class="card ten diamonds text-card add-shadow"></span><br>
-        the play is entirely valid, and your opponent will DRAW an amount of cards
-        equivalent to the amount of cards you just played.
-    </p>
-    <h3>DARK DECK RULES:</h3>
-    <p>
-        On the dark deck, your must match the sum of either card on top of the discard pile. <br>
-        You may play as many cards as needed to do so. <br>
-        Ace <span class="inverted-card ace clubs text-card add-shadow"></span> count as 1 or 11. <br>
-        Face cards <span class="inverted-card jack hearts text-card add-shadow"></span>
-        <span class="inverted-card queen diamonds text-card add-shadow"></span> <span class="inverted-card king spades text-card add-shadow"></span>
-        count as any value 1-10, even while on a discard pile. <br>
-        Example: <br>
-        <span class="inverted-card seven spades text-card add-shadow"></span> <span class="card five clubs text-card add-shadow"></span> <br>
-        Played hand: <br>
-        <span class="inverted-card ace hearts text-card add-shadow"></span> <span class="inverted-card two hearts text-card add-shadow"></span>
-        <span class="inverted-card four diamonds text-card add-shadow"></span> <br>
-        Another possible played hand: <br>
-        <span class="inverted-card queen clubs text-card add-shadow"></span> <span class="inverted-card two hearts text-card add-shadow"></span> <br>
-        Another possible played hand: <br>
-        <span class="inverted-card two spades text-card add-shadow"></span> <span class="inverted-card three diamonds text-card add-shadow"></span>
-    </p>
-    <h4>SPECIAL PLAY:</h4>
-    <p>
-        IF all of your played cards suits match the suits of the two discard piles <br>
-        Example:
-        Example: <br>
-        <span class="inverted-card seven spades text-card add-shadow"></span> <span class="card five clubs text-card add-shadow"></span> <br>
-        Played hand: <br>
-        <span class="inverted-card ace clubs text-card add-shadow"></span> <span class="inverted-card two clubs text-card add-shadow"></span>
-        <span class="inverted-card four spades text-card add-shadow"></span> <br>
-        your opponent must draw the amount of cards equivalent to the amount of cards you just played.
-    </p>
-    <h3>WINNING THE GAME:</h3>
-    <p>
-        A player can win the game in two ways:
-        <ul>
-            <li>Run out of cards in both hands</li>
-            <li>Have the least amount of cards in hand when a draw pile required to play a turn is empty,
-                 and a player cannot play.</li>
-        </ul>
-    </p>
-    <h3>ADDITIONAL INFO:</h3>
-    <p>
-        <ul>
-            <li>Your first selected card is the card that will appear on top of the discard pile. This is indicated with a different colour in the game.</li>
-            <li>You can hover on the respected decks to view how many cards are left in each deck to be drawn.</li>
-            <li>When playing a card to flip the hand you are playing, the flip card does not need to be on top.</li>
-            <li>There are sort buttons at the bottom left for your own convenience.</li>
-        </ul>
-    </p>
+    <div class="body-container">
+        <h1>EQUINOX</h1>
+        <p>
+            Equinox is a 2 player card game where players alternate between a light and dark deck
+            with shared discard piles. The first player to empty their hand wins.
+        </p>
+        <h2>COMPONENTS:</h2>
+        <p>
+            Light Deck (52 cards) <br>
+            Dark Deck (52 cards) <br>
+            Light discard pile <br>
+            Dark discard pile <br>
+            Light player hands (7 cards each) <br>
+            Dark player hands (7 cards each)
+        </p>
+        <h2>SETUP:</h2>
+        <p>
+            Both players draw 7 light cards and 7 dark cards. <br>
+            Both players start on the light side. <br>
+            Draw one card from each deck for each discard pile
+        </p>
+        <h2>HOW TO PLAY:</h2>
+        <h3>TURN STRUCTURE:</h3>
+        <p>
+            Play cards on your current side. <br>
+            If one of your played cards is an <br>
+            Ace or Face card 
+            <span class="card ace hearts text-card add-shadow"></span> <span class="card jack clubs text-card add-shadow"></span>
+            <span class="card queen diamonds text-card add-shadow"></span> <span class="card king spades text-card add-shadow"></span> <br>
+            your turn continues, and you flip your hands to begin playing on the opposite deck. (light -> dark, dark -> light) <br>
+            Your opponent does not flip decks with you. <br>
+            Once your turn is over, their turn begins.
+        </p>
+        <h3>LIGHT DECK RULES:</h3>
+        <p>
+            On the light deck, you must match the suit or value of either deck. <br>
+            Example discard piles: <br>
+            <span class="inverted-card seven spades text-card add-shadow"></span> <span class="card five clubs text-card add-shadow"></span> <br>
+            Playable cards: <br>
+            <span class="card seven hearts text-card add-shadow"></span> <span class="card six spades text-card add-shadow"></span>
+            <span class="card queen clubs text-card add-shadow"></span>
+        </p>
+        <h4>SPECIAL PLAYS:</h4>
+        <p>
+            IF your hand matches either of these conditions: <br>
+            The played card is identical to the dark discard pile's top card <br>
+            Example: <br>
+            <span class="inverted-card seven spades text-card add-shadow"></span> <span class="card five clubs text-card add-shadow"></span> <br>
+            Played hand: <br>
+            <span class="card seven spades text-card add-shadow"></span> <br>
+            OR your hand contains multiple cards all with the same value, with one of which having a playable condition <br>
+            Example: <br>
+            <span class="inverted-card seven spades text-card add-shadow"></span> <span class="card five clubs text-card add-shadow"></span> <br>
+            Played hand: <br>
+            <span class="card ten clubs text-card add-shadow"></span> <span class="card ten hearts text-card add-shadow"></span>
+            <span class="card ten diamonds text-card add-shadow"></span><br>
+            the play is entirely valid, and your opponent will DRAW an amount of cards
+            equivalent to the amount of cards you just played.
+        </p>
+        <h3>DARK DECK RULES:</h3>
+        <p>
+            On the dark deck, your must match the sum of either card on top of the discard pile. <br>
+            You may play as many cards as needed to do so. <br>
+            Ace <span class="inverted-card ace clubs text-card add-shadow"></span> count as 1 or 11. <br>
+            Face cards <span class="inverted-card jack hearts text-card add-shadow"></span>
+            <span class="inverted-card queen diamonds text-card add-shadow"></span> <span class="inverted-card king spades text-card add-shadow"></span>
+            count as any value 1-10, even while on a discard pile. <br>
+            Example: <br>
+            <span class="inverted-card seven spades text-card add-shadow"></span> <span class="card five clubs text-card add-shadow"></span> <br>
+            Played hand: <br>
+            <span class="inverted-card ace hearts text-card add-shadow"></span> <span class="inverted-card two hearts text-card add-shadow"></span>
+            <span class="inverted-card four diamonds text-card add-shadow"></span> <br>
+            Another possible played hand: <br>
+            <span class="inverted-card queen clubs text-card add-shadow"></span> <span class="inverted-card two hearts text-card add-shadow"></span> <br>
+            Another possible played hand: <br>
+            <span class="inverted-card two spades text-card add-shadow"></span> <span class="inverted-card three diamonds text-card add-shadow"></span>
+        </p>
+        <h4>SPECIAL PLAY:</h4>
+        <p>
+            IF all of your played cards suits match the suits of the two discard piles <br>
+            Example:
+            Example: <br>
+            <span class="inverted-card seven spades text-card add-shadow"></span> <span class="card five clubs text-card add-shadow"></span> <br>
+            Played hand: <br>
+            <span class="inverted-card ace clubs text-card add-shadow"></span> <span class="inverted-card two clubs text-card add-shadow"></span>
+            <span class="inverted-card four spades text-card add-shadow"></span> <br>
+            your opponent must draw the amount of cards equivalent to the amount of cards you just played.
+        </p>
+        <h3>WINNING THE GAME:</h3>
+        <p>
+            A player can win the game in two ways:
+            <ul>
+                <li>Run out of cards in both hands</li>
+                <li>Have the least amount of cards in hand when a draw pile required to play a turn is empty,
+                    and a player cannot play.</li>
+            </ul>
+        </p>
+        <h3>ADDITIONAL INFO:</h3>
+        <p>
+            <ul>
+                <li>Your first selected card is the card that will appear on top of the discard pile. This is indicated with a different colour in the game.</li>
+                <li>You can hover on the respected decks to view how many cards are left in each deck to be drawn.</li>
+                <li>When playing a card to flip the hand you are playing, the flip card does not need to be on top.</li>
+                <li>There are sort buttons at the bottom left for your own convenience.</li>
+            </ul>
+        </p>
+    </div>
 </body>
 </html>

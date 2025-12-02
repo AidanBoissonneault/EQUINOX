@@ -35,16 +35,17 @@ async function animateScreenShake() {
 
 let isScreenShakeZoomRunning = false; //if a zoom-out is actively happening
 let zoomAmount = 1; //starting amount, modifies
-const ZOOM_MAX = 1.1; //max zoom in amount
+const ZOOM_STEP = 0.1; //max zoom in amount
+const ZOOM_ONE_MAX = 1 + ZOOM_STEP;
 const ZOOM_MIN = 1;
-const ZOOM_TIME = 150; //max time in ms from ZOOM_MAX to 1
+const ZOOM_TIME = 200; //max time in ms from ZOOM_MAX to 1
 
 const ZOOM_ROTATE_AXIS = 0.5; //max different in degrees
 async function animateScreenShakeZoom() {
     const bodyHTML = document.getElementById("actual-body");
 
-    zoomAmount = ZOOM_MAX;
-    const ZOOM_INCREMENT = ZOOM_MAX / (ZOOM_TIME / settings.gameSpeed);
+    zoomAmount += ZOOM_STEP;
+    const ZOOM_INCREMENT = ZOOM_ONE_MAX / (ZOOM_TIME / settings.gameSpeed);
 
     let rotateAmount = Math.random() * (ZOOM_ROTATE_AXIS * 2) - ZOOM_ROTATE_AXIS; 
     const ROTATE_INCREMENT = (0 - rotateAmount) / (ZOOM_TIME / settings.gameSpeed);

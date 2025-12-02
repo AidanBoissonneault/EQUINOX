@@ -31,8 +31,9 @@ function displayHand(selectedHand, hand) {
                     let rotation = cardPosition - middleCard;
                     let offset = Math.abs(rotation)-2;
                     const ROTATION_MULTIPLIER = 2;
+                    const OFFSET_MULTIPLIER = 1;
                     document.getElementById(`card${i+100}`).style.setProperty("--rotateAmount", rotation * ROTATION_MULTIPLIER);
-                    document.getElementById(`card${i+100}`).style.setProperty("--offsetAmount", offset);
+                    document.getElementById(`card${i+100}`).style.setProperty("--offsetAmount", offset * OFFSET_MULTIPLIER);
                 }
                 } else {
                     for (let i = 0; i < hand.length; i++) {
