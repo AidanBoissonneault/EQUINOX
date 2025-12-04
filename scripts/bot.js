@@ -9,16 +9,18 @@ async function botPlay() {
     currentSelectedCards = [];
 
     //gets the hand and sorts it 
-    await sortHandButton('player-main', currentGameState[currentPlayer] === State.STANDARD ? playerStandardHand : playerInvertedHand);
+    sortHandButton('player-main', currentGameState[currentPlayer] === State.STANDARD ? playerStandardHand : playerInvertedHand);
     await delay(300 / settings.gameSpeed);
 
     //gets the playable cards from the bot
     await autoSelectCards();
+    if (isEarlyLeaveAutoSelectedCards) return;
 
     playButtonActivate();
 }
 
 //automatically selects the cards needed for the bot to play
+let isEarlyLeaveAutoSelectedCards = false;
 async function autoSelectCards(isHelpButton = false) {
 
     const hand = currentGameState[currentPlayer] == State.STANDARD ? playerStandardHand : playerInvertedHand;
@@ -37,9 +39,10 @@ async function autoSelectCards(isHelpButton = false) {
             currentSelectedCards.push(playedCard);
             await delay(300 / settings.gameSpeed);
         }
-    } else if (!isHelpButton) {
+        isEarlyLeaveAutoSelectedCards = false;
+    } else if(!isHelpButton) {
         await delay(1000 / settings.gameSpeed);
         drawButton();
-        return;
+        isEarlyLeaveAutoSelectedCards = true;
     }
 }

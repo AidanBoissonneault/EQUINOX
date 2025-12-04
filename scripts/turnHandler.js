@@ -102,7 +102,6 @@ async function endTurn() {
     // ---------------------------- AUTO END TURN ------------------------------------------
 
 async function autoEndTurn() {
-    if (!settings.autoEndTurn) return;
     if (!isFlippingDecks) visualNoPlayableTurn();
 
     await delay (1000);
