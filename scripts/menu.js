@@ -89,8 +89,12 @@ async function exitSettings() {
     }
 
     document.getElementById("actual-body").className = settings.highContrast === true ? "high-contrast" : "";
+}
+
+async function exitMultiplayerScreen() {
+    await loadPageFragment("titleScreen.html");
     if (conn == undefined)  {
-        isMultiplayer = false; //stored in here because function is reused in multiplayer screen. this will need limitations for if a game is currently connected.
+        isMultiplayer = false;
         console.log("multiplayer disabled");
     }
 }
