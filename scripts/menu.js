@@ -60,7 +60,7 @@ function changeSetting(settingsObject) {
         case "no-transition-screen": settings.noTransitionScreen = OUTPUT_STATE; return;
         case "show-help-button":
             settings.showHelpButton = OUTPUT_STATE;
-            document.getElementById("help-container").style.display = settings.showHelpButton ? 'block' : 'none';
+            if (settings.lastLoadedPage === "mainGame.html") document.getElementById("help-container").style.display = settings.showHelpButton ? 'block' : 'none';
             return;
     }
 }
