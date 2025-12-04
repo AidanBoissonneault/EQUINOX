@@ -136,11 +136,29 @@
 .big-button {
     grid-column: span 2;
 }
-#instructions-button {
+
+.absolute-button {
+    position: fixed;
     height: 50px;
     width: 50px;
     top: 5px;
-    right: 5px;
+    left: 5px;
+}
+
+#game-settings-button {
+    background-color: #c43c3c;
+}
+
+#game-settings-button:hover {
+    background-color: #aa3434;
+}
+
+#game-settings-button:active {
+    background-color: #912e2e;
+}
+
+#instructions-button {
+    left: calc(100vw - 10px - 50px);
     background-color: #ecc350ee;
 }
 #instructions-button:hover {

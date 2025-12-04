@@ -21,13 +21,20 @@ const settings = {
     optimizedMainHand: false,
     noTransitionScreen: false,
     lastLoadedPage: "",
-    volume: 0.5,
+    volume: 1,
     gameSpeed: 1
 };
 
-async function settingsLoad(origin, documentId = "actual-body") {
-    if (origin === "mainGame.html") { documentId = "settings-overlay"; }
-    await loadPageFragment("settings.html", documentId);
+async function settingsLoad(origin, documentId = "actual-body", transition = true) {
+    await loadPageFragment("settings.html", documentId, transition);
+    if (origin === "mainGame.html") { 
+        document.getElementById("settings-screen").className = "active title-screen";
+        document.getElementById("settings-overlay").classList.add("events-activated");
+
+        document.getElementById("high-contrast-toggle").disabled = true;
+        document.getElementById("optimized-discard").disabled = true;
+        document.getElementById("optimized-hand").disabled = true;
+     }
     settings.lastLoadedPage = origin;
 
     if (settings.highContrast === true) { document.getElementById("high-contrast-toggle").checked = true; }
@@ -35,6 +42,7 @@ async function settingsLoad(origin, documentId = "actual-body") {
     if (settings.optimizedDiscardPile === true) { document.getElementById("optimized-discard").checked = true; }
     if (settings.optimizedMainHand === true) { document.getElementById("optimized-hand").checked = true; }
     if (settings.noTransitionScreen === true) { document.getElementById("no-transition-screen").checked = true; }
+    document.getElementById("volume-slider").value = Math.floor(settings.volume * 100);
     document.getElementById("game-speed-text").innerHTML = settings.gameSpeed;
 }
 
@@ -64,7 +72,14 @@ function changeGameSpeed(direction) {
 }
 
 async function exitSettings() {
-    await loadPageFragment(settings.lastLoadedPage);
+    //sets the volume from the slider to the game
+    settings.volume = document.getElementById("volume-slider").value / 100;
+    if (settings.lastLoadedPage !== "mainGame.html") {
+        await loadPageFragment(settings.lastLoadedPage);
+    } else {
+        document.getElementById("settings-overlay").classList.remove("events-activated");
+        document.getElementById("settings-overlay").innerHTML = "";
+    }
 
     document.getElementById("actual-body").className = settings.highContrast === true ? "high-contrast" : "";
     if (conn == undefined)  {

@@ -23,6 +23,10 @@
                     <td><input type="checkbox" name="no-transition-screen" id="no-transition-screen" onclick="changeSetting(this)"></td>
                     <td><label for="no-transition-screen">Remove Transition Screen</label></td>
                 </tr>
+                <tr>
+                    <td><input type="range" name="volume-slider" min="1" max="100" id="volume-slider"></td>
+                    <td><label for="volume-slider">Volume</label></td>
+                </tr>
             </table>
         </form>
         <div id="game-speed-container">
@@ -33,6 +37,6 @@
                     <button class="game-speed-button" onclick="changeGameSpeed(UP_IN_SPEED)">></button>
                 </div>
             </div>
-        <button class="back-button" onclick='exitSettings()'>Menu</button>
+        <button class="back-button" onclick='exitSettings()'>Back</button>
     </div>
 </div>
