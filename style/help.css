@@ -1,0 +1,21 @@
+#help-container {
+    position: fixed;
+    top: 60px;
+    right: 5px;
+    width: 300px;
+    background-color: #22222280;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+#help-button {
+    border-radius: 12px;
+    width: 100%;
+    height: 32px;
+    font-family: depixel;
+    background-color: #eee;
+}
+
+#help-button:hover { background-color: #ddd; }
+#help-button:active { background-color: #ccc; }
+

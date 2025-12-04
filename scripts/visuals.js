@@ -18,6 +18,7 @@ function displayHand(selectedHand, hand) {
                         </button>`;
                 }
             }
+            
             document.getElementById("player-cards-main").innerHTML = input;
             if (!settings.optimizedMainHand) {
                 let cardsLeftInRow = hand.length-1;

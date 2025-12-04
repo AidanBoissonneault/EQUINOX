@@ -22,9 +22,11 @@ const settings = {
     noTransitionScreen: false,
     lastLoadedPage: "",
     volume: 1,
-    gameSpeed: 1
+    gameSpeed: 1,
+    showHelpButton: true
 };
 
+const IGNORE_TRANSITION_SCREEN = false;
 async function settingsLoad(origin, documentId = "actual-body", transition = true) {
     await loadPageFragment("settings.html", documentId, transition);
     if (origin === "mainGame.html") { 
@@ -42,6 +44,7 @@ async function settingsLoad(origin, documentId = "actual-body", transition = tru
     if (settings.optimizedDiscardPile === true) { document.getElementById("optimized-discard").checked = true; }
     if (settings.optimizedMainHand === true) { document.getElementById("optimized-hand").checked = true; }
     if (settings.noTransitionScreen === true) { document.getElementById("no-transition-screen").checked = true; }
+    if (settings.showHelpButton === true) { document.getElementById("show-help-button").checked = true; }
     document.getElementById("volume-slider").value = Math.floor(settings.volume * 100);
     document.getElementById("game-speed-text").innerHTML = settings.gameSpeed;
 }
@@ -55,6 +58,10 @@ function changeSetting(settingsObject) {
         case "optimized-discard": settings.optimizedDiscardPile = OUTPUT_STATE; return;
         case "optimized-hand": settings.optimizedMainHand = OUTPUT_STATE; return;
         case "no-transition-screen": settings.noTransitionScreen = OUTPUT_STATE; return;
+        case "show-help-button":
+            settings.showHelpButton = OUTPUT_STATE;
+            document.getElementById("help-container").style.display = settings.showHelpButton ? 'block' : 'none';
+            return;
     }
 }
 
@@ -100,4 +107,28 @@ function instructions() {
         left=${WINDOW_LOCATION.left}, top=${WINDOW_LOCATION.top},
         toolbar=no,status=no`
     )
+}
+
+// ---------------------- HELP BUTTON --------------------------------------------------
+
+const IGNORE_AUTO_DRAW = true;
+async function helpButton() {
+
+    //clears out currently selected cards
+    const hand = currentGameState[currentPlayer] == State.STANDARD ? playerStandardHand : playerInvertedHand;
+    while (currentSelectedCards.length > 0) {
+        const selectedCard = currentSelectedCards.pop();
+        const index = hand.indexOf(selectedCard);
+
+        const cardHTML = document.querySelector(`[data-index='${index}']`);
+        if (cardHTML) {
+            cardHTML.classList.remove("playing-card-selected");
+            cardHTML.classList.add("playing-card");
+        }
+    }
+
+    await delay(100); //delay so the game visually updates
+
+    //select the new cards
+    autoSelectCards(IGNORE_AUTO_DRAW);
 }

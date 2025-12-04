@@ -10,11 +10,20 @@ async function botPlay() {
 
     //gets the hand and sorts it 
     await sortHandButton('player-main', currentGameState[currentPlayer] === State.STANDARD ? playerStandardHand : playerInvertedHand);
-    const hand = currentGameState[currentPlayer] == State.STANDARD ? playerStandardHand : playerInvertedHand;
     await delay(300 / settings.gameSpeed);
 
     //gets the playable cards from the bot
+    await autoSelectCards();
+
+    playButtonActivate();
+}
+
+//automatically selects the cards needed for the bot to play
+async function autoSelectCards(isHelpButton = false) {
+
+    const hand = currentGameState[currentPlayer] == State.STANDARD ? playerStandardHand : playerInvertedHand;
     let playedCards = isPlayableTurn();
+
     if (playedCards.length > 0) {
         for (let playedCard of playedCards) {
             const index = hand.indexOf(playedCard);
@@ -26,13 +35,11 @@ async function botPlay() {
             cardHTML.classList.toggle("playing-card");
 
             currentSelectedCards.push(playedCard);
-            await delay(1000 / settings.gameSpeed);
+            await delay(300 / settings.gameSpeed);
         }
-    } else {
+    } else if (!isHelpButton) {
         await delay(1000 / settings.gameSpeed);
         drawButton();
         return;
     }
-
-    playButtonActivate();
 }

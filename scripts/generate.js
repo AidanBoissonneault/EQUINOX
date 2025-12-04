@@ -25,6 +25,11 @@
     async function startGame() {
         await loadPageFragment("mainGame.html");
 
+        //if the help button is enabled, show the help button, overwise dont!
+        if (!settings.showHelpButton) {
+            document.getElementById("help-container").style.display = 'none';
+        }
+
         if (isMultiplayer) {
             document.getElementById("no-click-container").innerHTML = '<div class="no-click-screen">Loading...</div>';
 
