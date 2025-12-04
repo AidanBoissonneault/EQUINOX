@@ -6,6 +6,7 @@
     background-color: #22222280;
     border-radius: 12px;
     padding: 20px;
+    box-shadow: 4px 4px 3px #22222220, -1px -1px 3px #ffffff10;
 }
 
 #help-button {
