@@ -137,20 +137,39 @@
     grid-column: span 2;
 }
 
+
+/* HELP / SETTINGS BUTTONS */
 .absolute-button {
     position: fixed;
     height: 50px;
     width: 50px;
     top: 5px;
-    left: 5px;
+    transition: width 0.15s ease;
+
+    overflow: hidden;
+}
+
+.absolute-button:hover {
+    width: 200px;
 }
 
 #game-settings-button {
+    left: 5px;
     background-color: #c43c3c;
+
+    transition: width 0.15s ease;
+}
+
+#game-settings-button::after {
+    content: "⚙";
 }
 
 #game-settings-button:hover {
     background-color: #aa3434;
+}
+
+#game-settings-button.show-after:hover::after {
+    content: "SETTINGS";
 }
 
 #game-settings-button:active {
@@ -158,12 +177,22 @@
 }
 
 #instructions-button {
-    left: calc(100vw - 10px - 50px);
+    right: 5px;
     background-color: #ecc350ee;
 }
+
+#instructions-button::after {
+    content: "?";
+}
+
 #instructions-button:hover {
     background-color: #d8b34b;
 }
+
+#instructions-button.show-after:hover::after {
+    content: "INSTRUCTIONS";
+}
+
 #instructions-button:active {
     background-color: #c1a147;
 }

@@ -65,19 +65,12 @@
         <input type="button" value="Play" class="player-button play-button" id="player-play-button" onclick="playButtonActivate()">
     </form>
 
-    <div id="help-container">
-        <h1>NEED HELP?</h1>
-        <p id="help-text">Click the button below to select a playable hand! <br>
-            (as long as one exists) <br>
-            I refuse to explain why this is a playable hand... <br>
-            read the rules!</p>
-        <button id="help-button" onclick="helpButton()">CLICK ME!</button>
-    </div>
+    <div id="help-container"></div>
 
     <div id="no-click-container"></div>
 
-    <button class="player-button absolute-button" id="instructions-button" onclick="instructions()">?</button>
-    <button class="player-button absolute-button" id="game-settings-button" onclick='settingsLoad("mainGame.html", "settings-overlay", IGNORE_TRANSITION_SCREEN)'>⚙</button>
+    <button class="player-button absolute-button" id="instructions-button" onclick="instructions()"></button>
+    <button class="player-button absolute-button" id="game-settings-button" onclick='settingsLoad("mainGame.html", "settings-overlay", IGNORE_TRANSITION_SCREEN)'></button>
 
 </div>
 

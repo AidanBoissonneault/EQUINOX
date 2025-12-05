@@ -27,6 +27,11 @@ async function loadPageFragment(file, documentId = "actual-body", transition = t
     const fileObject = await fetch(PATH+file);
     const html = await fileObject.text();
     document.getElementById(documentId).innerHTML = html;
+
+    //add functionality to the absolute buttons
+    addAbsoluteButtonEventListeners();
+    addHelpButtonEventListeners();
+
     if (file === "multiplayerScreen.html") { document.getElementById("start-button").disabled = true; }
 
     if (!settings.noTransitionScreen && transition) {
