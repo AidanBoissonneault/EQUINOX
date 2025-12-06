@@ -144,6 +144,8 @@
     height: 50px;
     width: 75px;
     top: 5px;
+    left: 5px;
+    margin: 0;
     transition: width 0.15s ease;
 
     overflow: hidden;
@@ -156,7 +158,6 @@
 /* SETTINGS BUTTON */
 
 #game-settings-button {
-    left: 5px;
     background-color: #c43c3c;
 
     transition: width 0.15s ease;
@@ -185,7 +186,7 @@
 /* INSTRUCTIONS */
 
 #instructions-button {
-    right: 5px;
+    top: 60px;
     background-color: #ecc350ee;
 }
 
