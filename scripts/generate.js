@@ -27,7 +27,7 @@
 
         //if the help button is enabled, show the help button, overwise dont!
         if (!settings.showHelpButton) {
-            document.getElementById("help-container").style.display = 'none';
+            document.getElementById("help-container").classList.add('no-display');
         }
 
         if (isMultiplayer) {

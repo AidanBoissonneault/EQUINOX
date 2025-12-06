@@ -88,7 +88,7 @@
 /* going to use later to describe special cards */
 /*
 .playing-card:hover::before, .playing-card-selected:hover::before {
-    content: "";
+    content: "TEST";
     position: absolute;
     top: -9px;
     left: 0px;

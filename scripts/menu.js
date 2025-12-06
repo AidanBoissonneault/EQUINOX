@@ -33,7 +33,6 @@ async function settingsLoad(origin, documentId = "actual-body", transition = tru
         document.getElementById("settings-screen").className = "active title-screen";
         document.getElementById("settings-overlay").classList.add("events-activated");
 
-        document.getElementById("high-contrast-toggle").disabled = true;
         document.getElementById("optimized-discard").disabled = true;
         document.getElementById("optimized-hand").disabled = true;
      }
@@ -53,14 +52,20 @@ function changeSetting(settingsObject) {
     const OUTPUT_STATE = settingsObject.checked;
 
     switch(settingsObject.id) {
-        case "high-contrast-toggle": settings.highContrast = OUTPUT_STATE; return;
+        case "high-contrast-toggle": 
+            settings.highContrast = OUTPUT_STATE; 
+            document.getElementById("actual-body").className = OUTPUT_STATE ? "high-contrast" : "";
+            return;
         case "auto-draw": settings.autoDraw = OUTPUT_STATE; return;
         case "optimized-discard": settings.optimizedDiscardPile = OUTPUT_STATE; return;
         case "optimized-hand": settings.optimizedMainHand = OUTPUT_STATE; return;
         case "no-transition-screen": settings.noTransitionScreen = OUTPUT_STATE; return;
         case "show-help-button":
+            console.log("HELP BUTTON TOGGLE HIT");
             settings.showHelpButton = OUTPUT_STATE;
-            if (settings.lastLoadedPage === "mainGame.html") document.getElementById("help-container").style.display = settings.showHelpButton ? 'block' : 'none';
+            const helpContainer = document.getElementById("help-container");
+            if (settings.lastLoadedPage === "mainGame.html") 
+                helpContainer.classList.toggle("no-display");
             return;
     }
 }
@@ -87,9 +92,9 @@ async function exitSettings() {
         document.getElementById("settings-overlay").classList.remove("events-activated");
         document.getElementById("settings-overlay").innerHTML = "";
     }
-
-    document.getElementById("actual-body").className = settings.highContrast === true ? "high-contrast" : "";
 }
+
+// ----------------------- EXIT MULTIPLAYER SCREEN ---------------------------------------
 
 async function exitMultiplayerScreen() {
     await loadPageFragment("titleScreen.html");
@@ -99,7 +104,7 @@ async function exitMultiplayerScreen() {
     }
 }
 
-// ----------------------- INSTRUCTIONS SCREENS ---------------------------------------
+// ----------------------- INSTRUCTIONS SCREEN ---------------------------------------
 
 function instructions() {
     const WINDOW_SIZE = { w: 400, h: 500 };

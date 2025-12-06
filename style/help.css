@@ -37,3 +37,8 @@
 #help-button:hover { background-color: #ddd; }
 #help-button:active { background-color: #ccc; }
 
+
+
+.no-display {
+    display: none !important;
+}

@@ -3,13 +3,23 @@ function addAbsoluteButtonEventListeners() {
     if (!absoluteButtons) return;
 
     absoluteButtons.forEach(absoluteButton => {
+        let isHover = false;
+
         absoluteButton.addEventListener('transitionstart', () => {
             absoluteButton.classList.remove('show-after');
         });
 
         absoluteButton.addEventListener('transitionend', () => {
-            absoluteButton.classList.add('show-after');
+            if (isHover) absoluteButton.classList.add('show-after');
         });
+
+        absoluteButton.addEventListener('mouseleave', () => {
+            isHover = false;
+        })
+        
+        absoluteButton.addEventListener('mouseenter', () => {
+            isHover = true;
+        })
     })
 }
 
@@ -25,7 +35,7 @@ function addHelpButtonEventListeners() {
         tryActivateHelpButton(helpButton, isHover, isTransitionEnd);
     });
     helpButton.addEventListener('transitionend', () => { 
-        isTransitionEnd = true;
+        if (isHover) isTransitionEnd = true;
         tryActivateHelpButton(helpButton, isHover, isTransitionEnd);
     });
     helpButton.addEventListener('mouseleave', () => { 

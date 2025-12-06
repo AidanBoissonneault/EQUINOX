@@ -142,7 +142,7 @@
 .absolute-button {
     position: fixed;
     height: 50px;
-    width: 50px;
+    width: 75px;
     top: 5px;
     transition: width 0.15s ease;
 
@@ -152,6 +152,8 @@
 .absolute-button:hover {
     width: 200px;
 }
+
+/* SETTINGS BUTTON */
 
 #game-settings-button {
     left: 5px;
@@ -168,6 +170,10 @@
     background-color: #aa3434;
 }
 
+/*#game-settings-button:hover::after {
+    content: "⚙";
+}*/
+
 #game-settings-button.show-after:hover::after {
     content: "SETTINGS";
 }
@@ -175,6 +181,8 @@
 #game-settings-button:active {
     background-color: #912e2e;
 }
+
+/* INSTRUCTIONS */
 
 #instructions-button {
     right: 5px;
@@ -187,7 +195,12 @@
 
 #instructions-button:hover {
     background-color: #d8b34b;
+    width: 250px;
 }
+
+/*#instructions-button:hover::after {
+    content: "?";
+}*/
 
 #instructions-button.show-after:hover::after {
     content: "INSTRUCTIONS";
@@ -196,7 +209,6 @@
 #instructions-button:active {
     background-color: #c1a147;
 }
-
 
 /* -------------------------------- ANIMATIONS --------------------------------------------*/
 
