@@ -164,7 +164,12 @@
 }
 
 #game-settings-button::after {
-    content: "⚙";
+    content: "⛭";
+    text-shadow: 
+        0.3px 0 currentColor,
+       -0.3px 0 currentColor,
+        0 0.3px currentColor,
+        0 -0.3px currentColor;
 }
 
 #game-settings-button:hover {
@@ -177,6 +182,7 @@
 
 #game-settings-button.show-after:hover::after {
     content: "SETTINGS";
+    text-shadow: none;
 }
 
 #game-settings-button:active {

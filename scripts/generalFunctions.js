@@ -60,33 +60,7 @@ async function flipDecks() {
     }
 
     //change backgrounds
-
-
-    const isStandard = currentGameState[currentPlayer] === "standard";
-
-    const playerCardMain = document.getElementById("player-cards-main");
-    playerCardMain.classList.remove("player-cards-light", "player-cards-dark");
-    playerCardMain.classList.add(isStandard ? "player-cards-light" : "player-cards-dark");
-
-    const playerCardInverted = document.getElementById("player-cards-inactive");
-    playerCardInverted.classList.remove("player-cards-light", "player-cards-dark");
-    playerCardInverted.classList.add(!isStandard ? "player-cards-light" : "player-cards-dark");
-
-    const background = document.getElementById("background-color-display");
-    background.classList.remove("background-white", "background-black");
-    background.classList.add(isStandard ? "background-white" : "background-black");
-
-    const lightDiscard = document.getElementById("light-discard");
-    lightDiscard.classList.remove("light-discard", "light-center");
-    lightDiscard.classList.add(!isStandard ? "light-discard" : "light-center");
-
-    const darkDiscard = document.getElementById("dark-discard");
-    darkDiscard.classList.remove("dark-discard", "dark-center");
-    darkDiscard.classList.add(isStandard ? "dark-discard" : "dark-center");
-
-    const mainGame = document.getElementById("main-game");
-    mainGame.classList.remove("text-white", "text-black");
-    mainGame.classList.add(isStandard ? "text-black" : "text-white");
+    visualFlipGame();
 
     //fixes sort button logic
     fixSortButtonLogic();

@@ -127,6 +127,7 @@ function setupConnection(connection){
             currentStPlayingCard = data.cSPcard;
             currentInPlayingCard = data.cIPcard;
             currentPlayer = data.cP;
+            if (currentGameState[currentPlayer] !== data.cGS[currentPlayer]) visualFlipGame();
             currentGameState = data.cGS;
             turnToggle = data.tT ? false : true;
 
