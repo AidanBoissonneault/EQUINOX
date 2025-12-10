@@ -6,12 +6,15 @@
     height: 200px;
     left: 50%;
     top: 1%;
-    transform: translate(-50%, 0);
+    transform: 
+                translate(-50%, 0);
 
     /*background-color: #CC2936; */
     background-color: #362a2930;
     border-radius: 12px;
-    box-shadow: 4px 4px 3px #22222210, -1px -1px 3px #ffffff10;
+    box-shadow: 
+                4px 4px 3px #22222210, 
+                -1px -1px 3px #ffffff10;
 } 
 
 #opposing-player-info {
@@ -60,10 +63,12 @@
 }
 
 .opposing-player-card {
-    transform: scale(1.91);
+    transform: 
+                scale(1.91);
     z-index: 9;
 
-    transition: transform calc(var(--gameSpeed) * 0.15s) ease;
+    transition: 
+                transform calc(var(--gameSpeed) * 0.15s) ease;
 }
 
 .opposing-player-card:hover {
@@ -82,5 +87,6 @@
 }
 
 .animated-opposing-player-zone {
-    animation: opposing-player-zone-move-on-off-screen calc(var(--gameSpeed) * 0.8s) ease-out;
+    animation: 
+                opposing-player-zone-move-on-off-screen calc(var(--gameSpeed) * 0.8s) ease-out;
 }

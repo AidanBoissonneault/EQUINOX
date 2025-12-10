@@ -23,7 +23,8 @@ li {
 .text-card {
     vertical-align: middle;
     z-index: 1;
-    transition: transform 0.15s ease;
+    transition: 
+                transform 0.15s ease;
 }
 
 .text-card:hover {

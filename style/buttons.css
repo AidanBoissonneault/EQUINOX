@@ -38,7 +38,8 @@
     background-color: #dddddd;
     color: #ab5236;
 
-    transition: background-color calc(var(--gameSpeed) * 0.15s) ease;
+    transition: 
+                background-color calc(var(--gameSpeed) * 0.15s) ease;
 }
 .light-sort-button:hover {
     background-color: #bbbbbb;
@@ -56,7 +57,8 @@
     background-color: #444444;
     color: #54adc9;
 
-    transition: background-color calc(var(--gameSpeed) * 0.15s) ease;
+    transition: 
+                background-color calc(var(--gameSpeed) * 0.15s) ease;
 }
 .dark-sort-button:hover {
     background-color: #404040;
@@ -84,20 +86,29 @@
     font-size: larger;
     color: inherit;
 
-    transition: background-color calc(var(--gameSpeed) * 0.15s) ease, box-shadow calc(var(--gameSpeed) * 0.15s) ease;
-    box-shadow: 4px 4px 3px #22222210, -1px -1px 3px #ffffff10;
+    transition: 
+                background-color calc(var(--gameSpeed) * 0.15s) ease, 
+                box-shadow calc(var(--gameSpeed) * 0.15s) ease;
+    box-shadow: 
+                4px 4px 3px #22222210, 
+                -1px -1px 3px #ffffff10;
 }
 
 .player-button:hover {
     background-color: #362a2980;
     cursor: pointer;
-    box-shadow: 4px 4px 3px #22222215, -1px -1px 3px #ffffff10;
+    box-shadow: 
+                4px 4px 3px #22222215, 
+                -1px -1px 3px #ffffff10;
 }
 
 .player-button:active {
     background-color: #362a29a0;
-    transform: scale(0.98);
-    box-shadow: 3px 3px 3px #22222220, -1px -1px 3px #ffffff10;
+    transform: 
+                scale(0.98);
+    box-shadow: 
+                3px 3px 3px #22222220, 
+                -1px -1px 3px #ffffff10;
 }
 
 .draw-button {
@@ -129,7 +140,8 @@
 .start-button:active {
     background-color: #ccc;
     cursor: pointer;
-    transform: scale(0.98);
+    transform: 
+                scale(0.98);
     transform-origin: center;
 }
 

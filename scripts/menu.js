@@ -61,7 +61,6 @@ function changeSetting(settingsObject) {
         case "optimized-hand": settings.optimizedMainHand = OUTPUT_STATE; return;
         case "no-transition-screen": settings.noTransitionScreen = OUTPUT_STATE; return;
         case "show-help-button":
-            console.log("HELP BUTTON TOGGLE HIT");
             settings.showHelpButton = OUTPUT_STATE;
             const helpContainer = document.getElementById("help-container");
             if (settings.lastLoadedPage === "mainGame.html") 
@@ -70,7 +69,7 @@ function changeSetting(settingsObject) {
     }
 }
 
-const GAME_SPEEDS = [ 0.5, 1, 2, 4, 8, 16, 32, 1000 ];
+const GAME_SPEEDS = [ 0.5, 1, 1.5, 2, 2.5, 4, 8, 16, 32, 1000 ];
 const DOWN_IN_SPEED = -1;
 const UP_IN_SPEED = 1;
 function changeGameSpeed(direction) {
@@ -121,10 +120,14 @@ function instructions() {
 // ---------------------- HELP BUTTON --------------------------------------------------
 
 const IGNORE_AUTO_DRAW = true;
-async function helpButton() {
+async function helpButton(isSecondaryMultiplayer = false) {
+    
+    if (isMultiplayer && !isSecondaryMultiplayer) {
+        conn.send({ type: 'helpButtonPressed' });
+    }
 
     //clears out currently selected cards
-    const hand = currentGameState[currentPlayer] == State.STANDARD ? playerStandardHand : playerInvertedHand;
+    const hand = currentGameState[currentPlayer] === State.STANDARD ? playerStandardHand : playerInvertedHand;
     while (currentSelectedCards.length > 0) {
         const selectedCard = currentSelectedCards.pop();
         const index = hand.indexOf(selectedCard);

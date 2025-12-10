@@ -103,14 +103,14 @@ async function animateSelectedCards(isPerfectPlay) {
         }
         updateCenterPiles(isPerfectPlay);
         //forces enemy to draw a card if certain conditions are hit
-            //single card played matches value and suit of a card played on the center piles
-            if (isPerfectPlay) {
-                if (currentGameState[currentPlayer] === State.STANDARD) {
-                    drawCard(sDeck, opponentStandardHand, "opponent-light");
-                } else {
-                    drawCard(iDeck, opponentInvertedHand, "opponent-dark");
-                }
+        //single card played matches value and suit of a card played on the center piles
+        if (isPerfectPlay) {
+            if (currentGameState[currentPlayer] === State.STANDARD) {
+                drawCard(sDeck, opponentStandardHand, "opponent-light");
+            } else {
+                drawCard(iDeck, opponentInvertedHand, "opponent-dark");
             }
+        }
         await delay(isPerfectPlay ? DELAY_BETWEEN_CARDS_MOVING * DELAY_PERFECT_PLAY_MULTIPLIER : DELAY_BETWEEN_CARDS_MOVING);
     }
 }

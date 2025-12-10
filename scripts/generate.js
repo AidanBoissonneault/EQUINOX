@@ -77,7 +77,7 @@
 
     async function startBotGame() {
         isAgainstBot = true;
-        playerNames[State.SECOND_PLAYER] = "BOT";
+        playerNames = ["Player", "BOT"];
         await startGame();
         updateInfoCards();
     }

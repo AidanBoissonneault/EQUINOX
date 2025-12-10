@@ -156,6 +156,8 @@ function setupConnection(connection){
                 playerNames = [remoteId, myId];
             }
             updateInfoCards();
+        } else if(data.type === 'helpButtonPressed') {
+            helpButton(RETURNED_PLAYER_CALL);
         }
   });
 

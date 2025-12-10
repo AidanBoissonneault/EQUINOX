@@ -6,10 +6,12 @@
 /* PLAYER CARDS */
 
 .player-card-inactive {
-    transform: scale(1.91);
+    transform: 
+                scale(1.91);
     z-index: 9;
 
-    transition: transform calc(var(--gameSpeed) * 0.15s) ease;
+    transition: 
+                transform calc(var(--gameSpeed) * 0.15s) ease;
 }
 
 .player-card-inactive:hover {
@@ -50,13 +52,19 @@
 }
 
 .playing-card {
-    transform: scale(3.7) rotate(calc(var(--rotateAmount) * 1deg)) translateY(calc(var(--offsetAmount) * 1px));
+    transform: 
+                scale(3.7) 
+                rotate(calc(var(--rotateAmount) * 1deg)) 
+                translateY(calc(var(--offsetAmount) * 1px));
     /*translate: (-50% 0); */
     margin-left: 15px;
     margin-right: 15px;
 
     /* Animation setup */
-    transition: transform calc(var(--gameSpeed) * 0.15s) ease, background-color calc(var(--gameSpeed) * 0.15s) ease, box-shadow calc(var(--gameSpeed) * 0.15s) ease;
+    transition: 
+                transform calc(var(--gameSpeed) * 0.15s) ease, 
+                background-color calc(var(--gameSpeed) * 0.15s) ease, 
+                box-shadow calc(var(--gameSpeed) * 0.15s) ease;
     transform-origin: center bottom;
     z-index: 9;
 
@@ -104,7 +112,9 @@
 
 .playing-card-selected {
     position: relative;
-    transform: scale(3.9) translateY(-8px);
+    transform: 
+                scale(3.9) 
+                translateY(-8px);
     translate: (-50% -6px);
     margin-left: 15px;
     margin-right: 15px;
@@ -112,11 +122,16 @@
     background-color: #ecc350ee;
     border-radius: 1px;
     
-    transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+    transition: 
+                transform 0.15s ease, 
+                background-color 0.15s ease, 
+                box-shadow 0.15s ease;
     transform-origin: center bottom;
     border: none;
 
-    box-shadow: 4px 6px 1px #22222210, -1px -1px 1px #ffffff05;
+    box-shadow: 
+                4px 6px 1px #22222210, 
+                -1px -1px 1px #ffffff05;
 }
 
 .playing-card-selected.first-selected {
@@ -133,17 +148,24 @@
 }*/
 
 @keyframes move-card-under-screen {
-    0% { transform: scale(3.9) translateY(-8px);
+    0% { transform: 
+                    scale(3.9) 
+                    translateY(-8px);
         translate: (-50% -6px); }
-    100% { transform: scale(3.9) translateY(100px);
+    100% { transform: 
+                    scale(3.9) 
+                    translateY(100px);
         translate: (-50% -6px); }
 }
 
 .move-under-screen {
-    transform: scale(3.9) translateY(100px);
+    transform: 
+                scale(3.9) 
+                translateY(100px);
     translate: (-50% -6px);
 
-    animation: move-card-under-screen calc(var(--gameSpeed) * 0.5s) ease-in;
+    animation: 
+                move-card-under-screen calc(var(--gameSpeed) * 0.5s) ease-in;
 }
 
 /* card numbers */

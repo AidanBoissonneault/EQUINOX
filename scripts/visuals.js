@@ -88,6 +88,8 @@ let cardIdIteratorLight = 0;
 let cardIdIteratorDark = DECK_SIZE;
 
 function updateCenterPiles(isPerfectPlay, firstTimeUsed = false) {
+
+    //old method, doesnt implement moving parts
     if (settings.optimizedDiscardPile) {
         document.getElementById("dark-discard").innerHTML = `
         <div class="inverted-card ${currentInPlayingCard.rank} ${currentInPlayingCard.suit} add-shadow" 
@@ -99,6 +101,8 @@ function updateCenterPiles(isPerfectPlay, firstTimeUsed = false) {
     }
 
     const reanimateCards = () => {
+
+        //add the card visual to the stack of cards in the center, moving-card adds an animation to slide into the center
         document.getElementById(pileId).insertAdjacentHTML(
             "beforeend", `
             <div class="${cardType} ${replacementCard.rank} ${replacementCard.suit} add-shadow moving-card"
@@ -110,7 +114,7 @@ function updateCenterPiles(isPerfectPlay, firstTimeUsed = false) {
         const ROTATE_AXIS = 8;
         const REMOVE_BOXSHADOW_AFTER = 5;
         let rotateAmount = Math.random() * (ROTATE_AXIS*2) - ROTATE_AXIS; 
-        if (firstTimeUsed) rotateAmount = 0;
+        if (firstTimeUsed) rotateAmount = 0; //from the starting position, cards are perfectly lined up
         document.getElementById(`card-${cardIdIterator}`).style.setProperty("--rotateAmount", rotateAmount);
         if (isPerfectPlay) {
             document.getElementById(`card-${cardIdIterator}`).classList.add("perfect-play");
@@ -131,6 +135,8 @@ function updateCenterPiles(isPerfectPlay, firstTimeUsed = false) {
             document.getElementById(`card-${cardIdIterator-REMOVE_BOXSHADOW_AFTER}`).classList.remove("add-shadow");
         cardIdIterator++;
     };
+
+    //light cards update center pile
     if ((currentStPlayingCard !== previousPlayedLightCard) && !isMultiplayer || isMultiplayer && currentGameState[currentPlayer] === State.STANDARD || firstTimeUsed) {
         var pileId = "light-discard";
         var cardType = "card";
@@ -140,6 +146,8 @@ function updateCenterPiles(isPerfectPlay, firstTimeUsed = false) {
         cardIdIteratorLight = cardIdIterator;
         previousPlayedLightCard = currentStPlayingCard;
     }
+
+    //dark cards update center pile
     if ((currentInPlayingCard !== previousPlayedDarkCard) && !isMultiplayer || isMultiplayer && currentGameState[currentPlayer] === State.INVERTED || firstTimeUsed) {
         var pileId = "dark-discard";
         var cardType = "inverted-card";

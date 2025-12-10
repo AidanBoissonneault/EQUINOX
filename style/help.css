@@ -7,10 +7,13 @@
     background-color: rgb(25, 135, 168);
     border-radius: 12px;
     padding: auto;
-    box-shadow: 4px 4px 3px #22222220, -1px -1px 3px #ffffff10;
+    box-shadow: 
+                4px 4px 3px #22222220, 
+                -1px -1px 3px #ffffff10;
     overflow: hidden;
 
-    transition: all 0.15s ease;
+    transition: 
+                all 0.15s ease;
 
     display: flex;
     align-items: center;
