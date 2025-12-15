@@ -1,0 +1,35 @@
+#expand-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    background-color: rgb(64, 114, 129);
+    border-radius: 12px;
+    padding: auto;
+    text-align: center;
+
+    box-shadow: 
+                4px 4px 3px #22222220, 
+                -1px -1px 3px #ffffff10;
+
+    overflow: hidden;
+
+    transition: 
+                all 0.15s ease;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#expand-box:hover {
+    width: 100%;
+    height: 200px;
+    padding: 20px;
+
+    display: block;
+    background-color: rgba(64, 114, 129, 0.5);
+}
+
+#rules-text {
+    font-size: larger;
+}

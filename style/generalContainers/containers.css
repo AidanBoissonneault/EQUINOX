@@ -1,0 +1,26 @@
+
+
+.fixed-container {
+    position: fixed;
+}
+.fixed-container.zero-position.title {
+    inset: 0;
+    margin: 20px;
+    height: 80px;
+    width: 300px;
+}
+
+
+.centered-flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.inner-container {
+    position: relative;
+    width: auto;
+    height: auto;
+}

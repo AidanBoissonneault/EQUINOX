@@ -1,0 +1,67 @@
+
+/* player is visiting a tile */
+.tile.visiting {
+    transform: translateY(-20px);
+}
+
+.tile.visiting::after {
+    background-color: #66ff6683;
+}
+
+.tile.visited {
+    transform: translateY(1000px);
+
+    transition:
+                transform 2s ease-in;
+}
+
+/* if the tile is a target */
+.tile.target {
+    transform: translateY(-10px);
+}
+
+.tile.target::after {
+    background-color: #c4611fec;
+}
+
+
+/* tile is a next possible move */
+.tile.next-move {
+    transform: translateY(-5px);
+}
+
+.tile.next-move::after {
+    background-color: #66b5ff83;
+}
+
+.tile.next-move:hover {
+    transform: translateY(-10px);
+}
+
+.tile.next-move:hover::after {
+    background-color: #8266ff83;
+}
+
+/* tile after the user fails the game */
+.tile.failed {
+    transform: translate(calc(var(--movedX) * 1px), calc(var(--movedY) * 1px));
+    transition: 
+                transform calc(var(--duration) * 1s) ease-out;
+}
+
+.tile.failed::after {
+    background-color: #ff323281;
+}
+
+/* slight modification of falling to include a fall from that position.*/
+.tile.failed-falling {
+    transform: translate(calc(var(--movedX) * 1px), calc((var(--movedY) + 1500) * 1px));;
+    transition:
+                transform 4s ease-in;
+}
+
+.tile.failed-falling::after {
+    background-color: #530d0d81;
+    transition:
+                background-color 1s ease-in;
+}

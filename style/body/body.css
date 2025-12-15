@@ -1,0 +1,11 @@
+html, body {
+    font-family: endless-boss-battle;
+    background-color: #d6f3f7;
+
+    height: 100%;
+    margin: 0;
+
+    image-rendering: pixelated;
+
+    overflow: hidden;
+}

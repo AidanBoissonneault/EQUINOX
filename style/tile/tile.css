@@ -1,0 +1,51 @@
+.tile {
+    margin: 0;
+    position: absolute;
+    top: calc(var(--y) * 1px);
+    left: calc(var(--x) * 1px);
+    
+    width: calc(var(--sizeX) * 1px);
+    height: calc(var(--sizeY) * 1px);
+
+    border: 1px black solid;
+
+    background-color: var(--colorScheme);
+
+    transition:
+                transform 0.15s ease;
+}
+
+.tile::before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: -1px;
+    margin: 0;
+
+    width: 100%;
+    height: 90%;
+
+    background: var(--colorSchemeSecondary);
+
+    border: 1px black solid;
+}
+
+.tile:hover {
+    transform: translateY(-10px);
+}
+
+.tile::after {
+    content: "";
+    position: absolute;
+    background-color: #33333300;
+    inset: 0;
+    height: 193%;
+
+    transition:
+                background-color 0.5s ease;
+}
+
+.tile:hover::after {
+    background-color: #e73a3a80;
+    pointer-events: none;
+}

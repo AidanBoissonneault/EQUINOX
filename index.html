@@ -1,49 +1,46 @@
-<!--EQUINOX CARD GAME-->
-<!--03NOV2025-12DEC2025-->
-<!--BY: AIDAN BOISSONNEAULT-->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Equinox</title>
-    <link rel="icon" href="./assets/images/page-icon.png">
-    <link rel="stylesheet" href="./style/main-body.css">
-    <link rel="stylesheet" href="./style/opposing-player.css">
-    <link rel="stylesheet" href="./style/center-board.css">
-    <link rel="stylesheet" href="./style/player.css">
-    <link rel="stylesheet" href="./style/cards.css">
-    <link rel="stylesheet" href="./style/buttons.css">
-    <link rel="stylesheet" href="./style/win-screen.css">
-    <link rel="stylesheet" href="./style/title-screen.css">
-    <link rel="stylesheet" href="./style/multiplayer-screen.css">
-    <link rel="stylesheet" href="./style/root.css">
-    <link rel="stylesheet" href="./style//settings-screen.css">
-    <link rel="stylesheet" href="./style/camera-manipulation.css">
-    <link rel="stylesheet" href="./style/help.css">
+    <title>Knights Tour</title>
+    <link rel="shortcut icon" href="assets/knight.png" type="image/x-icon">
 
-    <script src="https://unpkg.com/peerjs/dist/peerjs.min.js"></script> <!--PEER.js-->
+    <link rel="stylesheet" href="./style/body/font.css">
+    <link rel="stylesheet" href="./style/body/body.css">
 
-    <script src="./scripts/global.js"></script>
-    <script src="./scripts/peerCommunications.js"></script>
-    <script src="./scripts/visuals.js"></script>
-    <script src="./scripts/cards.js"></script>
-    <script src="./scripts/generalFunctions.js"></script>
-    <script src="./scripts/bot.js"></script>
-    <script src="./scripts/animations.js"></script>
-    <script src="./scripts/buttons.js"></script>
-    <script src="./scripts/generate.js"></script>
-    <script src="./scripts/menu.js"></script>
-    <script src="./scripts/turnHandler.js"></script>
-    <script src="./scripts/eventListeners.js"></script>
+    <link rel="stylesheet" href="./style/buttons-and-expanders/rules.css">
 
-    <script src="./scripts/utilities.js" defer></script>
-    <script src="./scripts/loadSounds.js" defer></script>
+    <link rel="stylesheet" href="./style/overlay-screen/overlay-screen.css">
+
+    <link rel="stylesheet" href="./style/tile/tile.css">
+    <link rel="stylesheet" href="./style/tile/tile-state.css">
+
+    <link rel="stylesheet" href="./style/knight/knight.css">
+    <link rel="stylesheet" href="./style/knight/knight-image.css">
+    <link rel="stylesheet" href="./style/knight/knight-shadow.css">
+
+    <link rel="stylesheet" href="./style/generalContainers/containers.css">
+
+    <!-- small utility css -->
+     <link rel="stylesheet" href="./style/utilities/no-display.css">
+
+    <script type="module" src="./scripts/main.js" defer></script>
 </head>
-<body>
-    <div id="card-transition" class="card-transition"></div>
+<body class="centered-flex-container">
+    <div class="fixed-container zero-position title">
+            <h1>Knights Tour</h1>
+        <div id="expand-box"></div>
+        <button id="undo-button">UNDO</button>
+    </div>
 
-    <div id="actual-body" class="high-contrast"></div>
+    <div class="inner-container">
+        <div id="board">
+            <div id="knight">
+                <img src="./assets/knight.png" alt="" id="knight-image">
+            </div>
+        </div>
+    </div>
+    <div class="overlay-screen centered-flex-container" id="overlay-screen-container"></div>
 </body>
 </html>

@@ -1,0 +1,23 @@
+#knight {
+    position: absolute;
+    top: calc(var(--y) * 1px);
+    left: calc(var(--x) * 1px);
+
+    width: 115px;
+    height: 115px;
+
+    transform: translate(
+        calc(-50% + (85px / 2)),
+        calc(-50% + (75px / 2))
+    );
+
+    transition:
+        top 0.45s ease,
+        left 0.45s ease;
+
+    z-index: 1000;
+}
+
+#knight.face-left {
+    transform: rotateY(180deg);
+}
